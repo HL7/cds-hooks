@@ -7,7 +7,7 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| hookMaturity | [5 - Mature](/hooks/###hook-maturity-model)
+| hookMaturity | [5 - Mature](index.md#hook-maturity-model)
 
 #### Workflow
 

@@ -4,7 +4,7 @@
 | ---- | ----
 | specificationVersion | 1.0
 | hookVersion | 1.0
-| Hook maturity | [3 - Considered](/hooks/###hook-maturity-model)
+| Hook maturity | [3 - Considered](index.md#hook-maturity)
 
 #### Deprecation Notice
 

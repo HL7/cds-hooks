@@ -4,7 +4,7 @@
 | ---- | ---- |
 | specificationVersion | 1.0 |
 | hookVersion | 0.1.0 |
-| hookMaturity | 1 - Submitted |
+| hookMaturity | [1 - Submitted](index.md/#hook-maturity-model) |
 {:.grid}
 
 #### Workflow

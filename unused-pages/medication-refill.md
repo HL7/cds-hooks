@@ -4,7 +4,7 @@
 | ---- | ----
 | specificationVersion | 2.0
 | hookVersion | 0.1.0
-| hookMaturity | [1 - Submitted](hook-definitions/###hook-maturity-model)
+| hookMaturity | [1 - Submitted](index.md#hook-maturity-model)
 
 #### Workflow
 
