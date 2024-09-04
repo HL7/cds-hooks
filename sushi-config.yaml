@@ -77,7 +77,7 @@ parameters:
 # │ property below.                                                                                │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 menu:
-  CDS Hooks: index.html
+  Home: index.html
   Hook Library:
     allergyintolerance-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html
     appointment-book (1): https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html
