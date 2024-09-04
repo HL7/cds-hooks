@@ -77,14 +77,14 @@ parameters:
 # │ property below.                                                                                │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 menu:
-  CDS Hooks: index.md
+  CDS Hooks: index.html
   Hook Library:
     allergyintolerance-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html
     appointment-book (1): https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html
     encounter-discharge (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge.html
     encounter-start (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start.html
     medication-refill (1): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill.html
-    order-dispatch (5): https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html
+    order-dispatch (0): https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html
     order-select (4) : https://build.fhir.org/ig/HL7/cds-hooks-library/order-select.html
     order-sign (5): https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign.html
     patient-view (5): https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html
