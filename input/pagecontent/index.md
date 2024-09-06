@@ -297,7 +297,7 @@ Token | Description
 `{% raw  %}{{{% endraw  %}userPractitionerRoleId}}`|FHIR id of the PractitionerRole resource corresponding to the current user.
 `{% raw  %}{{{% endraw  %}userPatientId}}`|FHIR id of the Patient resource corresponding to the current user.
 `{% raw  %}{{{% endraw  %}userRelatedPersonId}}`|FHIR id of the RelatedPerson resource corresponding to the current user.
-
+{:.grid}
 
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
@@ -1298,6 +1298,7 @@ Change of type or cardinality of an existing context field | Major
 Removal of an existing context field | Major
 Change of semantics of an existing context field | Major
 Change of semantics of the hook | Major
+{:.grid}
 
 When a major change is made, the hook definition MUST be published under a new name. When a minor or patch change is made, the hook version MUST be updated. Hook definers MUST use [semantic versioning](https://semver.org/) to communicate the impact of changes in an industry standard way.
 
@@ -1322,3 +1323,4 @@ Version | Description
 1.1 | Added new context variable
 1.0.1 | Clarified context variable usage
 1.0 | Initial Release
+{:.grid}
