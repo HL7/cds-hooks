@@ -156,7 +156,7 @@ Field | Optionality | Type | Description
 `hookInstance` | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
 `fhirServer` | CONDITIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme MUST be `https` when production data is exchanged.
 `fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0](https://oauth.net/2/) bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
-`context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view](https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html)).
+`context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view]({{site.data.fhir.cdshookslib}}patient-view.html)).
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
 {:.grid}
 
@@ -870,18 +870,21 @@ A CDS Client may enable the end user to override guidance without providing an e
 
 ##### Example overridden guidance without overrideReason
 
+  POST {baseUrl}/cds-services/{serviceId}/feedback
+
 ```json
-POST {baseUrl}/cds-services/{serviceId}/feedback
 {
   "feedback": [
     {
-      "card": "f6b95768-b1c8-40dc-8385-bf3504b82ffb", // uuid from `card.uuid`
+      "card": "f6b95768-b1c8-40dc-8385-bf3504b82ffb",
       "outcome": "overridden",
       "outcomeTimestamp": "2020-12-11T00:00:00Z"
     }
   ]
 }
 ```
+
+The value of "card" above is the uuid from `card.uuid`.
 
 #### Explicit reject with override reasons
 
@@ -899,9 +902,9 @@ Field | Optionality | Type | Description
 
 ##### Example overridden guidance with overrideReason
 
-```json
-POST {baseUrl}/cds-services/{serviceId}/feedback
+  POST {baseUrl}/cds-services/{serviceId}/feedback
 
+```json
 {
    "feedback":[
       {
@@ -1006,17 +1009,21 @@ CDS Services SHOULD consider the algorithms they understand and trust based upon
 ##### Example
 
 An example JSON web token header, payload, and JWK set:
-
+```
+  JSON Web Token Header
+```
 ```json
-// JSON Web Token Header
 {
   "alg": "ES384",
   "typ": "JWT",
   "kid": "example-kid",
   "jku": "https://fhir-ehr.example.com/jwk_uri"
 }
-
-// JSON Web Token Payload
+```
+```
+  JSON Web Token Payload
+```
+```json
 {
   "iss": "https://fhir-ehr.example.com/",
   "aud": "https://cds.example.org/cds-services/some-service",
@@ -1025,9 +1032,11 @@ An example JSON web token header, payload, and JWK set:
   "jti": "ee22b021-e1b7-4611-ba5b-8eec6a33ac1e",
   "tenant": "2ddd6c3a-8e9a-44c6-a305-52111ad302a2"
 }
-
-// JSON Web Key Set (public key)
-// This public key is used by the CDS Service to verify the signature of the JWT
+```
+```
+  JSON Web Key Set (public key):  This public key is used by the CDS Service to verify the signature of the JWT
+```
+```json
 {
   "keys": [
     {
@@ -1041,9 +1050,11 @@ An example JSON web token header, payload, and JWK set:
     }
   ]
 }
-
-// JSON Web Key (private key)
-// This private key is used by the CDS Client to sign the JWT
+```
+```
+  JSON Web Key (private key): This private key is used by the CDS Client to sign the JWT
+```
+```json
 {
   "kty": "EC",
   "d": "SeFXUXda8UomZ8GFUl7HH_Oi15rIbfMcsWj9ecIsDR8kLbqsEz2CGNgwy_IcILxy",

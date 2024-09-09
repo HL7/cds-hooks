@@ -25,7 +25,11 @@ publisher:
 # package id and the value is the version (or dev/current). For advanced
 # use cases, the value can be an object with keys for id, uri, and version.
 #
-# dependencies:
+dependencies:
+  hl7.other.uv.cds.hooks.library:
+    id: cdshookslib
+    uri: https://build.fhir.org/ig/HL7/cds-hooks-library/
+    version: "current"
 #   hl7.fhir.us.core: 3.1.0
 #   hl7.fhir.us.mcode:
 #     id: mcode
