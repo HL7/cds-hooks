@@ -266,9 +266,12 @@ It is the CDS Service's responsibility to check prefetched data against its temp
 
 A prefetch token is a placeholder in a prefetch template that is _replaced by information from the hook's context_ to construct the FHIR URL used to request the prefetch data.
 
-Prefetch tokens MUST be delimited by `{% raw  %}{{{% endraw  %}` and `}}`, and MUST contain only the qualified path to a hook context field _or one of the following user identifiers: `userPractitionerId`, `userPractitionerRoleId`, `userPatientId`, or `userRelatedPersonId`_.
+Prefetch tokens MUST be delimited by `{% raw  %}{{{% endraw  %}` and `}}`, and may contain:
+* one of the following user identifiers: `userPractitionerId`, `userPractitionerRoleId`, `userPatientId`, or `userRelatedPersonId`, 
+* a hook context field or
+* a simple FHIRPath expression from a hook context field to one or more FHIR resource logical ids.
 
-Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object are eligible to be used as prefetch tokens. For example, `{% raw  %}{{{% endraw  %}context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field.
+Individual hooks specify which of their `context` fields can be used as prefetch tokens. This specification enables a limited mechanism for traversing into FHIR resources provided in context, as part of prefetch. 
 
 ###### Prefetch tokens identifying the user
 A prefetch template enables a CDS Service to learn more about the current user through a FHIR read, like so:
