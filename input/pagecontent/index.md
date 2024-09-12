@@ -304,6 +304,99 @@ Token | Description
 
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
+###### Prefetch tokens containing Simpler FHIRPath
+
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as a prefetch token like context.patientId. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retreive FHIR logical ids. 
+
+Prefetch tokens traverse into those resources using FHIRPath’s path traversal syntax, and the FHIRPath ofType function to arrive at a resource reference. If supported, these tokens SHALL evaluate to a comma-separated list of the identifiers of all resources of the specified type within that context key.  Similar to FHIR's use of FHIRPath, an argument to ofType() SHALL be a "concrete core types" (eg. FHIR resource types). Note that only elements present in the context may be traversed (e.g. the resolves() function is not available). See worked example, below. 
+
+With a CDS Service published prefetch template of: 
+
+```json
+{
+  "prefetch": {
+    "medication" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Reference).ofType(Medication).reference{% raw  %}{{{% endraw  %}
+  }
+}
+```
+
+and a CDS Hooks order-sign request with the following two MedicationRequests in context:
+
+```json
+"context": {
+    "patientId": "eXoGxqgBaJuNkuahMYmiDhg3",
+    "encounterId": "eAJ9U5Zv9Vzeg4lBWxmAQcItP6nlidE0QacJVtVudEQ43",
+    "userId": "PractitionerRole/e-QokEGUJIzyynNdkCFrs9w3",
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "type": "collection",
+      "entry": [
+        {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "ez067mnwOAKP5z1.YJwRAsd9gCwdOzQ8wSrsM04QFoz882hxQZKBulF4smVj2SxHWfesiTZ1qsgBez8Rdeb2GpbWYuU.L0KkOqiZSgl2GBPFYUucdOKx53adK51FHbIL.9fyjChlCongwxq0kmbsAb63ITW14qpRUnm2l2PXADxvuolXYdkN80RBgyQwLK2O33",
+            "status": "draft",
+            "intent": "order",
+            "category": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                    "code": "inpatient",
+                    "display": "Inpatient"
+                  }
+                ],
+                "text": "Inpatient"
+              }
+            ],
+            "priority": "routine",
+            "medicationReference": {
+              "reference": "Medication/eVBXvKwrWZIkPmaGwY.s1hQ3",
+              "display": "DEXTROMETHORPHAN HBR 15 MG/5ML PO SYRP"
+            },
+            "subject": {
+              "reference": "Patient/eXoGxqgBaJuNkuahMYmiDhg3",
+              "display": "Post, Titus"
+            }
+          }
+        },
+        {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "ez067mnwOAKP5z1.YJwRAsfY.5YNxZJJDzDQrJbuKBDbIp.vKaSouyn36H4Tc6-z2y9h2OU5FqxVeqUHFJRpGe4BxmHoRsVJB9GLVkHUmLPX-LyD02h3sLRMgK9uFNRU73KWgj0Tmeqi8Y.vVgy-6vka7hpwQHl1zLGD2OaLJ9rJfzfKH89zl25piLYkeGQMz3",
+            "status": "draft",
+            "intent": "order",
+            "category": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                    "code": "inpatient",
+                    "display": "Inpatient"
+                  }
+                ],
+                "text": "Inpatient"
+              }
+            ],
+            "priority": "routine",
+            "medicationReference": {
+              "reference": "Medication/emvpHliA4OaUxXJ4wp6N.Ig3",
+              "display": "MERCAPTOPURINE 50 MG PO TABS"
+            },
+            "subject": {
+              "reference": "Patient/eXoGxqgBaJuNkuahMYmiDhg3",
+              "display": "Post, Titus"
+            }
+          }
+        }
+      ]
+    }
+  }
+```json
+
+Given the above prefetch template, and context, the CDS Client is asked to provide the results of this FHIR query: `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in a prefetch containing a prefetch key of a FHIR searchset Bundle of two Medication resources.
+
+
 
 ##### Prefetch query restrictions
 
