@@ -275,15 +275,18 @@ Individual hooks specify which of their `context` fields can be used as prefetch
 
 ###### Prefetch tokens identifying the user
 A prefetch template enables a CDS Service to learn more about the current user through a FHIR read, like so:
-```
+
+```json
 {
   "prefetch": {
     "user": "{% raw  %}{{{% endraw  %}context.userId}}"
   }
 }
 ```
+
 or though a FHIR search:
-```
+
+```json
 {
   "prefetch": {
     "user": "PractitionerRole?_id={% raw  %}{{{% endraw  %}userPractitionerRoleId}}&_include=PractitionerRole:practitioner"
@@ -392,7 +395,7 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
       ]
     }
   }
-```json
+```
 
 Given the above prefetch template, and context, the CDS Client is asked to provide the results of this FHIR query: `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in a prefetch containing a prefetch key of a FHIR searchset Bundle of two Medication resources.
 
