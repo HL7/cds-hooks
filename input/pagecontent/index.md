@@ -254,7 +254,7 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 > Note that this means that CDS services will receive only the information they have requested and are authorized to receive. Prefetch data for other services registered to the same hook MUST NOT be provided. In other words, services SHALL only receive the data they requested in their prefetch.
 
-The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates). 
+The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates)). 
 
 > Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
@@ -309,16 +309,25 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 ###### Prefetch tokens containing Simpler FHIRPath
 
-Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this {% raw  %}{{{% endraw  %}context.patientId{% raw  %}{{{% endraw  %} prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retreive FHIR logical ids. 
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retreive FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection), and the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function.  Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
 
-Prefetch tokens traverse into those resources using FHIRPath’s path traversal syntax, and the FHIRPath ofType function to arrive at a resource reference. If supported, these tokens SHALL evaluate to a comma-separated list of the identifiers of all resources of the specified type within that context key.  Similar to FHIR's use of FHIRPath, an argument to ofType() SHALL be a "concrete core types" (eg. FHIR resource types). Note that only elements present in the context may be traversed (e.g. the resolves() function is not available). See worked example, below. 
+CDS Clients SHOULD support paths to References, and MAY support path to any element within a FHIR resource in context. Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
+
+####### Simpler FHIRPath support for Querystring Syntax
+- The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax, FHIRPath collections of simple data types are represented as comma-delimited strings.
+- CDS Clients that support Simpler FHIRPath MUST return FHIR Referece.reference values as Resource.id to enable their use in prefetch template querystrings. (For example, the CDS Client transforms "Medication/123" to "123").
+
+
+See worked example, below. 
+
+####### Example Prefetch Template with Simpler FHIRPath
 
 With a CDS Service published prefetch template of: 
 
 ```json
 {
   "prefetch": {
-    "medication" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Reference).ofType(Medication).reference{% raw  %}{{{% endraw  %}
+    "medication" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Reference).ofType(Medication).reference}}
   }
 }
 ```
@@ -397,7 +406,7 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
   }
 ```
 
-Given the above prefetch template, and context, the CDS Client is asked to provide the results of this FHIR query: `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in a prefetch containing a prefetch key of a FHIR searchset Bundle of two Medication resources.
+Given the above prefetch template, and context, the CDS Client is asked to provide the results of this FHIR query: `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in prefetch containing a FHIR searchset Bundle of two Medication resources.
 
 
 
