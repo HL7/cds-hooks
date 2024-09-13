@@ -309,7 +309,7 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 ###### Prefetch tokens containing Simpler FHIRPath
 
-Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as a prefetch token like context.patientId. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retreive FHIR logical ids. 
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this {% raw  %}{{{% endraw  %}context.patientId{% raw  %}{{{% endraw  %} prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retreive FHIR logical ids. 
 
 Prefetch tokens traverse into those resources using FHIRPath’s path traversal syntax, and the FHIRPath ofType function to arrive at a resource reference. If supported, these tokens SHALL evaluate to a comma-separated list of the identifiers of all resources of the specified type within that context key.  Similar to FHIR's use of FHIRPath, an argument to ofType() SHALL be a "concrete core types" (eg. FHIR resource types). Note that only elements present in the context may be traversed (e.g. the resolves() function is not available). See worked example, below. 
 
