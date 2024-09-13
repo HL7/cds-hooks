@@ -317,17 +317,39 @@ CDS Clients SHOULD support paths to References, and MAY support path to any elem
 - The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax, FHIRPath collections of simple data types are represented as comma-delimited strings.
 - CDS Clients that support Simpler FHIRPath MUST return FHIR Referece.reference values as Resource.id to enable their use in prefetch template querystrings. (For example, the CDS Client transforms "Medication/123" to "123").
 
+See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
 
-See worked example, below. 
+####### Simple FHIRPath for Relative Dates
 
-####### Example Prefetch Template with Simpler FHIRPath
+A best practice is to target information retrieved dueing a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
+* the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
+* [additon](https://hl7.org/fhirpath/N1/index.html#addition-2) and [substraction](https://hl7.org/fhirpath/N1/index.html#subtraction-2) of quantity unit [`days`](https://hl7.org/fhirpath/N1/index.html#datetime-arithmetic),
+* and the [`gt` and `lt` FHIR search prefixes](https://www.hl7.org/fhir/R4/search.html#prefix) for [date search parameters](https://www.hl7.org/fhir/R4/search.html#date).
 
-With a CDS Service published prefetch template of: 
+For example, a prefetch template could specify all Lab results within the last 90 days, like so:
 
 ```json
 {
   "prefetch": {
-    "medication" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Reference).ofType(Medication).reference}}
+    "user": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&category=laboratory&date=gt{% raw  %}{{{% endraw  %}today() - 90 days}}
+  }
+}
+```
+
+(If today is 2024-09-13) prefetch would contain a Bundle of Observations from this FHIR query: 
+```json
+Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=laboratory&date=gt2024-06-15
+```
+
+####### Example Prefetch Template with Simpler FHIRPath
+
+To prefetch the Medications being prescribing, as well as upcoming appointments, a prefetch template of: 
+
+```json
+{
+  "prefetch": {
+    "meds" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Reference).ofType(Medication).reference}}
+    "appointments-upcoming" : Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days}}
   }
 }
 ```
@@ -361,7 +383,6 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
                 "text": "Inpatient"
               }
             ],
-            "priority": "routine",
             "medicationReference": {
               "reference": "Medication/eVBXvKwrWZIkPmaGwY.s1hQ3",
               "display": "DEXTROMETHORPHAN HBR 15 MG/5ML PO SYRP"
@@ -390,7 +411,6 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
                 "text": "Inpatient"
               }
             ],
-            "priority": "routine",
             "medicationReference": {
               "reference": "Medication/emvpHliA4OaUxXJ4wp6N.Ig3",
               "display": "MERCAPTOPURINE 50 MG PO TABS"
@@ -406,7 +426,10 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
   }
 ```
 
-Given the above prefetch template, and context, the CDS Client is asked to provide the results of this FHIR query: `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in prefetch containing a FHIR searchset Bundle of two Medication resources.
+Given the above prefetch template, and context, the CDS Client is asked to provide the results of these two FHIR queries: 
+* `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
+* `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
+
 
 
 
