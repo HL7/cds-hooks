@@ -1,0 +1,34 @@
+name: Build IG
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  ig-publisher:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Jekyll
+        run: sudo gem install jekyll
+
+      - name: Install Sushi
+        run: sudo npm install -g fsh-sushi
+
+      - name: Install IG publisher
+        run: |
+          chmod +x ./_updatePublisher.sh
+          ./_updatePublisher.sh -y
+
+      - name: Build IG
+        run: |
+          chmod +x ./_genonce.sh
+          ./_genonce.sh
+
+      - name: Upload IG as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ig
+          path: output
