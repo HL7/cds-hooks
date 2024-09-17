@@ -348,7 +348,7 @@ To prefetch the Medications being prescribing, as well as upcoming appointments,
 ```json
 {
   "prefetch": {
-    "meds" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Reference).ofType(Medication).reference}}
+    "meds" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Medication).reference}}
     "appointments-upcoming" : Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days}}
   }
 }
