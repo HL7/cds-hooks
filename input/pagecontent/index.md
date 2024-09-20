@@ -336,7 +336,7 @@ For example, a prefetch template could specify all Lab results within the last 9
 ```
 
 (If today is 2024-09-13) prefetch would contain a Bundle of Observations from this FHIR query: 
-```json
+```
 Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=laboratory&date=gt2024-06-15
 ```
 
@@ -347,8 +347,8 @@ To prefetch the Medications being prescribing, as well as upcoming appointments,
 ```json
 {
   "prefetch": {
-    "meds" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Medication).reference.id()}}
-    "appointments-upcoming" : Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days}}
+    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Medication).reference.id()"}}
+    "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days"}}
   }
 }
 ```
