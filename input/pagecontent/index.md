@@ -309,19 +309,19 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 ###### Prefetch tokens containing Simpler FHIRPath
 
-Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retreive FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection), and the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function.  Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into to retrieve FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection), the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function, and the `id()` function.  Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
 
 CDS Clients SHOULD support paths to References, and MAY support path to any element within a FHIR resource in context. Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
 
 ####### Simpler FHIRPath support for Querystring Syntax
 - The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax, FHIRPath collections of simple data types are represented as comma-delimited strings.
-- CDS Clients that support Simpler FHIRPath MUST return FHIR Referece.reference values as Resource.id to enable their use in prefetch template querystrings. (For example, the CDS Client transforms "Medication/123" to "123").
+- Specific to CDS Hooks, the `id()` function accepts a collection of References and returns FHIR Referece.reference values as Resource.id to enable their use in prefetch template querystrings. (For example, the CDS Client transforms "Medication/123" to "123"). Note that only some FHIR SearchParameters require these "bare" FHIR IDs.  
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
 
 ####### Simple FHIRPath for Relative Dates
 
-A best practice is to target information retrieved dueing a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
+A best practice is to target information retrieved during a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
 * the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
 * [additon](https://hl7.org/fhirpath/N1/index.html#addition-2) and [substraction](https://hl7.org/fhirpath/N1/index.html#subtraction-2) of quantity unit [`days`](https://hl7.org/fhirpath/N1/index.html#datetime-arithmetic),
 * and the [`gt` and `lt` FHIR search prefixes](https://www.hl7.org/fhir/R4/search.html#prefix) for [date search parameters](https://www.hl7.org/fhir/R4/search.html#date).
@@ -348,7 +348,7 @@ To prefetch the Medications being prescribing, as well as upcoming appointments,
 ```json
 {
   "prefetch": {
-    "meds" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Medication).reference}}
+    "meds" : Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Medication).reference.id()}}
     "appointments-upcoming" : Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days}}
   }
 }
