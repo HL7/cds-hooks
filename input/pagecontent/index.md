@@ -308,16 +308,15 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 ##### Prefetch tokens containing Simpler FHIRPath
 
-Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using [FHIRPath](https://hl7.org/fhirpath/N1/index.html).
-
-
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html).
 
 CDS Clients SHOULD support paths to References, and MAY support path to any element within a FHIR resource in context. Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
 
 
 
 ###### Simpler FHIRPath support for Querystring Syntax
-The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax, FHIRPath collections of simple data types are represented as comma-delimited strings.
+The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with by [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
+
 
 CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
@@ -327,6 +326,11 @@ CDS Clients that support prefetch, SHOULD support:
 Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
 
 Specific to CDS Hooks, the `id()` function accepts a collection of References and returns FHIR `Reference.reference` values as FHIR `Resource.id` to enable their use in prefetch template querystrings. (For example, the CDS Client transforms "Medication/123" to "123"). Note that only some FHIR SearchParameters require these "bare" FHIR IDs.  
+
+> Note on search parameter data types
+> FHIR search parameter definitions declare the specific [data types](https://www.hl7.org/fhir/R4/search.html#ptypes) accepted. Use of the `id()` function is specifically intended to satisfy search parameters that accept the [`token`](https://www.hl7.org/fhir/R4/search.html#token) data type (for example, `Medication?_id=Medication/123` is not valid, `Medication?_id=123` is valid). Other search parameters require a [`reference`](https://www.hl7.org/fhir/R4/search.html#reference) (for example, 
+
+
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
 
