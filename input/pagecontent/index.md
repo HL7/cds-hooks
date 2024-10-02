@@ -310,7 +310,9 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html).
 
-CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
+CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
+
+>REWRITE: Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
 
 
 
@@ -362,7 +364,8 @@ To prefetch the Medications being prescribing, as well as upcoming appointments,
 ```json
 {
   "prefetch": {
-    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).medicationReference.ofType(Medication).reference.id()"}}
+    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).medication.resolve().id"}},
+    "prescriber" : "Practitioner?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).requester.resolve().ofType(Practitioner).id"}}
     "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days"}}
   }
 }
