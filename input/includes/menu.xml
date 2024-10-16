@@ -10,40 +10,40 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}allergyintolerance-create.html">allergyintolerance-create (1)</a>
+        <a href="{{site.data.links.cdshookslibrary}}allergyintolerance-create.html">allergyintolerance-create (1)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}appointment-book.html">appointment-book (1)</a>
+        <a href="{{site.data.links.cdshookslibrary}}appointment-book.html">appointment-book (1)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}encounter-discharge.html">encounter-discharge (1)</a>
+        <a href="{{site.data.links.cdshookslibrary}}encounter-discharge.html">encounter-discharge (1)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}encounter-start.html">encounter-start (1)</a>
+        <a href="{{site.data.links.cdshookslibrary}}encounter-start.html">encounter-start (1)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}medication-refill.html">medication-refill (1)</a>
+        <a href="{{site.data.links.cdshookslibrary}}medication-refill.html">medication-refill (1)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}order-dispatch.html">order-dispatch (0)</a>
+        <a href="{{site.data.links.cdshookslibrary}}order-dispatch.html">order-dispatch (0)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}order-select.html">order-select (4)</a>
+        <a href="{{site.data.links.cdshookslibrary}}order-select.html">order-select (4)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}order-sign.html">order-sign (5)</a>
+        <a href="{{site.data.links.cdshookslibrary}}order-sign.html">order-sign (5)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}patient-view.html">patient-view (5)</a>
+        <a href="{{site.data.links.cdshookslibrary}}patient-view.html">patient-view (5)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}problem-list-item-create.html">problem-list-item-create (1)</a>
+        <a href="{{site.data.links.cdshookslibrary}}problem-list-item-create.html">problem-list-item-create (1)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}medication-prescribe.html">medication-prescribe (deprecated)</a>
+        <a href="{{site.data.links.cdshookslibrary}}medication-prescribe.html">medication-prescribe (deprecated)</a>
       </li>
       <li>
-        <a href="{{site.data.fhir.cdshookslibrary}}order-review.html">order-review (deprecated)</a>
+        <a href="{{site.data.links.cdshookslibrary}}order-review.html">order-review (deprecated)</a>
       </li>
     </ul>
   </li>
