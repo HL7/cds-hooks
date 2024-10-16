@@ -27,7 +27,7 @@ publisher:
 #
 dependencies:
     hl7.fhir.uv.cds-hooks-library:
-      id: cdshookslib
+      id: cdshookslibrary
       uri: https://build.fhir.org/ig/HL7/cds-hooks-library/
       version: current
 #   hl7.fhir.us.core: 3.1.0
