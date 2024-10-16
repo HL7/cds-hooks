@@ -1,0 +1,50 @@
+<!-- menu.xml -->
+
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Hook Library
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html">allergyintolerance-create (1)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html">appointment-book (1)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge.html">encounter-discharge (1)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start.html">encounter-start (1)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill.html">medication-refill (1)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html">order-dispatch (0)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/order-select.html">order-select (4)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign.html">order-sign (5)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html">patient-view (5)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/problem-list-item-create.html">problem-list-item-create (1)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/medication-prescribe.html">medication-prescribe (deprecated)</a>
+      </li>
+      <li>
+        <a href="https://build.fhir.org/ig/HL7/cds-hooks-library/order-review.html">order-review (deprecated)</a>
+      </li>
+    </ul>
+  </li>
+</ul>
