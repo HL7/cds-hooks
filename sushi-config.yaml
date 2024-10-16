@@ -8,8 +8,8 @@ canonical: https://cds-hooks.hl7.org
 name: CDSHooks
 title: CDS Hooks
 description: CDS Hooks describes a "hook"-based pattern for invoking decision support from within a clinician's workflow.
-status: active # draft | active | retired | unknown
-version: 2.0.1
+status: draft # draft | active | retired | unknown
+version: 2.0.0
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2019+
 copyrightLabel: "HL7 & Boston Children's Hospital"
@@ -24,11 +24,15 @@ publisher:
 # The dependencies property corresponds to IG.dependsOn. The key is the
 # package id and the value is the version (or dev/current). For advanced
 # use cases, the value can be an object with keys for id, uri, and version.
+#
 dependencies:
-  hl7.fhir.uv.cds-hooks-library:
-    id: cdshookslibrary
-    uri: https://build.fhir.org/ig/HL7/cds-hooks-library/
-    version: dev
+#   hl7.fhir.us.core: 3.1.0
+#   hl7.fhir.us.mcode:
+#     id: mcode
+#     uri: http://hl7.org/fhir/us/mcode/ImplementationGuide/hl7.fhir.us.mcode
+#     version: 1.0.0
+#
+#
 # The pages property corresponds to IG.definition.page. SUSHI can
 # auto-generate the page list, but if the author includes pages in
 # this file, it is assumed that the author will fully manage the
@@ -72,21 +76,21 @@ parameters:
 # │ input/includes. To use a provided input/includes/menu.xml file, delete the "menu"              │
 # │ property below.                                                                                │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-# menu:
-#  Home: index.html
-#  Hook Library:
-#    allergyintolerance-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html
-#    appointment-book (1): https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html
-#    encounter-discharge (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge.html
-#    encounter-start (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start.html
-#    medication-refill (1): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill.html
-#    order-dispatch (0): https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html
-#    order-select (4) : https://build.fhir.org/ig/HL7/cds-hooks-library/order-select.html
-#    order-sign (5): https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign.html
-#    patient-view (5): https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html
-#    problem-list-item-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/problem-list-item-create.html
-#    medication-prescribe (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-prescribe.html
-#    order-review (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/order-review.html
+menu:
+  Home: index.html
+  Hook Library:
+    allergyintolerance-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html
+    appointment-book (1): https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html
+    encounter-discharge (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge.html
+    encounter-start (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start.html
+    medication-refill (1): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill.html
+    order-dispatch (0): https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html
+    order-select (4) : https://build.fhir.org/ig/HL7/cds-hooks-library/order-select.html
+    order-sign (5): https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign.html
+    patient-view (5): https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html
+    problem-list-item-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/problem-list-item-create.html
+    medication-prescribe (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-prescribe.html
+    order-review (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/order-review.html
 
 # ╭───────────────────────────Less Common Implementation Guide Properties──────────────────────────╮
 # │  Uncomment the properties below to configure additional properties on the ImplementationGuide  │
