@@ -5,4 +5,4 @@ library-contexts:
   build:
     url: https://build.fhir.org/ig/HL7/cds-hooks-library/
   current:
-    url: https://www.hl7.org/fhir/uv/cds-hooks-library/
+    url: https://build.fhir.org/ig/HL7/cds

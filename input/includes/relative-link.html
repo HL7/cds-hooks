@@ -1,10 +1,8 @@
-{% assign host = site.build %}
-{% if host == "ci" %}
+{% assign host = site.url | split: "//" | last %}
+{% if host == "build.fhir.org" %}
     <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
-{% elsif host == "ballot" %}
-    <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
-{% elsif host == "local" %}
-<a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
-{% else %}
+{% elsif host == "cds-hooks.hl7.org" %}
     <a href="{{site.data.links.library-contexts.current.url}}{{include.link}}">{{include.title}}</a>
+{% else %}
+    <a href="{{site.data.links.library-contexts.relative.url}}{{include.link}}">{{include.title}}</a>
 {% endif %}
