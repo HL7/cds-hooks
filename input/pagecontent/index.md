@@ -1159,6 +1159,22 @@ As a specification, CDS Hooks does not prescribe a default or required set of ho
 
 Note that each hook (e.g. `order-select`) represents something the user is doing in the CDS Client and multiple CDS Services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `order-select`).
 
+### Library
+CDS Hooks provides a library of hooks that are available to implementers. The library is available in two forms, currently published as [published](https://cds-hooks.org/hooks/) and [development](https://build.fhir.org/ig/HL7/cds-hooks-library/) versions.
+
+* allergyintolerance-create - ([published](https://cds-hooks.org/hooks/allergyintolerance-create), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create))
+* appointment-book - ([published](https://cds-hooks.org/hooks/appointment-book), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book))
+* encounter-discharge - ([published](https://cds-hooks.org/hooks/encounter-discharge), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge))
+* encounter-start - ([published](https://cds-hooks.org/hooks/encounter-start), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start))
+* medication-refill - ([published](https://cds-hooks.org/hooks/medication-refill), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill))
+* order-dispatch - ([published](https://cds-hooks.org/hooks/order-dispatch), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch))
+* order-select - ([published](https://cds-hooks.org/hooks/order-select), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/order-select))
+* order-sign - ([published](https://cds-hooks.org/hooks/order-sign), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign))
+* patient-view - ([published](https://cds-hooks.org/hooks/patient-view), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view))
+* problem-list-item-create - ([published](https://cds-hooks.org/hooks/problem-list-item-create), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/problem-list-item-create))
+* medication-prescribe - ([published](https://cds-hooks.org/hooks/medication-prescribe), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/medication-prescribe))
+* order-review - ([published](https://cds-hooks.org/hooks/order-review), [development](https://build.fhir.org/ig/HL7/cds-hooks-library/order-review))
+
 ### Hook context and prefetch
 
 ### What's the difference?
