@@ -1,8 +1,10 @@
-{% assign host = site.url | split: "//" | last %}
-{% if host == "build.fhir.org" %}
+{% assign release = site.data.ig.releaseLabel %}
+{% if releaseLabel == "ci-build" %}
     <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
-{% elsif host == "cds-hooks.hl7.org" %}
-    <a href="{{site.data.links.library-contexts.current.url}}{{include.link}}">{{include.title}}</a>
+{% elsif releaseLabel == "draft" %}
+    <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
+{% elsif releaseLabel == "trial-use"}
+<a href="{{site.data.links.library-contexts.current.url}}{{include.link}}">{{include.title}}</a>
 {% else %}
     <a href="{{site.data.links.library-contexts.relative.url}}{{include.link}}">{{include.title}}</a>
 {% endif %}
