@@ -15,7 +15,6 @@ decision support from within a clinician's workflow. The API supports:
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
  * Launching a user-facing SMART app when CDS requires additional interaction
 
-
 ### Conformance Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119). Further, the key word "CONDITIONAL" indicates that a particular item is either REQUIRED or OPTIONAL, based upon another item.
 
