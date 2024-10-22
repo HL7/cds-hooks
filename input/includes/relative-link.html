@@ -1,0 +1,10 @@
+{% assign host = site.build %}
+{% if host == "ci" %}
+    <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
+{% elsif host == "ballot" %}
+    <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
+{% elsif host == "local" %}
+<a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
+{% else %}
+    <a href="{{site.data.links.library-contexts.current.url}}{{include.link}}">{{include.title}}</a>
+{% endif %}

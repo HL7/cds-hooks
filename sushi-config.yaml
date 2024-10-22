@@ -4,12 +4,12 @@
 # │  see: https://fshschool.org/docs/sushi/configuration/.                                         │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 id: hl7.fhir.uv.cds-hooks
-canonical: https://cds-hooks.hl7.org
+canonical: https://cds-hooks.hl7.org/ImplementationGuide/hl7.fhir.uv.cds-hooks
 name: CDSHooks
 title: CDS Hooks
 description: CDS Hooks describes a "hook"-based pattern for invoking decision support from within a clinician's workflow.
 status: draft # draft | active | retired | unknown
-version: 2.0.0
+version: 2.0.1
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2019+
 copyrightLabel: "HL7 & Boston Children's Hospital"
@@ -25,7 +25,7 @@ publisher:
 # package id and the value is the version (or dev/current). For advanced
 # use cases, the value can be an object with keys for id, uri, and version.
 #
-dependencies:
+# dependencies:
 #   hl7.fhir.us.core: 3.1.0
 #   hl7.fhir.us.mcode:
 #     id: mcode
@@ -44,15 +44,9 @@ dependencies:
 # with supported extensions (e.g., .md/.xml) will be treated as
 # sub-pages.
 #
-# pages:
-#   index.md:
-#     title: Example Home
-#   implementation.xml:
-#   examples.xml:
-#     title: Examples Overview
-#     simpleExamples.xml:
-#     complexExamples.xml:
-#
+pages:
+  index.md:
+    title: specification
 #
 # The parameters property represents IG.definition.parameter. Rather
 # than a list of code/value pairs (as in the ImplementationGuide
@@ -67,6 +61,7 @@ parameters:
   excludettl: true
 #  validation: [allow-any-extensions, no-broken-links]
   shownav: true
+#  logging: html
 
 # ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
 # │ The menu property will be used to generate the input/menu.xml file. The menu is represented    │
@@ -76,21 +71,21 @@ parameters:
 # │ input/includes. To use a provided input/includes/menu.xml file, delete the "menu"              │
 # │ property below.                                                                                │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-menu:
-  Home: index.html
-  Hook Library:
-    allergyintolerance-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html
-    appointment-book (1): https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html
-    encounter-discharge (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge.html
-    encounter-start (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start.html
-    medication-refill (1): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill.html
-    order-dispatch (0): https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html
-    order-select (4) : https://build.fhir.org/ig/HL7/cds-hooks-library/order-select.html
-    order-sign (5): https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign.html
-    patient-view (5): https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html
-    problem-list-item-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/problem-list-item-create.html
-    medication-prescribe (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-prescribe.html
-    order-review (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/order-review.html
+#
+#  Home: index.html
+#  Hook Library:
+#    allergyintolerance-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/allergyintolerance-create.html
+#    appointment-book (1): https://build.fhir.org/ig/HL7/cds-hooks-library/appointment-book.html
+#    encounter-discharge (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-discharge.html
+#    encounter-start (1): https://build.fhir.org/ig/HL7/cds-hooks-library/encounter-start.html
+#    medication-refill (1): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-refill.html
+#    order-dispatch (0): https://build.fhir.org/ig/HL7/cds-hooks-library/order-dispatch.html
+#    order-select (4) : https://build.fhir.org/ig/HL7/cds-hooks-library/order-select.html
+#    order-sign (5): https://build.fhir.org/ig/HL7/cds-hooks-library/order-sign.html
+#    patient-view (5): https://build.fhir.org/ig/HL7/cds-hooks-library/patient-view.html
+#    problem-list-item-create (1): https://build.fhir.org/ig/HL7/cds-hooks-library/problem-list-item-create.html
+#    medication-prescribe (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/medication-prescribe.html
+#    order-review (deprecated): https://build.fhir.org/ig/HL7/cds-hooks-library/order-review.html
 
 # ╭───────────────────────────Less Common Implementation Guide Properties──────────────────────────╮
 # │  Uncomment the properties below to configure additional properties on the ImplementationGuide  │

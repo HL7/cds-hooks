@@ -156,7 +156,7 @@ Field | Optionality | Type | Description
 `hookInstance` | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
 `fhirServer` | CONDITIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme MUST be `https` when production data is exchanged.
 `fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0](https://oauth.net/2/) bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
-`context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view]({{site.data.fhir.cdshookslibrary}}patient-view.html)).
+`context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view]({{site.data.links.library-contexts.build.url}}patient-view.html)).
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
 {:.grid}
 
@@ -1153,15 +1153,15 @@ Field | Optionality | Type | Description
 
 ### Hooks
 
-### Overview
+#### Overview
 
 As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined here are not a closed set; anyone is able to define new hooks to fit their use cases and propose those hooks to the community. New hooks are proposed in a prescribed [format](#hook-definition-format) using the [documentation template](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) by submitting a [pull request](https://github.com/cds-hooks/docs/tree/master/docs/hooks) for community feedback. Hooks are [versioned](#hook-version), and mature according to the [Hook Maturity Model](#hook-maturity-model).
 
 Note that each hook (e.g. `order-select`) represents something the user is doing in the CDS Client and multiple CDS Services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `order-select`).
 
-### Hook context and prefetch
+#### Hook context and prefetch
 
-### What's the difference?
+#### What's the difference?
 
 Any user workflow or action within a CDS Client will naturally include contextual information such as the current user and patient. CDS Hooks refers to this information as _context_ and allows each hook to define the information that is available in the context. Because CDS Hooks is intended to support usage within any CDS Client, this context can contain both required and optional data, depending on the capabilities of individual CDS Clients. However, the context information is intended to be relevant to most CDS Services subscribing to the hook.
 
@@ -1191,21 +1191,21 @@ Additionally, consider a PGX CDS Service and a Zika screening CDS Service, each 
 
 In summary, context is specified in the hook definition to guide developers on the information available at the point in the workflow when the hook is triggered. Prefetch data is defined by each CDS Service because it is specific to the information that service needs in order to process.
 
-### Hook Definition Format
+#### Hook Definition Format
 
 Hooks are defined in the following format.
 
-### `hook-name-expressed-as-noun-verb`
+#### `hook-name-expressed-as-noun-verb`
 
 The name of the hook SHOULD succinctly and clearly describe the activity or event. Hook names are unique so hook creators SHOULD take care to ensure newly proposed hooks do not conflict with an existing hook name. Hook creators SHALL name their hook with reverse domain notation (e.g. `org.example.patient-transmogrify`) if the hook is specific to an organization. Reverse domain notation SHALL not be used by a standard hooks catalog.
 
 When naming hooks, the name should start with the subject (noun) of the hook and be followed by the activity (verb). For example, `patient-view` (not `view-patient`) or `order-sign` (not `sign-order`).
 
-### Workflow
+#### Workflow
 
 Describe when this hook occurs in a workflow. Hook creators SHOULD include as much detail and clarity as possible to minimize any ambiguity or confusion among implementers.
 
-### Context
+#### Context
 
 Describe the set of contextual data used by this hook. Only data logically and necessarily associated with the purpose of this hook should be represented in context.
 
@@ -1228,7 +1228,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `allFHIR` | OPTIONAL | No | *object* | A FHIR Bundle of the following FHIR resources using a specific version of FHIR.
 {:.grid}
 
-### FHIR resources in context
+#### FHIR resources in context
 
 For context fields that may contain multiple FHIR resources, the field SHOULD be defined as a FHIR Bundle, rather than as an array of FHIR resources. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-sign` hook's `draftOrders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
 
@@ -1236,7 +1236,7 @@ Often, context is populated with in-progress or in-memory data that may not yet 
 
 All FHIR resources in context MUST be based on the same FHIR version.
 
-### Examples
+#### Examples
 
 Hook creators SHOULD include examples of the context.
 
@@ -1254,7 +1254,7 @@ Hook creators SHOULD include examples of the context.
 
 If the context contains FHIR data, hook creators SHOULD include examples across multiple versions of FHIR if differences across FHIR versions are possible.
 
-### Hook Maturity Model
+#### Hook Maturity Model
 The intent of the CDS Hooks Maturity Model is to attain broad community engagement and consensus, before a hook is labeled as mature, that the hook is necessary, implementable, and worthwhile to the CDS Services and CDS Clients that would reasonably be expected to use it. Implementer feedback should drive the maturity of new hooks. Diverse participation in open developer forums and events, such as HL7 FHIR Connectathons, is necessary to achieve significant implementer feedback. The below criteria will be evaluated with these goals in mind.
 
     Hook maturity | 3 - Considered
@@ -1272,11 +1272,11 @@ Maturity Level | Maturity title | Requirements
 6 | Normative | _The above, and ..._ the responsible HL7 working group and the CDS working group agree the material is ready to lock down and the hook has passed HL7 normative ballot
 {:.grid}
 
-### Changes to a Hook
+#### Changes to a Hook
 
 Each hook MUST include a Metadata table at the beginning of the hook with the specification version and hook version as described in the following sections.
 
-### Specification Version
+#### Specification Version
 
 Because hooks are such an integral part of the CDS Hooks specification, hook definitions are associated with specific versions of the specification. The hook definition MUST include the version (or versions) of the CDS Hooks specification that it is defined to work with.
 
@@ -1284,7 +1284,7 @@ Because hooks are such an integral part of the CDS Hooks specification, hook def
 
 Because the specification itself follows semantic versioning, the version specified here is a minimum specification version. In other words, a hook defined to work against 1.0 should continue to work against the 1.1 version of CDS Hooks. However, a hook that specifies 1.1 would not be expected to work in a CDS Hooks 1.0 environment.
 
-### Hook Version
+#### Hook Version
 
 To enable tracking of changes to hook definitions, each hook MUST include a version indicator, expressed as a string.
 
@@ -1315,12 +1315,12 @@ When a major change is made, the hook definition MUST be published under a new n
 
 > Note that the intent of this table is to outline possible breaking changes. The authors have attempted to enumerate these types of changes exhaustively, but as new types of breaking changes are identified, this list will be updated.
 
-### Hook Maturity
+#### Hook Maturity
 As each hook progresses through a process of being defined, tested, implemented, used in production environments, and balloted, the hook's formal maturity level increases. Each hook has its own maturity level, which MUST be defined in the hook's definition and correspond to the [Hook Maturity Model](#hook-maturity-model).
 
     hookMaturity | 0 - Draft
 
-### Change Log
+#### Change Log
 
 Changes made to a hook's definition MUST be documented in a change log to ensure hook consumers can track what has been changed over the life of a hook. The change log MUST contain the following elements:
 
@@ -1335,3 +1335,6 @@ Version | Description
 1.0.1 | Clarified context variable usage
 1.0 | Initial Release
 {:.grid}
+
+### IP Statements
+{% include ip-statements.xhtml %}

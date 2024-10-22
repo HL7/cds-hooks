@@ -3,3 +3,20 @@
 # Add warning and/or information messages here after you've confirmed that they aren't really a problem
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
+
+# As this is an errata review, we are not defining resources as the CDS Hooks v2 spec does not define any
+ImplementationGuide.definition.resource: minimum required = 1, but only found 0 (from http://hl7.org/fhir/StructureDefinition/ImplementationGuide|4.0.1)
+
+# As this is an errata review, we are not defining resources as the CDS Hooks v2 spec does not define any
+The HTML fragment 'globals-table.xhtml' is not included anywhere in the produced implementation guide
+
+# <dependency comments> - discuss with Isaac
+An HTML fragment from the set [dependency-table.xhtml, dependency-table-short.xhtml] is not included anywhere in the produced implementation guide
+
+# <version analysis comments> - discuss with Isaac
+An HTML fragment from the set [cross-version-analysis.xhtml, cross-version-analysis-inline.xhtml] is not included anywhere in the produced implementation guide
+
+# We are removing all hook definitions from this implementation guide
+The jira specification file appears to be out of date with the versions, artifacts and pages currently defined in the IG. A proposed revised file to be reviewed and, if appropriate, submitted as a pull request against the XML folder in https://github.com/HL7/JIRA-Spec-Artifacts. To see the differences, perform a file compare on 'template/jira-current.xml' (a normalized view of what is in Github) and 'template/jira-new.xml' (reflects current IG content)
+# As of today, this is the correct link for all versions of cds-Hooks
+The link 'https://cds-hooks.hl7.org' for "https://cds-hooks.hl7.org" is a canonical link and is therefore unsafe with regard to versions
