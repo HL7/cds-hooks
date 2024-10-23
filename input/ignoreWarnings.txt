@@ -4,7 +4,7 @@
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
 
-# As this is an errata review, we are not defining resources as the CDS Hooks v2 spec does not define any
+# There are currently no profiles defined in the CDS Hooks or CDS Hooks Library specifications
 ImplementationGuide.definition.resource: minimum required = 1, but only found 0 (from http://hl7.org/fhir/StructureDefinition/ImplementationGuide|4.0.1)
 
 # CDS Hooks 1.0 and 2.0 are published at 'https://cds-hooks.hl7.org/' 
