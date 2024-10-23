@@ -1,0 +1,50 @@
+<!-- menu.xml -->
+
+<ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
+  <li>
+    <a href="index.html">Home</a>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Hook Library
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        {% include relative-link.html link="allergyintolerance-create.html" title="allergyintolerance-create (1)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="appointment-book.html" title="appointment-book (1)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="encounter-discharge.html" title="encounter-discharge (1)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="encounter-start.html" title="encounter-start (1)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="medication-refill.html" title="medication-refill (1)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="order-dispatch.html" title="order-dispatch (0)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="order-select.html" title="order-select (4)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="order-sign.html" title="order-sign (5)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="patient-view.html" title="patient-view (5)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="problem-list-item-create.html" title="problem-list-item-create (1)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="medication-prescribe.html" title="medication-prescribe (deprecated)" %}
+      </li>
+      <li>
+        {% include relative-link.html link="order-review.html" title="order-review (deprecated)" %}
+      </li>
+    </ul>
+  </li>
+</ul>

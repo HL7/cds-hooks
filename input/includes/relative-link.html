@@ -1,0 +1,10 @@
+{% assign release = site.data.fhir.releaseLabel %}
+{% if release == "ci-build" %}
+    <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
+{% elsif release == "draft" %}
+    <a href="{{site.data.links.library-contexts.build.url}}{{include.link}}">{{include.title}}</a>
+{% elsif release == "trial-use" %}
+<a href="{{site.data.links.library-contexts.current.url}}{{include.link}}">{{include.title}}</a>
+{% else %}
+    <a href="{{site.data.links.library-contexts.relative.url}}{{include.link}}">{{include.title}}</a>
+{% endif %}
