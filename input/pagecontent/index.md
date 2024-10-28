@@ -6,6 +6,22 @@
 This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).
 </p>
 
+### Intellectual Property Statements
+
+CDS Hooks is the copyright of HL7 International and Boston Children's Hospital. The CDS Hooks specification is licensed under a Creative Commons Attribution 4.0 International License. All source code for CDS Hooks is available at [https://github.com/cds-hooks](https://github.com/cds-hooks).
+
+<!-- IGs that don't define resources can hide these in a div tag, see https://chat.fhir.org/#narrow/channel/179252-IG-creation/topic/Orphaned.20xhtml.20fragments.3F/near/370612006 -->
+
+<div style="display:none">
+{% include ip-statements.xhtml %}
+
+{% include cross-version-analysis.xhtml %}
+
+{% include dependency-table.xhtml %}
+
+{% include globals-table.xhtml %}
+</div>
+
 ### Overview
 
 This specification describes a
@@ -1334,16 +1350,3 @@ Version | Description
 1.0.1 | Clarified context variable usage
 1.0 | Initial Release
 {:.grid}
-
-### Dependencies
-{% include dependency-table-short.xhtml %}
-
-### Cross Version Analysis
-{% include cross-version-analysis.xhtml %}
-
-### Global Profiles
-{% include globals-table.xhtml %}
-
-### IP Statements
-{% include ip-statements.xhtml %}
-
