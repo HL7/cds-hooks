@@ -9,3 +9,6 @@ ImplementationGuide.definition.resource: minimum required = 1, but only found 0 
 
 # CDS Hooks 1.0 and 2.0 are published at 'https://cds-hooks.hl7.org/'. It's intentional for the CDS Hooks IG to link to the most recent published CDS Hooks Library IG. This is the same behavior that base FHIR references the FHIR Extensions Pack (base R5 points to the most recent extensions IG version, not the IG version published at the time of time).
 The link 'https://cds-hooks.hl7.org' for "https://cds-hooks.hl7.org" is a canonical link and is therefore unsafe with regard to versions
+
+# The publication request has not yet been approved by the CDS Work Group
+% jira specification file appears to be out of date%
