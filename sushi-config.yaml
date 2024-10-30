@@ -4,7 +4,7 @@
 # │  see: https://fshschool.org/docs/sushi/configuration/.                                         │
 # ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 id: hl7.fhir.uv.cds-hooks
-canonical: https://cds-hooks.hl7.org/ImplementationGuide/hl7.fhir.uv.cds-hooks
+canonical: https://cds-hooks.hl7.org
 name: CDSHooks
 title: CDS Hooks
 description: CDS Hooks describes a "hook"-based pattern for invoking decision support from within a clinician's workflow.
@@ -46,7 +46,7 @@ publisher:
 #
 pages:
   index.md:
-    title: specification
+    title: Home
 #
 # The parameters property represents IG.definition.parameter. Rather
 # than a list of code/value pairs (as in the ImplementationGuide
