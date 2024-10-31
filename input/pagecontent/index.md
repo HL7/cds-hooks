@@ -1,3 +1,5 @@
+{::options toc_levels="1..6"/}
+
 <!-- ![CDS Hooks Overview](../images/logo.png) -->
 
 <p style="padding: 5px; border-radius: 5px; border: 2px solid maroon; background: #ffffe6; max-width: 790px" markdown="1">
