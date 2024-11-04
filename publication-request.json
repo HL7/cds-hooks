@@ -1,0 +1,25 @@
+{
+    "package-id": "hl7.fhir.uv.cds-hooks",
+    "title": "CDS Hooks Implementation Guide",
+    "canonical": "http://cds-hooks.hl7.org",
+    "category": "Clinical Decision Support",
+    "list": [
+      {
+        "version": "current",
+        "desc": "Continuous Integration Build (latest in version control)",
+        "path": "http://build.fhir.org/ig/HL7/cds-hooks",
+        "status": "ci-build",
+        "current": true
+      },
+      {
+        "version": "2.0.1",
+        "date": "2024-10-30",
+        "desc": "Errata publication that brings CDS Hooks and its library into a FHIR Implementation Guide format.",
+        "path": "http://cds-hooks.hl7.org/2.0.1",
+        "status": "update",
+        "fhirversion": "4.0.1",
+        "sequence": "STU 2"
+      }
+    ]
+  }
+  
