@@ -1,25 +1,17 @@
 {
     "package-id": "hl7.fhir.uv.cds-hooks",
-    "title": "CDS Hooks Implementation Guide",
+    "version": "2.0.1",
+    "path": "http://cds-hooks.hl7.org/STU2",
+    "mode": "technical-correction",
+    "status": "release",
+    "sequence": "STU2",
+    "desc": "STU2 Release - Technical Correction 1",
+    "changes": "changes.html",
+    "first": true,
+    "title": "CDS Hooks Specification",
+    "ci-build": "http://build.fhir.org/ig/HL7/cds-hooks",
     "canonical": "http://cds-hooks.hl7.org",
     "category": "Clinical Decision Support",
-    "list": [
-      {
-        "version": "current",
-        "desc": "Continuous Integration Build (latest in version control)",
-        "path": "http://build.fhir.org/ig/HL7/cds-hooks",
-        "status": "ci-build",
-        "current": true
-      },
-      {
-        "version": "2.0.1",
-        "date": "2024-10-30",
-        "desc": "Errata publication that brings CDS Hooks and its library into a FHIR Implementation Guide format.",
-        "path": "http://cds-hooks.hl7.org/2.0.1",
-        "status": "update",
-        "fhirversion": "4.0.1",
-        "sequence": "STU 2"
-      }
-    ]
-  }
+    "introduction": "The CDS Hooks specification describes the RESTful APIs and interactions using JSON over HTTPS to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services."
+}
   
