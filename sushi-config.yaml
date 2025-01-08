@@ -15,7 +15,7 @@ copyrightYear: 2019+
 copyrightLabel: "HL7 & Boston Children's Hospital"
 releaseLabel: STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use
 license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
-jurisdiction: 'http://unstats.un.org/unsd/methods/m49/m49.htm#001'
+jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#001 "World"
 publisher:
   name: Clinical Decision Support WG
   url: http://www.hl7.org/Special/committees/dss/index.cfm
@@ -47,6 +47,10 @@ publisher:
 pages:
   index.md:
     title: Home
+  downloads.md:
+    title: Downloads
+  change-log.md:
+    title: Change Log
 #
 # The parameters property represents IG.definition.parameter. Rather
 # than a list of code/value pairs (as in the ImplementationGuide
