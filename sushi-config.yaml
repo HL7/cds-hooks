@@ -13,7 +13,12 @@ version: 2.0.1
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2019+
 copyrightLabel: "HL7 & Boston Children's Hospital"
-releaseLabel: STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use
+# 
+# ╭───────────────────────────Before changing releaseLabel──────────────────────────╮
+# │  Confirm that the releaseLabel value you are choosing is mapped to an IG guide  |
+# │  url prefix in this file: input/includes/relative-link.html                     │
+# ╰─────────────────────────────────────────────────────────────────────────────────╯
+releaseLabel: STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use 
 license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
 jurisdiction: 'http://unstats.un.org/unsd/methods/m49/m49.htm#001'
 publisher:
