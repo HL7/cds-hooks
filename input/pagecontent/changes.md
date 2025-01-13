@@ -30,12 +30,12 @@ In addition, numerous clarifications, corrections, and non-substantive updates w
 
 Changes since the 2018 May Ballot Version, include:
 
-#[187](https://github.com/cds-hooks/docs/pull/187): Conformance requirements for JWT signing algorithms
-#[232](https://github.com/cds-hooks/docs/pull/232): Moved user from the request to hook context definitions
-#[259](https://github.com/cds-hooks/docs/pull/259): Removed the analytics endpoint pending further implementation experience
-#[320](https://github.com/cds-hooks/docs/pull/320): Added a new required selectionBehavior field to cards
-#[340](https://github.com/cds-hooks/docs/pull/340): Changed 'hard-stop' indicator value to 'critical'
+* [187](https://github.com/cds-hooks/docs/pull/187): Conformance requirements for JWT signing algorithms
+* [232](https://github.com/cds-hooks/docs/pull/232): Moved user from the request to hook context definitions
+* [259](https://github.com/cds-hooks/docs/pull/259): Removed the analytics endpoint pending further implementation experience
+* [320](https://github.com/cds-hooks/docs/pull/320): Added a new required selectionBehavior field to cards
+* [340](https://github.com/cds-hooks/docs/pull/340): Changed 'hard-stop' indicator value to 'critical'
 
 In addition, numerous clarifications, corrections, and non-substantive updates were made to the specification based on ballot and implementer feedback. For a complete list of changes applied, see the issues under the [Github 1.0 Milestone](https://github.com/cds-hooks/docs/issues?q=is%3Aissue+is%3Aclosed+milestone%3A1.0) or the repository commit log.
 
-This was the first STU release  for the CDS Hooks specification. For a complete history of changes, see the repository commit log.
+This was the first STU release  for the CDS Hooks specification. For a complete history of changes, see the repository [commit log](https://github.com/cds-hooks/docs/commits/master).
