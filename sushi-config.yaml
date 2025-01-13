@@ -18,7 +18,7 @@ copyrightLabel: "HL7 & Boston Children's Hospital"
 # │  Confirm that the releaseLabel value you are choosing is mapped to an IG guide  |
 # │  url prefix in this file: input/includes/relative-link.html                     │
 # ╰─────────────────────────────────────────────────────────────────────────────────╯
-releaseLabel: ci-build # STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use 
+releaseLabel: STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use 
 license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
 jurisdiction: 'http://unstats.un.org/unsd/methods/m49/m49.htm#001'
 publisher:
