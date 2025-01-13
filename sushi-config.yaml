@@ -49,7 +49,7 @@ pages:
     title: Home
   downloads.md:
     title: Downloads
-  change-log.md:
+  changes.md:
     title: Change Log
 #
 # The parameters property represents IG.definition.parameter. Rather
