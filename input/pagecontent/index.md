@@ -1483,5 +1483,3 @@ Version | Description
 1.0.1 | Clarified context variable usage
 1.0 | Initial Release
 {:.grid}
-
-t
