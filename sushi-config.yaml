@@ -52,10 +52,10 @@ publisher:
 pages:
   index.md:
     title: Home
-  downloads.md:
-    title: Downloads
   changes.md:
     title: Change Log
+  downloads.md:
+    title: Downloads
 #
 # The parameters property represents IG.definition.parameter. Rather
 # than a list of code/value pairs (as in the ImplementationGuide
