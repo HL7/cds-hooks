@@ -9,7 +9,7 @@ var pageJSON = '{
 				"desc":"Continuous Integration Build (latest in version control)",
 				"path":"http://build.fhir.org/ig/HL7/cds-hooks",
 				"status":"ci-build",
-				"sequence":"N1",
+				"sequence":"ci-build"
 				"fhirversion":"4.0.1",
 				"current":true
 			},{
