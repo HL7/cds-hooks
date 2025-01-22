@@ -4,18 +4,10 @@
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
 
-# ╭──────────────────────────────────────1. ImplementationGuide resources ─────────────────────────╮
-# | There are currently no profiles defined in the CDS Hooks or CDS Hooks Library specifications.  |
-# | This is intentional. As part of this Errata release, we don't want to make significant changes.|
-# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+# ╭──────────────────────────────────────1. ImplementationGuide resources ─────────────────────────╮\r  | There are currently no profiles defined in the CDS Hooks or CDS Hooks Library specifications.  |\r | This is intentional. As part of this Errata release, we don't want to make significant changes.|\r  ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ImplementationGuide.definition.resource: minimum required = 1, but only found 0 (from http://hl7.org/fhir/StructureDefinition/ImplementationGuide|4.0.1)
 
 # 
 
-# ╭──────────────────────────────────────2. Canonical Links not version safe───────────────────────╮
-# |CDS Hooks 1.0 and 2.0 are published at 'https://cds-hooks.hl7.org/'. It's intentional for the   |
-# |  CDS Hooks IG to link to the most recent published CDS Hooks Library IG. This is the same      |
-# |  behavior that base FHIR references the FHIR Extensions Pack (base R5 points to the most recent| 
-# |  extensions IG version, not the IG version published at the time of time).
-# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-The link 'https://cds-hooks.hl7.org' for "https://cds-hooks.hl7.org" is a canonical link and is therefore unsafe with regard to versions
+# ╭──────────────────────────────────────2. Canonical Links not version safe───────────────────────╮\r |CDS Hooks 1.0 and 2.0 are published at 'https://cds-hooks.hl7.org/'. It's intentional for the   |\r |  CDS Hooks IG to link to the most recent published CDS Hooks Library IG. This is the same      |\r |  behavior that base FHIR references the FHIR Extensions Pack (base R5 points to the most recent|\r |  extensions IG version, not the IG version published at the time of time).\r ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+The link 'https://cds-hooks.hl7.org' for "http://cds-hooks.hl7.org" is a canonical link and is therefore unsafe with regard to versions
