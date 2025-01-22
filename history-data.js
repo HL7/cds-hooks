@@ -10,7 +10,6 @@ var pageJSON = '{
 				"path":"http://build.fhir.org/ig/HL7/cds-hooks",
 				"status":"ci-build",
 				"sequence":"ci-build"
-				"fhirversion":"4.0.1",
 				"current":true
 			},{
 				"version":"2.0.1",
