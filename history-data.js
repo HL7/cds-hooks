@@ -18,7 +18,8 @@ var pageJSON = '{
 				"fhirversion":"4.0.1",
 				"date":"2025-01-30",
 				"desc":"CDS Hooks STU2 Errata Publication",
-				"changes":"Move specification from bespoke to HL7 FHIR publishing mechanism."
+				"changes":"Move specification from bespoke to HL7 FHIR publishing mechanism.",
+				"current": true
 			},{
 				"version":"2.0.0",
 				"path":"https://cds-hooks.hl7.org/2.0",
