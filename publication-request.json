@@ -10,7 +10,6 @@
     "first": true,
     "title": "CDS Hooks Specification",
     "ci-build": "http://build.fhir.org/ig/HL7/cds-hooks",
-    "canonical": "http://cds-hooks.hl7.org",
     "category": "Clinical Decision Support",
     "introduction": "The CDS Hooks specification describes the RESTful APIs and interactions using JSON over HTTPS to integrate Clinical Decision Support (CDS) between CDS Clients (typically Electronic Health Record Systems (EHRs) or other health information systems) and CDS Services."
 }
