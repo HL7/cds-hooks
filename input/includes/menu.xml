@@ -2,13 +2,16 @@
 
 <ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
   <li>
-    <a href="index.html">Home</a>
+    <a href="index.html">CDS Hooks</a>
   </li>
   <li class="dropdown">
     <a data-toggle="dropdown" href="#" class="dropdown-toggle">Hook Library
       <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
+      <li>
+        {% include relative-link.html link="index.html" title="Overview" %}
+      </li>
       <li>
         {% include relative-link.html link="allergyintolerance-create.html" title="allergyintolerance-create (1)" %}
       </li>
