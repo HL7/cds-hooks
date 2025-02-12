@@ -2,10 +2,10 @@
 
 CDS Hooks is an HL7 published specification for clinical decision support. Releases of the specification have been formally published through HL7.
 
-Hook definitions are linked from CDS Hooks the specification. Note that hook definitions are not part of the CDS Hooks specification, they are independent specifications that follow the Hook Maturity Model. Hooks are published by HL7. Published and balloted hooks can be found at the current url. Hook version history is documented in each hook specification. 
+Hook definitions are linked from the CDS Hooks specification. Note that hook definitions are not part of the CDS Hooks specification, they are independent specifications that follow the Hook Maturity Model. Hooks are published by HL7. Published and balloted hooks can be found at the current url. Hook version history is documented in each hook specification. 
 
 #### CDS Hooks 2.0.1
-CDS Hooks 2.0.1 is an errata release which makes no substantive changes from the CDS Hooks 2.0.0 release, but rather changes the publications look & feel by moving from a bespoke, project-specific publishing mechanism to the typical HL7 FHIR IG Publisher infrastructure. 
+CDS Hooks 2.0.1 is an errata release which makes no substantive changes from the CDS Hooks 2.0.0 release, but rather changes the publication's look & feel by moving from a bespoke, project-specific publishing mechanism to the typical HL7 FHIR IG Publisher infrastructure. 
 
 #### CDS Hooks 2.0.0 Release
 
