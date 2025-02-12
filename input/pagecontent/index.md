@@ -1212,7 +1212,9 @@ In summary, context is specified in the hook definition to guide developers on t
 
 Hooks are defined in the following format.
 
-#### `hook-name-expressed-as-noun-verb`
+#### Hook name is expressed as noun-verb
+
+Hook names should follow the pattern: `noun-verb`.
 
 The name of the hook SHOULD succinctly and clearly describe the activity or event. Hook names are unique so hook creators SHOULD take care to ensure newly proposed hooks do not conflict with an existing hook name. Hook creators SHALL name their hook with reverse domain notation (e.g. `org.example.patient-transmogrify`) if the hook is specific to an organization. Reverse domain notation SHALL not be used by a standard hooks catalog.
 
