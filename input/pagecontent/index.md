@@ -2,12 +2,6 @@
 
 <!-- ![CDS Hooks Overview](../images/logo.png) -->
 
-<p style="padding: 5px; border-radius: 5px; border: 2px solid maroon; background: #ffffe6; max-width: 790px" markdown="1">
-<b>Continuous Improvement Build</b>
-<br>
-This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).
-</p>
-
 ### Intellectual Property Statements
 
 CDS Hooks is the copyright of HL7 International and Boston Children's Hospital. The CDS Hooks specification is licensed under a Creative Commons Attribution 4.0 International License. All source code for CDS Hooks is available at [https://github.com/cds-hooks](https://github.com/cds-hooks).
