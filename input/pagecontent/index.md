@@ -2,12 +2,6 @@
 
 <!-- ![CDS Hooks Overview](../images/logo.png) -->
 
-<p style="padding: 5px; border-radius: 5px; border: 2px solid maroon; background: #ffffe6; max-width: 790px" markdown="1">
-<b>Continuous Improvement Build</b>
-<br>
-This is the continuous integration, community release of the CDS Hooks specification. All stable releases are available at [https://cds-hooks.hl7.org](https://cds-hooks.hl7.org).
-</p>
-
 ### Intellectual Property Statements
 
 CDS Hooks is the copyright of HL7 International and Boston Children's Hospital. The CDS Hooks specification is licensed under a Creative Commons Attribution 4.0 International License. All source code for CDS Hooks is available at [https://github.com/cds-hooks](https://github.com/cds-hooks).
@@ -1212,7 +1206,9 @@ In summary, context is specified in the hook definition to guide developers on t
 
 Hooks are defined in the following format.
 
-#### `hook-name-expressed-as-noun-verb`
+#### Hook name is expressed as noun-verb
+
+Hook names should follow the pattern: `noun-verb`.
 
 The name of the hook SHOULD succinctly and clearly describe the activity or event. Hook names are unique so hook creators SHOULD take care to ensure newly proposed hooks do not conflict with an existing hook name. Hook creators SHALL name their hook with reverse domain notation (e.g. `org.example.patient-transmogrify`) if the hook is specific to an organization. Reverse domain notation SHALL not be used by a standard hooks catalog.
 
