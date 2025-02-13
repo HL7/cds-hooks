@@ -4,7 +4,7 @@
 
 ### Intellectual Property Statements
 
-CDS Hooks is the copyright of HL7 International and Boston Children's Hospital. The CDS Hooks specification is licensed under a Creative Commons Attribution 4.0 International License. All source code for CDS Hooks is available at [https://github.com/cds-hooks](https://github.com/cds-hooks).
+The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and Boston Children's Hospital. The specification is licensed under a Creative Commons Attribution 4.0 International License. 
 
 <!-- IGs that don't define resources can hide these in a div tag, see https://chat.fhir.org/#narrow/channel/179252-IG-creation/topic/Orphaned.20xhtml.20fragments.3F/near/370612006 -->
 
@@ -20,12 +20,20 @@ CDS Hooks is the copyright of HL7 International and Boston Children's Hospital. 
 
 ### Overview
 
-This specification describes a
-["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking
+This HL7 CDS Hooks Implementation Guide is published at the level of [Standard 
+for Trial Use](https://hl7.org/fhir/versions.html#std-process). It describes 
+a ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking 
 decision support from within a clinician's workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
  * Launching a user-facing SMART app when CDS requires additional interaction
+
+The companion [HL7 CDS Hooks Library](https://cds-hooks.hl7.org/hooks) contains 
+specifications of industry standardized clinical workflow steps used by systems 
+conforming to this guide. While changes to this guide become infrequent and 
+tightly constrained, new hooks will continue to be specified and matured in the Library.
+
+See [https://cds-hooks.org/](https://cds-hooks.org/) for additional information, resources and ways to get involved.
 
 ### Conformance Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119). Further, the key word "CONDITIONAL" indicates that a particular item is either REQUIRED or OPTIONAL, based upon another item.
