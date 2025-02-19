@@ -312,7 +312,7 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
 
->REWRITE: Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
+>TODO need to REWRITE: Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
 
 
 
