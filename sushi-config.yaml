@@ -70,6 +70,8 @@ parameters:
   excludettl: true
 #  validation: [allow-any-extensions, no-broken-links]
   shownav: true
+  related-ig: module:library=hl7.fhir.uv.cds-hooks-library
+
 #  logging: html
 
 # ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
