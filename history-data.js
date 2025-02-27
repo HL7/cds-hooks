@@ -31,7 +31,7 @@ var pageJSON = `{
 			"fhirversion": "4.0.1",
 			"date": "2022-09-16",
 			"desc": "CDS Hooks STU2",
-			"changes": "<todo>"
+			"changes": "The 2.0 Release added new a number of enhancements, including: system actions, seedback support and override reasons. See the Change Log for full details."
 		},
 		{
 			"version": "1.1.0",
@@ -41,7 +41,7 @@ var pageJSON = `{
 			"fhirversion": "4.0.1",
 			"date": "2020-09-01",
 			"desc": "CDS Hooks STU2 Ballot v1.1",
-			"changes": "<todo>"
+			"changes": "CDS Hooks v1.1 was published as 2.0.0. See Change Log."
 		},
 		{
 			"version": "1.0.0",
