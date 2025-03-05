@@ -30,8 +30,8 @@ extension:
     valueCode: cds  # <<< The value must be the code for the workgroup
   - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status
     valueCode: trial-use
-#  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm
-#    valueCode: 5
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm
+    valueInteger: 5
 
 # The dependencies property corresponds to IG.dependsOn. The key is the
 # package id and the value is the version (or dev/current). For advanced
