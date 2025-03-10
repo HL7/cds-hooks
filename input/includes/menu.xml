@@ -10,43 +10,43 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        {% include relative-link.html link="index.html" title="Overview" %}
+        <a href="{{site.data.related.library.link}}/index.html">Overview</a>
       </li>
       <li>
-        {% include relative-link.html link="allergyintolerance-create.html" title="allergyintolerance-create (1)" %}
+        <a href="{{site.data.related.library.link}}/allergyintolerance-create.html">allergyintolerance-create (1)</a>
       </li>
       <li>
-        {% include relative-link.html link="appointment-book.html" title="appointment-book (1)" %}
+        <a href="{{site.data.related.library.link}}/appointment-book.html">appointment-book (1)</a>
       </li>
       <li>
-        {% include relative-link.html link="encounter-discharge.html" title="encounter-discharge (1)" %}
+        <a href="{{site.data.related.library.link}}/encounter-discharge.html">encounter-discharge (1)</a>
       </li>
       <li>
-        {% include relative-link.html link="encounter-start.html" title="encounter-start (1)" %}
+        <a href="{{site.data.related.library.link}}/encounter-start.html">encounter-start (1)</a>
       </li>
       <li>
-        {% include relative-link.html link="medication-refill.html" title="medication-refill (1)" %}
+        <a href="{{site.data.related.library.link}}/medication-refill.html">medication-refill (1)</a>
       </li>
       <li>
-        {% include relative-link.html link="order-dispatch.html" title="order-dispatch (0)" %}
+        <a href="{{site.data.related.library.link}}/order-dispatch.html">order-dispatch (0)</a>
       </li>
       <li>
-        {% include relative-link.html link="order-select.html" title="order-select (4)" %}
+        <a href="{{site.data.related.library.link}}/order-select.html">order-select (4)</a>
       </li>
       <li>
-        {% include relative-link.html link="order-sign.html" title="order-sign (5)" %}
+        <a href="{{site.data.related.library.link}}/order-sign.html">order-sign (5)</a>
       </li>
       <li>
-        {% include relative-link.html link="patient-view.html" title="patient-view (5)" %}
+        <a href="{{site.data.related.library.link}}/patient-view.html">patient-view (5)</a>
       </li>
       <li>
-        {% include relative-link.html link="problem-list-item-create.html" title="problem-list-item-create (1)" %}
+        <a href="{{site.data.related.library.link}}/problem-list-item-create.html">problem-list-item-create (1)</a>
       </li>
       <li>
-        {% include relative-link.html link="medication-prescribe.html" title="medication-prescribe (deprecated)" %}
+        <a href="{{site.data.related.library.link}}/medication-prescribe.html">medication-prescribe (deprecated)</a>
       </li>
       <li>
-        {% include relative-link.html link="order-review.html" title="order-review (deprecated)" %}
+        <a href="{{site.data.related.library.link}}/order-review.html">order-review (deprecated)</a>
       </li>
     </ul>
   </li>
