@@ -28,7 +28,7 @@ decision support from within a clinician's workflow. The API supports:
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
  * Launching a user-facing SMART app when CDS requires additional interaction
 
-The companion [HL7 CDS Hooks Library](https://cds-hooks.hl7.org/hooks) contains 
+The companion [HL7 CDS Hooks Library]({{site.data.related.library.link}}) contains 
 specifications of industry standardized clinical workflow steps used by systems 
 conforming to this guide. While changes to this guide become infrequent and 
 tightly constrained, new hooks will continue to be specified and matured in the Library.
