@@ -348,6 +348,125 @@ For example, a prefetch template could specify all Lab results within the last 9
 Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=laboratory&date=gt2024-06-15
 ```
 
+###### Simpler FHIRPath support for Querystring Syntax
+
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as sign-order's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html).
+
+CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
+
+>TODO need to REWRITE: Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
+
+The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
+
+CDS Clients that support prefetch, SHOULD support:
+- Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
+- the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for "concrete core types",
+- and the `id()` function.-
+
+Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
+
+Specific to CDS Hooks, the `id()` function accepts a collection of References and returns FHIR `Reference.reference` values as FHIR `Resource.id` to enable their use in prefetch template querystrings. (For example, the CDS Client transforms "Medication/123" to "123"). Note that only some FHIR SearchParameters require these "bare" FHIR IDs.  
+
+> Note on search parameter data types
+> FHIR search parameter definitions declare the specific [data types](https://www.hl7.org/fhir/R4/search.html#ptypes) accepted. Use of the `id()` function is specifically intended to satisfy search parameters that accept the [`token`](https://www.hl7.org/fhir/R4/search.html#token) data type (for example, `Medication?_id=Medication/123` is not valid, `Medication?_id=123` is valid). Other search parameters require a [`reference`](https://www.hl7.org/fhir/R4/search.html#reference).
+
+
+
+See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
+
+
+###### Example Prefetch Template with Simpler FHIRPath
+
+To prefetch the Medications being prescribing, as well as upcoming appointments, a prefetch template of: 
+
+```json
+{
+  "prefetch": {
+    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).medication.resolve().id"}},
+    "prescriber" : "Practitioner?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).requester.resolve().ofType(Practitioner).id"}}
+    "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days"}}
+  }
+}
+```
+
+and a CDS Hooks order-sign request with the following two MedicationRequests in context:
+
+```json
+"context": {
+    "patientId": "eXoGxqgBaJuNkuahMYmiDhg3",
+    "encounterId": "eAJ9U5Zv9Vzeg4lBWxmAQcItP6nlidE0QacJVtVudEQ43",
+    "userId": "PractitionerRole/e-QokEGUJIzyynNdkCFrs9w3",
+    "draftOrders": {
+      "resourceType": "Bundle",
+      "type": "collection",
+      "entry": [
+        {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "ez067mnwOAKP5z1.YJwRAsd9gCwdOzQ8wSrsM04QFoz882hxQZKBulF4smVj2SxHWfesiTZ1qsgBez8Rdeb2GpbWYuU.L0KkOqiZSgl2GBPFYUucdOKx53adK51FHbIL.9fyjChlCongwxq0kmbsAb63ITW14qpRUnm2l2PXADxvuolXYdkN80RBgyQwLK2O33",
+            "status": "draft",
+            "intent": "order",
+            "category": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                    "code": "inpatient",
+                    "display": "Inpatient"
+                  }
+                ],
+                "text": "Inpatient"
+              }
+            ],
+            "medicationReference": {
+              "reference": "Medication/eVBXvKwrWZIkPmaGwY.s1hQ3",
+              "display": "DEXTROMETHORPHAN HBR 15 MG/5ML PO SYRP"
+            },
+            "subject": {
+              "reference": "Patient/eXoGxqgBaJuNkuahMYmiDhg3",
+              "display": "Post, Titus"
+            }
+          }
+        },
+        {
+          "resource": {
+            "resourceType": "MedicationRequest",
+            "id": "ez067mnwOAKP5z1.YJwRAsfY.5YNxZJJDzDQrJbuKBDbIp.vKaSouyn36H4Tc6-z2y9h2OU5FqxVeqUHFJRpGe4BxmHoRsVJB9GLVkHUmLPX-LyD02h3sLRMgK9uFNRU73KWgj0Tmeqi8Y.vVgy-6vka7hpwQHl1zLGD2OaLJ9rJfzfKH89zl25piLYkeGQMz3",
+            "status": "draft",
+            "intent": "order",
+            "category": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                    "code": "inpatient",
+                    "display": "Inpatient"
+                  }
+                ],
+                "text": "Inpatient"
+              }
+            ],
+            "medicationReference": {
+              "reference": "Medication/emvpHliA4OaUxXJ4wp6N.Ig3",
+              "display": "MERCAPTOPURINE 50 MG PO TABS"
+            },
+            "subject": {
+              "reference": "Patient/eXoGxqgBaJuNkuahMYmiDhg3",
+              "display": "Post, Titus"
+            }
+          }
+        }
+      ]
+    }
+  }
+```
+
+Given the above prefetch template, and context, the CDS Client is asked to provide the results of these two FHIR queries: 
+* `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
+* `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
+
+
+
 
 
 ##### Prefetch query restrictions
