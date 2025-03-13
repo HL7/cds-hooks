@@ -320,6 +320,35 @@ Token | Description
 
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
+##### Prefetch tokens containing Simpler FHIRPath
+
+To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](https://build.fhir.org/ig/HL7/cds-hooks/#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
+* a relative date variable formatted as the FHIRPath today() function, 
+* a FHIRPath variable that traverses into a complex json object provided in context.
+
+###### Simple FHIRPath for Relative Dates
+
+A best practice is to target information retrieved during a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
+* the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
+* [additon](https://hl7.org/fhirpath/N1/index.html#addition-2) and [substraction](https://hl7.org/fhirpath/N1/index.html#subtraction-2) of quantity unit [`days`](https://hl7.org/fhirpath/N1/index.html#datetime-arithmetic),
+* and the [`gt` and `lt` FHIR search prefixes](https://www.hl7.org/fhir/R4/search.html#prefix) for [date search parameters](https://www.hl7.org/fhir/R4/search.html#date).
+
+For example, a prefetch template could specify all Lab results within the last 90 days, like so:
+
+```json
+{
+  "prefetch": {
+    "user": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&category=laboratory&date=gt{% raw  %}{{{% endraw  %}today() - 90 days}}
+  }
+}
+```
+
+(If today is 2024-09-13) prefetch would contain a Bundle of Observations from this FHIR query: 
+```
+Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=laboratory&date=gt2024-06-15
+```
+
+
 
 ##### Prefetch query restrictions
 
