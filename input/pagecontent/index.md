@@ -324,7 +324,6 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
 * a relative date variable formatted as the FHIRPath today() function, 
-* a FHIRPath variable that traverses into a complex json object provided in context.
 
 ###### Simple FHIRPath for Relative Dates
 
