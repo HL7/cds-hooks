@@ -330,7 +330,6 @@ To enable great clinical user experience, guidance from CDS Services should be d
 A best practice is to target information retrieved during a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
 * the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
 * [addition](https://hl7.org/fhirpath/N1/index.html#addition-2) and [subtraction](https://hl7.org/fhirpath/N1/index.html#subtraction-2) of quantity unit [`days`](https://hl7.org/fhirpath/N1/index.html#datetime-arithmetic),
-* and the [`gt` and `lt` FHIR search prefixes](https://www.hl7.org/fhir/R4/search.html#prefix) for [date search parameters](https://www.hl7.org/fhir/R4/search.html#date).
 
 For example, a prefetch template could specify all Lab results within the last 90 days, like so:
 
