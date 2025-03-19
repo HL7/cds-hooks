@@ -1168,7 +1168,7 @@ As another example, an extension defined on the discovery response could look li
       "hook": "patient-view",
       "id": "patientview",
       "prefetch": {
-        "patient": "Patient/{{context.patientId}}"
+        "patient": "Patient/{% raw  %}{{{% endraw  %}context.patientId}}"
       },
       "description": "clinical decision support for patient view",
       "extension": {
@@ -1225,7 +1225,7 @@ Alternatively, a CDS Service may need the full patient resource in certain scena
 
 ```json
 "prefetch": {
-  "patientToGreet": "Patient/{{context.patientId}}"
+  "patientToGreet": "Patient/{% raw  %}{{{% endraw  %}context.patientId}}"
 }
 ```
 
