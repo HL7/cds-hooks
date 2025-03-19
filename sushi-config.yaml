@@ -8,8 +8,8 @@ canonical: http://cds-hooks.hl7.org
 name: CDSHooks
 title: CDS Hooks
 description: CDS Hooks describes a "hook"-based pattern for invoking decision support from within a clinician's workflow.
-status: active # draft | active | retired | unknown
-version: 2.0.1
+status: draft # draft | active | retired | unknown
+version: 3.0.0-cibuild
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2019+
 copyrightLabel: "HL7 & Boston Children's Hospital"
