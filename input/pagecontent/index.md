@@ -344,7 +344,7 @@ For example, a prefetch template could specify all Lab results within the last 9
 
 (If today is 2024-09-13) prefetch would contain a Bundle of Observations from this FHIR query: 
 ```
-Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=laboratory&date=gt2024-06-15
+Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 ```
 
 
