@@ -50,7 +50,10 @@
       </li>
     </ul>
   </li>
-    <li>
+  <li>
+    <a href="cds-on-fhir.html">CDS on FHIR</a>
+  </li>
+  <li>
     <a href="changes.html">Change Log</a>
   </li>
   <li>

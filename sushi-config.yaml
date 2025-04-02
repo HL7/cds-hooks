@@ -59,6 +59,8 @@ extension:
 pages:
   index.md:
     title: Home
+  cds-on-fhir.md:
+    title: CDS on FHIR
   changes.md:
     title: Change Log
   downloads.md:
