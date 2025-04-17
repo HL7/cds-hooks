@@ -737,7 +737,7 @@ The intent of this optional feature is to improve individual user experience by 
 The CDS Client ultimately determines if a link can be automatically launched, taking into consideration user interface needs, workflow considerations, or even absence of support for this optional feature. If a CDS Hooks response contains guidance in addition to an autolaunchable link, it's the CDS Service's responsibility to ensure that any decision support that exists in the CDS Hooks response's card(s) is communicated via the launched app.
 
 ##### System Action
-A `systemAction` is the same **[Action](#action)** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
+A `systemAction` shares all elements with an **[Action](#action)** except that its `description` is optional. Unlike regular Actions that appear within suggestions, System Actions are returned separately alongside the array of cards. These actions aren't displayed to users in cards and can be automatically applied without requiring user intervention.
 
 ```json
 {
