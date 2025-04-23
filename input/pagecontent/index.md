@@ -650,7 +650,7 @@ Each **Action** is described by the following attributes.
 Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `type` |  REQUIRED | *string* | The type of action being performed. Allowed values are: `create`, `update`, `delete`.
-`description` | REQUIRED | *string* | Human-readable description of the suggested action MAY be presented to the end-user.
+`description` | REQUIRED | *string* | Human-readable description of the suggested action MAY be presented to the end-user. (Note that `description` is optional for `[systemAction](#system-action)`).
 `resource` | CONDITIONAL | *object* | A FHIR resource. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created.  For `update`, this holds the updated resource in its entirety and not just the changed fields. Use of this field to communicate a string of a FHIR id for delete suggestions is DEPRECATED and `resourceId` SHOULD be used instead.
 `resourceId` | CONDITIONAL | *string* | A relative reference to the relevant resource. SHOULD be provided when the `type` attribute is `delete`.
 {:.grid}
@@ -737,7 +737,7 @@ The intent of this optional feature is to improve individual user experience by 
 The CDS Client ultimately determines if a link can be automatically launched, taking into consideration user interface needs, workflow considerations, or even absence of support for this optional feature. If a CDS Hooks response contains guidance in addition to an autolaunchable link, it's the CDS Service's responsibility to ensure that any decision support that exists in the CDS Hooks response's card(s) is communicated via the launched app.
 
 ##### System Action
-A `systemAction` is the same **[Action](#action)** which may be returned in a suggestion, but is instead returned alongside the array of cards. A `systemAction` is not presented to the user within a card, but rather may be auto-applied without user intervention.
+A `systemAction` shares all elements with an **[Action](#action)** except that its `description` is optional. Unlike regular Actions that appear within suggestions, System Actions are returned separately alongside the array of cards. These actions aren't displayed to users in cards and can be automatically applied without requiring user intervention.
 
 ```json
 {
