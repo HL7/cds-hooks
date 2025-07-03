@@ -843,13 +843,17 @@ A `systemAction` shares all elements with an **[Action](#action)** except that i
 }
 ```
 
-### Errors
+#### Returning OperationOutcome
 
-In the event that a successful response can't be produced, the CDS service MAY/Should provide an OperationOutcome for internal issue tracking and troubleshooting by the client system in addition to the HTTP status code.
+In the event that a successful response can't be produced, the CDS service SHOULD provide an OperationOutcome for internal issue tracking and troubleshooting by the client system in addition to the HTTP status code.
+
+##### Example
 
 An EHR reaches the order-select hook as a provider is adding medications to an order set.
 Your CDS service needs the patient’s active AllergyIntolerance list (prefetch key patientAllergies) to check for contraindications.
 If that bundle element is missing, the service responds with HTTP 422 and the following FHIR OperationOutcome.
+
+> Example response
 
 ```json
 {
@@ -870,7 +874,6 @@ If that bundle element is missing, the service responds with HTTP 422 and the fo
   ]
 }
 ```
-
 
 ### Feedback
 
