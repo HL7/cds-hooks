@@ -843,6 +843,35 @@ A `systemAction` shares all elements with an **[Action](#action)** except that i
 }
 ```
 
+### Errors
+
+In the event that a successful response can't be produced, the CDS service MAY/Should provide an OperationOutcome for internal issue tracking and troubleshooting by the client system in addition to the HTTP status code.
+
+An EHR reaches the order-select hook as a provider is adding medications to an order set.
+Your CDS service needs the patient’s active AllergyIntolerance list (prefetch key patientAllergies) to check for contraindications.
+If that bundle element is missing, the service responds with HTTP 422 and the following FHIR OperationOutcome.
+
+```json
+{
+  "resourceType": "OperationOutcome",
+  "id": "missing-allergies",
+  "issue": [
+    {
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "text": "Cannot evaluate order-select guidance: no AllergyIntolerance resources supplied."
+      },
+      "diagnostics": "CDS Hooks prefetch key 'patientAllergies' was absent or empty.",
+      "expression": [
+        "Bundle.entry.resource.ofType(AllergyIntolerance)"
+      ]
+    }
+  ]
+}
+```
+
+
 ### Feedback
 
 Once a CDS Hooks Service responds to a hook by returning a card, the service has no further interaction with the CDS Client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics. A CDS Service MAY support a feedback endpoint; a CDS Client SHOULD be capable of sending feedback.
