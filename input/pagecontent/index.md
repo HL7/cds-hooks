@@ -42,6 +42,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 All data exchanged through production RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
 
+JSON comments and trailing commas SHOULD NOT be transmitted as they are not part of the JSON specification.
+
 **Null and empty JSON elements**
 
 * JSON elements SHALL NOT be null, unless otherwise specified.
@@ -183,7 +185,7 @@ Field | Optionality | Type | Description
 
 While working in the CDS Client, a user can perform multiple actions in series or in parallel. For example, a clinician might prescribe two drugs in a row; each prescription action would be assigned a unique `hookInstance`. This allows a CDS Service to uniquely identify each hook invocation.
 
-Note: the `hookInstance` is globally unique and should contain enough entropy to be un-guessable.
+Note: the `hookInstance` is globally unique and SHOULD contain enough entropy to be un-guessable.
 
 #### Example
 
@@ -275,9 +277,9 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates). 
 
-> Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
+> Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
-The CDS Client MUST NOT send any prefetch template key that it chooses not to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) SHOULD be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients MUST omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services SHOULD check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. In case the prefetch url is a single-resource request, the search result may be __null__, otherwise it is a search and could be a bundle with zero entries.
+The CDS Client determines which prefetch template keys to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) SHOULD be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients MUST omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services SHOULD check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. In case the prefetch url is a single-resource request, the search result may be __null__, otherwise it is a search and could be a bundle with zero entries.
 
 It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to programmatically retrieve any additional necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
 
