@@ -33,6 +33,8 @@ specifications of industry standardized clinical workflow steps used by systems
 conforming to this guide. While changes to this guide become infrequent and 
 tightly constrained, new hooks will continue to be specified and matured in the Library.
 
+Well-tuned implementations improve patient safety and clinician efficiency; poorly tuned ones can amplify cognitive load and alert fatigue. Optimising human factors is therefore an active research area outside the scope of this specification.
+
 See [https://cds-hooks.org/](https://cds-hooks.org/) for additional information, resources and ways to get involved.
 
 ### Conformance Language
