@@ -26,7 +26,7 @@ a ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking
 decision support from within a clinician's workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
- * Launching a user-facing SMART app when CDS requires additional interaction
+ * Launching a user-facing  app when CDS requires additional interaction
 
 The companion [HL7 CDS Hooks Library]({{site.data.related.library.link}}) contains 
 specifications of industry standardized clinical workflow steps used by systems 
@@ -60,7 +60,7 @@ decision support from within a clinician's workflow. The API supports:
 
 * Synchronous, workflow-triggered CDS calls returning information and suggestions
 * Launching a web page to provide additional information to the user
-* Launching a user-facing SMART app when CDS requires additional interaction
+* Launching a user-facing  app when CDS requires additional interaction
 
 The main concepts of the specification are Services, CDS Clients, and Cards.
 
@@ -509,7 +509,7 @@ Note that the missing `diabetes-type2` key indicates that either the CDS Client 
 
 #### FHIR Resource Access
 
-If the CDS Client provides both `fhirServer` and `fhirAuthorization` request parameters, the CDS Service MAY use the FHIR server to obtain any FHIR resources for which it's authorized, beyond those provided by the CDS Client as prefetched data. This is similar to the approach used by SMART on FHIR wherein the SMART app requests and ultimately obtains an access token from the CDS Client's Authorization server using the SMART launch workflow, as described in [SMART App Launch Implementation Guide](http://hl7.org/fhir/smart-app-launch/1.0.0/).
+If the CDS Client provides both `fhirServer` and `fhirAuthorization` request parameters, the CDS Service MAY use the FHIR server to obtain any FHIR resources for which it's authorized, beyond those provided by the CDS Client as prefetched data. This is similar to the approach used by SMART on FHIR wherein the SMART app requests and ultimately obtains an access token from the CDS Client's Authorization server using the SMART launch workflow, as described in [SMART App Launch Implementation Guide](https://hl7.org/fhir/smart-app-launch/index.html).
 
 Like SMART on FHIR, CDS Hooks requires that CDS Services present a valid access token to the FHIR server with each API call. Thus, a CDS Service requires an access token before communicating with the CDS Client's FHIR resource server. While CDS Hooks shares the underlying technical framework and standards as SMART on FHIR, the CDS Hooks workflow MUST accommodate the automated, low-latency delivery of an access token to the CDS service.
 
@@ -532,7 +532,7 @@ Field | Optionality | Type | Description
 'patient` | CONDITIONAL | *string* | If the granted SMART scopes include patient scopes (i.e. "patient/"), the access token is restricted to a specific patient. This field SHOULD be populated to identify the FHIR id of that patient.
 {:.grid}
 
-The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/).
+The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](https://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html).
 
 The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token MUST be treated as a transient value by the CDS Service. CDS Clients SHOULD revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token.
 
@@ -728,7 +728,7 @@ Field | Optionality | Type | Description
 `label`| REQUIRED | *string* | Human-readable label to display for this link (e.g. the CDS Client might render this as the underlined text of a clickable link).
 `url` | REQUIRED | *URL* | URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this MAY be a "deep link" with context embedded in path segments, query parameters, or a hash.
 `type` | REQUIRED | *string* | The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
-`appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0](https://oauth.net/2/) access token response, alongside the other [SMART launch parameters](http://hl7.org/fhir/smart-app-launch/1.0.0/scopes-and-launch-context/#launch-context-arrives-with-your-access_token) when the SMART app is launched. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it. CDS Client support for `appContext` requires additional coordination with the authorization server that is not described or specified in CDS Hooks nor SMART.
+`appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0](https://oauth.net/2/) access token response, alongside the other [SMART launch parameters](https://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#launch-context-arrives-with-your-access_token) when the SMART app is launched. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it. CDS Client support for `appContext` requires additional coordination with the authorization server that is not described or specified in CDS Hooks nor SMART.
 `autolaunchable` | OPTIONAL | *boolean* |  This field serves as a hint to the CDS Client suggesting this link be immediately launched, without displaying the card and without manual user interaction.  Note that CDS Hooks cards which contain links with this field set to true, may not be shown to the user.  Sufficiently advanced CDS Clients may support automatically launching multiple links or multiple cards. Implementer guidance is requested to determine if the specification should preclude these advanced scenarios.
 {:.grid}
 
