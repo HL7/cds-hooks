@@ -377,7 +377,7 @@ See [worked example, below](#example-prefetch-template-with-simpler-fhirpath).
 
 ###### Example Prefetch Template with Simpler FHIRPath
 
-To prefetch the Medications being prescribing, as well as upcoming appointments, a prefetch template of: 
+To prefetch the Medications being prescribed, as well as upcoming appointments, a prefetch template of: 
 
 ```json
 {
