@@ -26,7 +26,7 @@ a ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking
 decision support from within a clinician's workflow. The API supports:
 
  * Synchronous, workflow-triggered CDS calls returning information and suggestions
- * Launching a user-facing  app when CDS requires additional interaction
+ * Launching a user-facing app when CDS requires additional interaction
 
 The companion [HL7 CDS Hooks Library]({{site.data.related.library.link}}) contains 
 specifications of industry standardized clinical workflow steps used by systems 
