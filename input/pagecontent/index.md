@@ -60,7 +60,7 @@ decision support from within a clinician's workflow. The API supports:
 
 * Synchronous, workflow-triggered CDS calls returning information and suggestions
 * Launching a web page to provide additional information to the user
-* Launching a user-facing  app when CDS requires additional interaction
+* Launching a user-facing app when CDS requires additional interaction
 
 The main concepts of the specification are Services, CDS Clients, and Cards.
 
