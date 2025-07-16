@@ -281,6 +281,73 @@ The resulting response is passed along to the CDS Service using the `prefetch` 
 
 > Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
+Below is an example of pagination:
+```json
+{
+    "hook": "order-sign",
+    "hookInstance": "4a74b1d0-4fee-4d18-b76f-7f3bd361e4bc",
+    "fhirServer": "https://ehr.example.org/fhir",
+    "context": {
+        "userId": "PractitionerRole/123",
+        "patientId": "1288992",
+        "encounterId": "89284",
+        "draftOrders": {
+            "resourceType": "Bundle",
+            "type": "collection",
+            "entry": [
+                {
+                    "resource": {
+                        "resourceType": "MedicationRequest",
+                        "id": "draft‑rx‑1",
+                        "status": "draft",
+                        "intent": "order",
+                        "medicationCodeableConcept": {
+                            "text": "Amoxicillin 500 mg tablet"
+                        },
+                        "subject": {
+                            "reference": "Patient/1288992"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "prefetch": {
+        "orders": {
+            "resourceType": "Bundle",
+            "type": "searchset",
+            "total": 2,
+            "link": [
+                {
+                    "relation": "self",
+                    "url": "https://ehr.example.org/fhir/MedicationRequest?patient=1288992&_count=1&_page=1"
+                },
+                {
+                    "relation": "next",
+                    "url": "https://ehr.example.org/fhir/MedicationRequest?patient=1288992&_count=1&_page=2"
+                }
+            ],
+            "entry": [
+                {
+                    "resource": {
+                        "resourceType": "MedicationRequest",
+                        "id": "rx‑page‑1‑01",
+                        "status": "active",
+                        "intent": "order",
+                        "medicationCodeableConcept": {
+                            "text": "Metformin 500 mg tablet"
+                        },
+                        "subject": {
+                            "reference": "Patient/1288992"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
 The CDS Client determines which prefetch template keys to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) SHOULD be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients MUST omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services SHOULD check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. In case the prefetch url is a single-resource request, the search result may be __null__, otherwise it is a search and could be a bundle with zero entries.
 
 It is the CDS Service's responsibility to check prefetched data against its template to determine what requests were satisfied (if any) and to programmatically retrieve any additional necessary data. If the CDS Service is unable to obtain required data because it cannot access the FHIR server and the request did not contain the necessary prefetch keys, the service SHALL respond with an HTTP 412 Precondition Failed status code.
