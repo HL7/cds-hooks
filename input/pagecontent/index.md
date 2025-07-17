@@ -598,7 +598,7 @@ If that bundle element is missing, the service responds with HTTP 412 and the fo
 > Example OperationOutcome Resource
 
 ```http
-HTTP/1.1 400 OK
+HTTP/1.1 412 OK
 Content-Length: 438
 
 {
