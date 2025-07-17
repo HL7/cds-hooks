@@ -589,6 +589,41 @@ If your CDS Service has no decision support for the user, your service should re
 
 Clients SHOULD remove `cards` returned by previous invocations of a `hook` to a service with the same `id` when a new `hook` is triggered (see [*update stale guidance*](#update-stale-guidance)).
 
+#### Returning OperationOutcome 
+
+If a CDS Service encounters an error and returns a non-2xx HTTP status, the CDS Service SHOULD include an OperationOutcome resource in the response body to aid issue-tracking and troubleshooting. Typically, these errors are not shown to end-users. 
+
+##### Example
+
+An EHR reaches the order-select hook as a provider is adding medications to an order set.
+Your CDS service needs the patient’s active AllergyIntolerance list (prefetch key patientAllergies) to check for contraindications.
+If that bundle element is missing, the service responds with HTTP 412 and the following FHIR OperationOutcome.
+
+> Example OperationOutcome Resource
+
+```http
+HTTP/1.1 412 OK
+Content-Length: 438
+
+{
+  "resourceType": "OperationOutcome",
+  "id": "missing-allergies",
+  "issue": [
+    {
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "text": "Cannot evaluate order-select guidance: no AllergyIntolerance resources supplied."
+      },
+      "diagnostics": "CDS Hooks prefetch key 'patientAllergies' was absent or empty.",
+      "expression": [
+        "Bundle.entry.resource.ofType(AllergyIntolerance)"
+      ]
+    }
+  ]
+}
+```
+
 #### Card Attributes
 
 Each **Card** is described by the following attributes.
