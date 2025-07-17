@@ -597,7 +597,10 @@ If that bundle element is missing, the service responds with HTTP 412 and the fo
 
 > Example OperationOutcome Resource
 
-```json
+```http
+HTTP/1.1 400 OK
+Content-Length: 438
+
 {
   "resourceType": "OperationOutcome",
   "id": "missing-allergies",
