@@ -110,6 +110,7 @@ Field | Optionality | Type | Description
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
+`version`| RECOMMENDED | *string* | The version of the CDS Hooks specification implemented (STU1 | STU2 | STU3).
 {:.grid}
 
 Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*update stale guidance*](#update-stale-guidance).
@@ -1318,7 +1319,7 @@ Field | Optionality | Prefetch Token | Type | Description
 
 #### FHIR resources in context
 
-For context fields that may contain multiple FHIR resources, the field SHOULD be defined as a FHIR Bundle, rather than as an array of FHIR resources. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-sign` hook's `draftOrders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
+For context fields that may contain multiple FHIR resources, the field SHOULD be defined as a FHIR Bundle of type collection, rather than as an array of FHIR resources. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-sign` hook's `draftOrders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
 
 Often, context is populated with in-progress or in-memory data that may not yet be available from the FHIR server. For example, imagine a hook, `order-select` that is invoked when a user selects a medication during an order workflow. The context data for this hook would contain draft FHIR resources representing the medications that have been selected for ordering. In this case, the CDS Client should only provide these draft resources and not the full set of orders available from its FHIR server. The CDS service MAY pre-fetch or query for FHIR resources with other statuses.
 
