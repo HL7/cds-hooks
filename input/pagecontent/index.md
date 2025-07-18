@@ -165,6 +165,9 @@ curl "https://example.com/cds-services"
 }
 ```
 
+#### Service Configuration
+A CDS Client **MAY** supply additional configuration information to a CDS Service using existing mechanisms external to this specification.  
+[Configuration Options Extension](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension) from the HL7 Da Vinci CRD IG is one conformant approach to service‑level configuration
 
 ### Calling a CDS Service
 
