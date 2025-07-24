@@ -279,7 +279,9 @@ Regardless of how the CDS Client satisfies the prefetch templates (if at all), t
 
 The resulting response is passed along to the CDS Service using the `prefetch` parameter (see [below](#example-prefetch-templates). 
 
-> Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
+Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
+
+##### Example of Pagination in Prefetch 
 
 Below is an example of pagination:
 ```json
