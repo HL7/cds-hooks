@@ -75,6 +75,9 @@ A _CDS Client_ is an Electronic Health Record (EHR), or other clinical informati
 #### Cards
 Decision support is then returned to the CDS Client in the form of [_cards_](#cds-service-response), which the CDS Client MAY display to the end-user as part of their workflow. Cards may be informational, or they may provide suggestions that the user may accept or reject they may provide a [link](#link) to additional information or even launch a SMART app when additional user interaction is required.
 
+### Capability Documentation
+Towards the goal of enabling capability discovery at design time -- CDS Clients and Services are encouraged to provide publicly available, human-readable documentation describing supported CDS Hooks functionality. Documentation of specific supported use-cases and workflows for CDS Hooks is particularly valuable. 
+
 ### Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The Discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
 
