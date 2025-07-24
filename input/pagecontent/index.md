@@ -165,10 +165,6 @@ curl "https://example.com/cds-services"
 }
 ```
 
-#### Service Configuration
-A CDS Client **MAY** supply additional configuration information to a CDS Service using existing mechanisms external to this specification.  
-[Configuration Options Extension](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension) from the HL7 Da Vinci CRD IG is one conformant approach to service‑level configuration
-
 ### Calling a CDS Service
 
 #### HTTP Request
@@ -232,6 +228,7 @@ curl
 }
 ```
 
+> STU Note: Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
 
 ### Providing FHIR Resources to a CDS Service
 
