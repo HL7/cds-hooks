@@ -763,7 +763,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `type` |  REQUIRED | *string* | The type of action being performed. Allowed values are: `create`, `update`, `delete`.
 `description` | REQUIRED | *string* | Human-readable description of the suggested action MAY be presented to the end-user. (Note that `description` is optional for `[systemAction](#system-action)`).
-`resource` | CONDITIONAL | *object* | A FHIR resource. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created.  For `update`, this holds the updated resource in its entirety and not just the changed fields. Use of this field to communicate a string of a FHIR id for delete suggestions is DEPRECATED and `resourceId` SHOULD be used instead.
+`resource` | CONDITIONAL | *object* | A FHIR resource. When the `type` attribute is `create`, the `resource` attribute SHALL contain a new FHIR resource to be created.  For `update`, this holds the updated resource in its entirety and not just the changed fields. The CDS Client may reject conflicting changes, for example, due to [concurrency](https://www.hl7.org/fhir/http.html#concurrency). Use of this field to communicate a string of a FHIR id for delete suggestions is DEPRECATED and `resourceId` SHOULD be used instead.
 `resourceId` | CONDITIONAL | *string* | A relative reference to the relevant resource. SHOULD be provided when the `type` attribute is `delete`.
 {:.grid}
 
