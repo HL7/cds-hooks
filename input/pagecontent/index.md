@@ -767,7 +767,6 @@ Field | Optionality | Type | Description
 `resourceId` | CONDITIONAL | *string* | A relative reference to the relevant resource. SHOULD be provided when the `type` attribute is `delete`.
 {:.grid}
 
-> Note that because the update has the updated resource in its entirety, the possibility exists for changes to have been made to the resource being updated (see [concurrency](https://www.hl7.org/fhir/http.html#concurrency).) The CDS Client may reject changes that conflict with other updates made to the resource.
 
 The following example illustrates a create action:
 
