@@ -354,7 +354,6 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
 
->TODO need to REWRITE: Only elements present in the context may be traversed (e.g. the FHIR-defined FHIRPath [`resolve()`](https://hl7.org/fhir/R4/fhirpath.html#functions) function is not available). 
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
