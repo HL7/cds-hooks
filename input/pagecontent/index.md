@@ -338,7 +338,7 @@ For example, a prefetch template could specify all Lab results within the last 9
 ```json
 {
   "prefetch": {
-    "user": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&category=laboratory&date=gt{% raw  %}{{{% endraw  %}today() - 90 days}}
+    "labsFromLastQuarter": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&category=laboratory&date=gt{% raw  %}{{{% endraw  %}today() - 90 days}}
   }
 }
 ```
@@ -350,16 +350,22 @@ Observation?patient=e63wRTbPfr1p8UW81d8Seiw3&category=laboratory&date=gt2024-06-
 
 ###### Simpler FHIRPath support for Querystring Syntax
 
-Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html).
+Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). <s>Prefetch tokens that traverse into complex context fields are identified by a preceding percent sign, for example: `{% raw  %}{{{% endraw  %}%context}}`.</s> 
+
+> Experimental
+> Similarly, complex objects constructed to satisfy other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: "encounter": "Encounter?_id={% raw %}{{%context.encounterId}}{% endraw %}" then a subsequent prefetch could be defined as: "practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}". 
+> NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed after the prefetches they depend on.
+
+Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). 
 
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
-
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
 CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
 - the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for "concrete core types",
+- the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions,
 - and the `id()` function.-
 
 Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
@@ -369,6 +375,9 @@ Specific to CDS Hooks, the `id()` function accepts a collection of References an
 > Note on search parameter data types
 > FHIR search parameter definitions declare the specific [data types](https://www.hl7.org/fhir/R4/search.html#ptypes) accepted. Use of the `id()` function is specifically intended to satisfy search parameters that accept the [`token`](https://www.hl7.org/fhir/R4/search.html#token) data type (for example, `Medication?_id=Medication/123` is not valid, `Medication?_id=123` is valid). Other search parameters require a [`reference`](https://www.hl7.org/fhir/R4/search.html#reference).
 
+> Experimental - is this capability really necessary? Why? Please justify.
+> A prefetch token can contain multiple path selectors delimited with pipes, for example:
+>     {% raw %}"locations" : "Location?_id={{%encounter.location.location.resolve().ofType(Location).id|%encounter.serviceProvider.resolve().ofType(PractitionerRole).location.resolve().id|%context.draftOrders.entry.locationReference.resolve().ofType(Location).id|%context.draftOrders.entry.resource.sender.resolve().ofType(PractitionerRole).location.resolve().id|%context.draftOrders.entry.resource.recipient.resolve().ofType(PractitionerRole).location.resolve().id|%context.draftOrders.entry.resource.requester.resolve().ofType(PractitionerRole).location.resolve().id|%context.draftOrders.entry.resource.performer.resolve().ofType(PractitionerRole).location.resolve().id|%context.draftOrders.entry.resource.orderer.resolve().ofType(PractitionerRole).location.resolve().id|%context.draftOrders.entry.resource.prescriber.resolve().ofType(PractitionerRole).location.resolve().id}}" {% endraw %}
 
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
