@@ -338,7 +338,7 @@ For example, a prefetch template could specify all Lab results within the last 9
 ```json
 {
   "prefetch": {
-    "labsFromLastQuarter": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&category=laboratory&date=gt{% raw  %}{{{% endraw  %}today() - 90 days}}
+    "labsFromLastQuarter": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&category=laboratory&date=gt{% raw  %}{{{% endraw  %}today() - 90 days}}"
   }
 }
 ```
