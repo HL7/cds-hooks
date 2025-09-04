@@ -558,6 +558,7 @@ goal is to know, at call time:
         {
           "resource": {
             "resourceType": "Observation",
+            "status": "final",
             "code": {
               "coding": [
                 {
@@ -572,7 +573,18 @@ goal is to know, at call time:
         }
       ]
     },
-    "user": "123"
+     "user": {
+      "resourceType": "Bundle",
+      "type": "collection",
+      "entry": [
+        {
+          "resource": {
+            "resourceType": "Practitioner",
+            "id": "123"
+          }
+        }
+      ]
+    }
   }
 }
 ```
