@@ -427,7 +427,7 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 
 ##### Prefetch query restrictions
 
-To reduce the implementation burden on CDS Clients that support CDS Services, this specification RECOMMENDS that prefetch queries only use a subset of the full functionality available in the FHIR specification. When using this subset, valid prefetch templates MUST only make use of:
+To reduce the implementation burden on CDS Clients that support CDS Services, prefetch queries SHOULD be restricted to widely supported search parameters and capabilities. It is recommended to look to widely implemented IGs, such as national cores, when determining what capabilities to support. When using this subset, valid prefetch templates MUST only make use of:
 
 * _instance_ level [read](https://www.hl7.org/fhir/http.html#read) interactions (for resources with known ids such as `Patient`, `Practitioner`, or `Encounter`)
 * _type_ level [search](https://www.hl7.org/fhir/http.html#search) interactions; e.g. `patient={% raw  %}{{{% endraw  %}context.patientId}}`
@@ -558,6 +558,7 @@ goal is to know, at call time:
         {
           "resource": {
             "resourceType": "Observation",
+            "status": "final",
             "code": {
               "coding": [
                 {
@@ -572,7 +573,18 @@ goal is to know, at call time:
         }
       ]
     },
-    "user": "123"
+     "user": {
+      "resourceType": "Bundle",
+      "type": "collection",
+      "entry": [
+        {
+          "resource": {
+            "resourceType": "Practitioner",
+            "id": "123"
+          }
+        }
+      ]
+    }
   }
 }
 ```
