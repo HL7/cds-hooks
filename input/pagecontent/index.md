@@ -360,10 +360,11 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 > NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
 </s>
 
+
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
 - the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for "concrete core types",
-- and the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions,
+- and the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions.
 - <s>and the `id()` function.</s>
 
 Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
@@ -376,14 +377,15 @@ Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concret
 > FHIR search parameter definitions declare the specific [data types](https://www.hl7.org/fhir/R4/search.html#ptypes) accepted. Use of the `id()` function is specifically intended to satisfy search parameters that accept the [`token`](https://www.hl7.org/fhir/R4/search.html#token) data type (for example, `Medication?_id=Medication/123` is not valid, `Medication?_id=123` is valid). Other search parameters require a [`reference`](https://www.hl7.org/fhir/R4/search.html#reference).
 </s>
 
+
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
 > **Experimental**
 > 
-> A prefetch token can contain multiple path selectors delimited with pipes, for example:
->     `{% raw %}"locations" : "Practitioner?_id={{context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(PractitionerRole).practitioner.resolve().id|context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
+> A prefetch token can contain multiple path selectors delimited with pipes, for example::
+>     `{% raw %}"dxPractitioner" : "Practitioner?_id={{context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(PractitionerRole).practitioner.resolve().id|context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
 
 
 
