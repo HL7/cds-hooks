@@ -113,7 +113,7 @@ Field | Optionality | Type | Description
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
-`version`| RECOMMENDED | *string* | The version of the CDS Hooks specification implemented (STU1 | STU2 | STU3).
+`version`| RECOMMENDED | *string* | The version of the CDS Hooks specification implemented (STU1 \| STU2 \| STU3).
 {:.grid}
 
 Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*update stale guidance*](#update-stale-guidance).
@@ -616,7 +616,7 @@ Field | Optionality | Type | Description
 `expires_in`   | REQUIRED | *integer* | The lifetime in seconds of the access token.
 `scope`        | REQUIRED | *string* | The scopes the access token grants the CDS Service.
 `subject` | REQUIRED | *string* | The [OAuth 2.0](https://oauth.net/2/) client identifier of the CDS Service, as registered with the CDS Client's authorization server.
-'patient` | CONDITIONAL | *string* | If the granted SMART scopes include patient scopes (i.e. "patient/"), the access token is restricted to a specific patient. This field SHOULD be populated to identify the FHIR id of that patient.
+`patient` | CONDITIONAL | *string* | If the granted SMART scopes include patient scopes (i.e. "patient/"), the access token is restricted to a specific patient. This field SHOULD be populated to identify the FHIR id of that patient.
 {:.grid}
 
 The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html).
