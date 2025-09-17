@@ -455,6 +455,8 @@ Prefetch resources are only ever relevant if their relationship to other resourc
 }
 ```
 
+Note that resolve().ofType(SomeResource).id can sometimes be performed merely by extracting information from the reference rather than actually resolving the resource.
+
 An expression SHALL only refer to prefetch parameters defined earlier in the list.
 
 A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
