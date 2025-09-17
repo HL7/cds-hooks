@@ -400,7 +400,13 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 ##### Prefetch tokens containing Simpler FHIRPath
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
-* a relative date variable formatted as the FHIRPath today() function, 
+* the 'context' object, which corresponds to the context element passed in the CDS Hooks call
+* variables that correspond to the names of prior prefetch templates
+* simple chaining through element paths
+* the following FHIRPath functions: ofType(), resolve(), today()
+* the '+' and '-' math options
+
+The following additional limitations apply:
 
 ###### Simple FHIRPath for Relative Dates
 
@@ -438,8 +444,23 @@ CDS Clients SHOULD support paths to References, and MAY support paths to any ele
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
- A prefetch token can contain multiple path selectors delimited with pipes, for example:
-     `{% raw %}"dxPractitioner" : "Practitioner?_id={{context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(PractitionerRole).practitioner.resolve().id|context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
+Prefetch resources are only ever relevant if their relationship to other resources are known.  For this reason, 'resolve()' SHALL only appear once in a given expression.  Prior prefetch parameters can be referenced in subsequent expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
+```json
+{
+  "prefetch": {
+     "serviceConditions" : "Condition?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).id}}",
+     "practitionerRoles" : "PractitionerRole?_id={% raw  %}{{{% endraw  %}%serviceConditions.asserter.resolve().ofType(PractitionerRole).id}}",
+     "practitioners" : "Practitioner?_id={% raw  %}{{{% endraw  %}%practitionerRoles.practitioner.resolve().id}}"
+   }
+}
+```
+
+An expression SHALL only refer to prefetch parameters defined earlier in the list.
+
+A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
+     `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.practitioner.resolve().id|%serviceConditions.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
+
+Where a prefetch token references multiple prior prefetch results, it SHALL list the one that appears latest in the list of prefetches first, as this will help the server to most efficiently understand which prefetches can be executed in parallel.
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
 
@@ -450,9 +471,9 @@ To prefetch the Medications being prescribed, as well as upcoming appointments, 
 ```json
 {
   "prefetch": {
-    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).medication.resolve().id"}},
-    "prescriber" : "Practitioner?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).requester.resolve().ofType(Practitioner).id"}}
-    "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days"}}
+    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).medication.resolve().id}}",
+    "prescriber" : "Practitioner?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).requester.resolve().ofType(Practitioner).id}}",
+    "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days}}"
   }
 }
 ```
