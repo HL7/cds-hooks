@@ -444,7 +444,7 @@ CDS Clients SHOULD support paths to References, and MAY support paths to any ele
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
-Prefetch resources are only ever relevant if their relationship to other resources are known.  For this reason, 'resolve()' SHALL only appear once in a given expression.  Prior prefetch parameters can be referenced in subsequent expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
+Prefetch resources are only ever relevant if their relationship to other resources are known.  For this reason, 'resolve()' SHALL only appear once in a given expression.  Other prefetch parameters can be referenced in token expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
 ```json
 {
   "prefetch": {
@@ -457,7 +457,17 @@ Prefetch resources are only ever relevant if their relationship to other resourc
 
 Note that resolve().ofType(SomeResource).id can sometimes be performed merely by extracting information from the reference rather than actually resolving the resource.
 
-An expression SHALL only refer to prefetch parameters defined earlier in the list.
+To ease execution, if a prefetch definition includes any tokens that depend on other prefetches, the dependencies SHALL be exposed in a separate prefetchDependencies element listing the prefetch parameter and any dependencies it has.  For example, the preceding prefetch statement would have a prefetchDependencies that looks like this:
+```json
+{
+  "prefetch": {
+     "practitionerRoles" : ["serviceConditions"]
+     "practitioners" : ["practitionerRoles"]
+   }
+}
+```
+
+It is an error if dependencies are cyclical - i.e. if one prefetch either directly or indirectly depends on itself.
 
 A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
      `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.practitioner.resolve().id|%serviceConditions.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
