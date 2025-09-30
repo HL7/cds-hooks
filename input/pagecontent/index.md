@@ -456,6 +456,7 @@ Other prefetch parameters can be referenced in token expressions as FHIRPath var
    }
 }
 ```
+
 Note that a possible implementation of resolve().ofType(SomeResource).id could implement a form of lazy evaluation for performance optimization.
 
 It is an error if dependencies are cyclical - i.e. if one prefetch either directly or indirectly depends on itself.
