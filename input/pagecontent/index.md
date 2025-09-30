@@ -431,6 +431,8 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 
 ###### Simpler FHIRPath support for Querystring Syntax
 
+-- Here be Dragons --
+
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). 
 
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
@@ -444,35 +446,22 @@ CDS Clients SHOULD support paths to References, and MAY support paths to any ele
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
-Prefetch resources are only ever relevant if their relationship to other resources are known.  For this reason, 'resolve()' SHALL only appear once in a given expression.  Other prefetch parameters can be referenced in token expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
+Other prefetch parameters can be referenced in token expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
 ```json
 {
   "prefetch": {
      "serviceConditions" : "Condition?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).id}}",
-     "practitionerRoles" : "PractitionerRole?_id={% raw  %}{{{% endraw  %}%serviceConditions.asserter.resolve().ofType(PractitionerRole).id}}",
-     "practitioners" : "Practitioner?_id={% raw  %}{{{% endraw  %}%practitionerRoles.practitioner.resolve().id}}"
+     "practitionerRoles" : "PractitionerRole?_id={% raw  %}{{{% endraw  %}%serviceConditions.entry.resource.asserter.resolve().ofType(PractitionerRole).id}}",
+     "practitioners" : "Practitioner?_id={% raw  %}{{{% endraw  %}%practitionerRoles.entry.resource.practitioner.resolve().id}}"
    }
 }
 ```
-
-Note that resolve().ofType(SomeResource).id can sometimes be performed merely by extracting information from the reference rather than actually resolving the resource.
-
-To ease execution, if a prefetch definition includes any tokens that depend on other prefetches, the dependencies SHALL be exposed in a separate prefetchDependencies element listing the prefetch parameter and any dependencies it has.  For example, the preceding prefetch statement would have a prefetchDependencies that looks like this:
-```json
-{
-  "prefetch": {
-     "practitionerRoles" : ["serviceConditions"]
-     "practitioners" : ["practitionerRoles"]
-   }
-}
-```
+Note that a possible implementation of resolve().ofType(SomeResource).id could implement a form of lazy evaluation for performance optimization.
 
 It is an error if dependencies are cyclical - i.e. if one prefetch either directly or indirectly depends on itself.
 
 A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
-     `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.practitioner.resolve().id|%serviceConditions.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
-
-Where a prefetch token references multiple prior prefetch results, it SHALL list the one that appears latest in the list of prefetches first, as this will help the server to most efficiently understand which prefetches can be executed in parallel.
+     `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
 
