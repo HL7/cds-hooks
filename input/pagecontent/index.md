@@ -455,7 +455,7 @@ Prefetch resources are only ever relevant if their relationship to other resourc
 }
 ```
 
-Note that resolve().ofType(SomeResource).id can sometimes be performed merely by extracting information from the reference rather than actually resolving the resource.
+Note that a possible implementation of resolve().ofType(SomeResource).id could implement a form of lazy evaluation for performance optimization.
 
 To ease execution, if a prefetch definition includes any tokens that depend on other prefetches, the dependencies SHALL be exposed in a separate prefetchDependencies element listing the prefetch parameter and any dependencies it has.  For example, the preceding prefetch statement would have a prefetchDependencies that looks like this:
 ```json
