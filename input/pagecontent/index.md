@@ -431,7 +431,9 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 
 ###### Simpler FHIRPath support for Querystring Syntax
 
--- Here be Dragons --
+<div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
+<img src="../images/dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
+</div><p>&nbsp;</p>
 
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). 
 
