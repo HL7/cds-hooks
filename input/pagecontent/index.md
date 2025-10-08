@@ -437,10 +437,10 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
-- the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for "concrete core types",
+- the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for [FHIR resource type](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"), 
 - and the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions.
 
-Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
+Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a [FHIR resource type](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"). 
 
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
 
