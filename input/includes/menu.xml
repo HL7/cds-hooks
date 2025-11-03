@@ -5,7 +5,7 @@
     <a href="index.html">CDS Hooks</a>
   </li>
   <li class="dropdown">
-    <a data-toggle="dropdown" href="menu.html" class="dropdown-toggle">Hook Library
+    <a data-toggle="dropdown" href="index.html#hook-library" class="dropdown-toggle">Hook Library
       <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
