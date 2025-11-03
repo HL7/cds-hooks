@@ -2,7 +2,7 @@
 title: Home
 ---
 {::options toc_levels="1..6"/}
-<a id="hook-library"></a>
+
 <!-- ![CDS Hooks Overview](../images/logo.png) -->
 
 ### Intellectual Property Statements
