@@ -1,5 +1,6 @@
+---
 title: Home
-
+---
 {::options toc_levels="1..6"/}
 
 <!-- ![CDS Hooks Overview](../images/logo.png) -->
