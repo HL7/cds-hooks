@@ -362,9 +362,7 @@ It is the CDS Service's responsibility to check prefetched data against its temp
 
 A prefetch token is a placeholder in a prefetch template that is _replaced by information from the hook's context_ to construct the FHIR URL used to request the prefetch data.
 
-Prefetch tokens MUST be delimited by `{% raw  %}{{{% endraw  %}` and `}}`, and MUST contain only the qualified path to a hook context field _or one of the following user identifiers: `userPractitionerId`, `userPractitionerRoleId`, `userPatientId`, or `userRelatedPersonId`_.
-
-Individual hooks specify which of their `context` fields can be used as prefetch tokens. Only root-level fields with a primitive value within the `context` object are eligible to be used as prefetch tokens. For example, `{% raw  %}{{{% endraw  %}context.medication.id}}` is not a valid prefetch token because it attempts to access the `id` field of the `medication` field.
+Prefetch tokens MUST be delimited by `{% raw  %}{{{% endraw  %}` and `}}`, and MUST contain only the qualified path to a hook context field with optional FHIRPath or one of the following user identifiers: `userPractitionerId`, `userPractitionerRoleId`, `userPatientId`, or `userRelatedPersonId`.
 
 ###### Prefetch tokens identifying the user
 A prefetch template enables a CDS Service to learn more about the current user through a FHIR read, like so:
@@ -400,7 +398,13 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 ##### Prefetch tokens containing Simpler FHIRPath
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
-* a relative date variable formatted as the FHIRPath today() function, 
+* the 'context' object, which corresponds to the context element passed in the CDS Hooks call
+* variables that correspond to the names of prior prefetch templates
+* simple chaining through element paths
+* the following FHIRPath functions: ofType(), resolve(), today()
+* the '+' and '-' math options
+
+The following additional limitations apply:
 
 ###### Simple FHIRPath for Relative Dates
 
@@ -425,21 +429,40 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 
 ###### Simpler FHIRPath support for Querystring Syntax
 
+<div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
+<img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
+</div><p>&nbsp;</p>
+
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). 
 
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
-- the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for "concrete core types",
+- the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"), 
 - and the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions.
 
-Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a "concrete core types" (eg. [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition)). 
+Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a [FHIR resource type](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"). 
 
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
 
- A prefetch token can contain multiple path selectors delimited with pipes, for example:
-     `{% raw %}"dxPractitioner" : "Practitioner?_id={{context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(PractitionerRole).practitioner.resolve().id|context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
+Other prefetch parameters can be referenced in token expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
+```json
+{
+  "prefetch": {
+     "serviceConditions" : "Condition?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(ServiceRequest).reasonReference.resolve().ofType(Condition).id}}",
+     "practitionerRoles" : "PractitionerRole?_id={% raw  %}{{{% endraw  %}%serviceConditions.entry.resource.asserter.resolve().ofType(PractitionerRole).id}}",
+     "practitioners" : "Practitioner?_id={% raw  %}{{{% endraw  %}%practitionerRoles.entry.resource.practitioner.resolve().id}}"
+   }
+}
+```
+
+Note that a possible implementation of resolve().ofType(SomeResource).id could implement a form of lazy evaluation for performance optimization.
+
+It is an error if dependencies are cyclical - i.e. if one prefetch either directly or indirectly depends on itself.
+
+A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
+     `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
 
@@ -450,9 +473,9 @@ To prefetch the Medications being prescribed, as well as upcoming appointments, 
 ```json
 {
   "prefetch": {
-    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).medication.resolve().id"}},
-    "prescriber" : "Practitioner?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).requester.resolve().ofType(Practitioner).id"}}
-    "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days"}}
+    "meds" : "Medication?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).medication.resolve().id}}",
+    "prescriber" : "Practitioner?_id={% raw  %}{{{% endraw  %}context.draftOrders.entry.resource.ofType(MedicationRequest).requester.resolve().ofType(Practitioner).id}}",
+    "appointments-upcoming" : "Appointment?patient={% raw  %}{{{% endraw  %}context.patientId}}&date=gt{% raw  %}{{{% endraw  %}today()}}&date=lt{% raw  %}{{{% endraw  %}today() + 365 days}}"
   }
 }
 ```
@@ -562,71 +585,6 @@ Often a prefetch template builds on the contextual data associated with the hook
 ```
 
 The token name would be `{% raw  %}{{{% endraw  %}context.patientId}}`. Again using our above conditions example, the complete prefetch template would be `Condition?patient={% raw  %}{{{% endraw  %}context.patientId}}`.
-
-Only the first level fields in context may be considered for tokens.
-
-For example, given the following context that contains amongst other things, a MedicationRequest FHIR resource:
-
-```json
-{
-  "context": {
-    "encounterId": "456",
-    "draftOrders": {
-      "resourceType": "Bundle",
-      "entry": [ {
-          "resource": {
-            "resourceType": "MedicationRequest",
-            "id": "123",
-            "status": "draft",
-            "intent": "order",
-            "medicationCodeableConcept": {
-              "coding": [   {
-                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                  "code": "617993",
-                  "display": "Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"
-                }]},
-            "subject": {
-              "reference": "Patient/1288992"
-            }
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-Only the `encounterId` field in this example is eligible to be a prefetch token as it is a first level field and the datatype (string) can be placed into the FHIR query. The MedicationRequest.id value in the context is not eligible to be a prefetch token because it is not a first level field. If the hook creator intends for the MedicationRequest.id value to be available as a prefetch token, it must be made available as a first level field. Using the aforementioned example, we simply add a new `medicationRequestId` field:
-
-```json
-{
-  "context": {
-    "medicationRequestId": "123",
-    "encounterId": "456",
-    "draftOrders": {
-      "resourceType": "Bundle",
-      "entry": [ {
-          "resource": {
-            "resourceType": "MedicationRequest",
-            "id": "123",
-            "status": "draft",
-            "intent": "order",
-            "medicationCodeableConcept": {
-              "coding": [   {
-                  "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                  "code": "617993",
-                  "display": "Amoxicillin 120 MG/ML / clavulanate potassium 8.58 MG/ML Oral Suspension"
-                }]},
-            "subject": {
-              "reference": "Patient/1288992"
-            }
-          }
-        }
-      ]
-    }
-  }
-}
-```
 
 ##### Example prefetch templates
 
