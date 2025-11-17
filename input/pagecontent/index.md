@@ -9,13 +9,13 @@ The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and
 <!-- IGs that don't define resources can hide these in a div tag, see https://chat.fhir.org/#narrow/channel/179252-IG-creation/topic/Orphaned.20xhtml.20fragments.3F/near/370612006 -->
 
 <div style="display:none">
-{% include ip-statements.xhtml %}
+{% lang-fragment ip-statements.xhtml %}
 
-{% include cross-version-analysis.xhtml %}
+{% lang-fragment cross-version-analysis.xhtml %}
 
-{% include dependency-table.xhtml %}
+{% lang-fragment dependency-table.xhtml %}
 
-{% include globals-table.xhtml %}
+{% lang-fragment globals-table.xhtml %}
 </div>
 
 ### Overview
