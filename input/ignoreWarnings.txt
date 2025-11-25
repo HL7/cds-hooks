@@ -1,10 +1,10 @@
-== Suppressed Messages ==
+S== Suppressed Messages ==
 
 # Add warning and/or information messages here after you've confirmed that they aren't really a problem
 # (And include comments like this justifying why)
 # See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
 
-# 1. ImplementationGuide resources: There are currently no profiles defined in the CDS Hooks or CDS Hooks Library specifications. This is intentional. As part of this Errata release, we don't want to make significant changes.
+# 1. ImplementationGuide resources: There are currently no profiles defined in the CDS Hooks or CDS Hooks Library specifications. This is intentional.
 ImplementationGuide.definition.resource: minimum required = 1, but only found 0 (from http://hl7.org/fhir/StructureDefinition/ImplementationGuide|4.0.1)
 
 # 2. This is an upcoming extension that computably specifies that the CDS Hooks Library IG relates to the CDS Hooks IG. See zulip discussion here: https://chat.fhir.org/#narrow/channel/179252-IG-creation/topic/Related.20Packages
