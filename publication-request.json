@@ -2,10 +2,10 @@
     "package-id": "hl7.fhir.uv.cds-hooks",
     "version": "3.0.0-ballot",
     "path": "http://cds-hooks.hl7.org/STU3",
-    "mode": "milestone",
-    "status": "trial-use",
+    "mode": "working",
+    "status": "ballot",
     "sequence": "STU3",
-    "desc": "STU3 Release",
+    "desc": "STU 3 Release",
     "changes": "changes.html",
     "first": false,
     "related" : {
