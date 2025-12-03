@@ -938,6 +938,9 @@ The CDS Client ultimately determines if a link can be automatically launched, ta
 ##### System Action
 A `systemAction` shares all elements with an **[Action](#action)** except that its `description` is optional. Unlike regular Actions that appear within suggestions, System Actions are returned separately alongside the array of cards. These actions aren't displayed to users in cards and can be automatically applied without requiring user intervention. Typical uses enable communicating outcomes of the Service's evaluation that aren't sufficiently meaningful to display to the user.
 
+Automatically applied actions are likely unexpected by the user and bypass human review and therefore are only appropriate in specific, pre-coordinated scenarios. Notable examples of appropriate use are saving an identifier referencing the CDS Service's determination to not show a card to the user in low-trust scenarios (examples: Coverage Requirements Discovery "coverage-assertion-id" or Argonaut's PAMA "pama-rating").
+
+In these specific, pre-coordinated scenarios when a systemAction is understood and supported by both the client and service, the CDS Service only provides systemActions which can be automatically applied without user interaction, and the CDS Client is expected to process them.
 
 ```json
 {
@@ -1168,6 +1171,11 @@ Field | Optionality | Type | Description
    ]
 }
 ```
+
+#### Feedback on System Actions
+
+*STU Note: The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.*
+
 ### Security and Safety
 
 All data exchanged through the RESTful APIs MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818). Implementers SHOULD review the [FHIR security considerations for Communications](https://hl7.org/fhir/R4/security.html#http) for additional guidance.
