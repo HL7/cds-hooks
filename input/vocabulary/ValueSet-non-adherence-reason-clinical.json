@@ -1,0 +1,60 @@
+{
+  "resourceType": "ValueSet",
+  "id": "non-adherence-reason-clinical",
+  "extension": [
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "trial-use"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+        "valueInteger": 1
+    }
+  ],
+  "url": "http://terminology.hl7.org/ValueSet/non-adherence-reason-clinical",
+  "name": "NonAdherenceReasonClinical",
+  "title": "Non-Adherence Reason Clinical Selection",
+  "status": "active",
+  "experimental": false,
+  "publisher": "HL7 International / Clinical Decision Support",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://www.hl7.org/Special/committees/dss"
+        }
+      ]
+    }
+  ],
+  "description": "A set of common and clinically relevant reasons for non-adherence, including all categories and key specific sub-codes for point-of-care selection.",
+  "compose": {
+    "include": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason",
+        "concept": [
+          { "code": "cds-not-applicable", "display": "CDS not applicable (Done/Ineligible)" },
+          { "code": "cds-suboptimal-context", "display": "CDS delivered at wrong time/place" },
+          { "code": "recipient-disagrees-evidence", "display": "Recipient disagrees with evidence/policy" },
+          { "code": "recipient-concerns-outcomes", "display": "Concerns regarding health outcomes/risk" },
+          { "code": "does-not-align-preferences", "display": "Patient preferences/values conflict" },
+          { "code": "not-convenient-feasible", "display": "Not convenient or feasible (Cost/Logistics)" },
+          
+          { "code": "action-completed", "display": "Action already completed" },
+          
+          { "code": "patient-contraindication", "display": "Patient has contraindication" },
+          
+          { "code": "patient-refuses", "display": "Patient refuses/declines (no context given)*" },
+
+          { "code": "too-costly-uncovered", "display": "Too costly or not covered by insurance" },
+          { "code": "service-not-available", "display": "Treatment or service not available" },
+          { "code": "recipient-does-not-understand", "display": "Recipient does not understand action" }
+        ]
+      }
+    ]
+  }
+}
