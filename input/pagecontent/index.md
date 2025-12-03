@@ -845,7 +845,6 @@ Field | Optionality | Type | Description
   * `at-most-one` - indicating that the user may choose none or at most one of the actions; 
 {:.grid}
 
-> Clients SHALL indicate whether they support the `actionSelectionBehavior` feature and SHOULD document any other feature support necessary to ensure safe operation of CDS Services. CDS Services SHALL NOT make use of the  `actionSelectionBehavior` feature without knowing that the requesting client supports it.
 
 ##### Action
 
