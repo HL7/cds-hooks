@@ -1,0 +1,235 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "non-adherence-reason",
+  "extension": [
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "trial-use"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+        "valueInteger": 1
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/artifact-relatedArtifact",
+        "valueRelatedArtifact": {
+            "type": "citation",
+            "citation": "Boxwala AA, Correa KH, Richesson RL, Leaphart D, Ahmed A, Desai PJ, the CDSiC Standards and Regulatory Frameworks Workgroup, and Dullabh PM. CDS Standards and Regulatory Frameworks Workgroup: Approaches to Standardizing Override Reasons for Patient-Centered Clinical Decision Support. Prepared under Contract No. 75Q80120D00018. AHRQ Publication No. 25-0073. Agency for Healthcare Research and Quality; June 2025."
+        }
+    }
+  ],
+  "url": "http://terminology.hl7.org/CodeSystem/non-adherence-reason",
+  "name": "NonAdherenceReason",
+  "title": "Non-Adherence Reason",
+  "status": "active",
+  "experimental": false,
+  "publisher": "HL7 International / Clinical Decision Support",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://www.hl7.org/Special/committees/dss"
+        }
+      ]
+    }
+  ],
+  "description": "Codes representing reasons why a Patient Care Clinical Decision Support (PC CDS) recommendation may not be followed, categorized by the source of the barrier. The concepts here were originally defined in the AHRQ CDSiC publication [Approaches to Standardizing Override Reasons for Patient-Centered Clinical Decision Support](https://digital.ahrq.gov/sites/default/files/508_SRF%20Level%202%20Override%20Taxonomy%20Implementation%208.28.25.pdf).\n\nNotes: \"Recipient\" means the individual who received the PC CDS, which could be a clinician for clinician-facing PC CDS, or a patient or caregiver for patient-facing PC CDS. \"Recommended action\" refers to the action suggested by the PC CDS. \"Intended action\" refers to the course of action that the PC CDS recipient (clinician, patient, or caregiver) meant to take, and which triggered the PC CDS. *The category \"Patient refuses/declines (no context given)\" is included to acknowledge that override reasons that document patient refusal without providing more information are common in current CDS tools. However, this category is separated from the main taxonomy to indicate that it is not a preferred option; in the future, it would be ideal if PC CDS tools provided more specific patient override reasons.",
+  "caseSensitive": true,
+  "valueSet": "http://terminology.hl7.org/ValueSet/override-reasons",
+  "hierarchyMeaning": "grouped-by",
+  "content": "complete",
+  "concept": [
+    {
+      "code": "cds-not-applicable",
+      "display": "PC CDS does not apply to patient",
+      "definition": "The CDS recommendation is irrelevant, completed, or the patient does not meet the criteria.",
+      "concept": [
+        {
+          "code": "patient-ineligible",
+          "display": "Patient does not meet eligibility for recommended action",
+          "definition": "The patient does not satisfy the criteria (e.g., age, condition, lab result) for the recommended action."
+        },
+        {
+          "code": "indication-order-exists",
+          "display": "Patient has indication/order for intended action",
+          "definition": "The recommended action is already indicated or ordered in the patient's record, making the CDS redundant."
+        },
+        {
+          "code": "action-completed",
+          "display": "Recommended action was already completed",
+          "definition": "The action or procedure recommended by the CDS has already been performed."
+        },
+        {
+          "code": "action-unsuccessful",
+          "display": "Recommended action was previously unsuccessful",
+          "definition": "The recommended action was attempted before and failed to achieve the desired outcome."
+        },
+        {
+          "code": "action-performed-no-adverse-effect",
+          "display": "Intended action was performed previously without adverse effect",
+          "definition": "A previously performed action that was the subject of the CDS did not cause harm, suggesting the action is safe despite the CDS warning."
+        },
+        {
+          "code": "action-not-priority",
+          "display": "Recommended action is not relevant or a priority in current state of health",
+          "definition": "The patient's acute or chronic conditions require more immediate attention than the action recommended by the CDS."
+        }
+      ]
+    },
+    {
+      "code": "cds-suboptimal-context",
+      "display": "PC CDS delivered in suboptimal context",
+      "definition": "The CDS was delivered at a time or to a recipient that made the action impossible or impractical to address.",
+      "concept": [
+        {
+          "code": "limited-time",
+          "display": "Could not address recommended action due to limited time",
+          "definition": "The recipient had insufficient time during the current patient encounter or workflow step to act on the recommendation."
+        },
+        {
+          "code": "wrong-time-workflow",
+          "display": "PC CDS delivered at wrong time in workflow or patient lifecycle",
+          "definition": "The alert appeared at a point in the workflow or patient's care journey where it could not be practically acted upon."
+        },
+        {
+          "code": "inappropriate-recipient",
+          "display": "PC CDS delivered to inappropriate recipient/role",
+          "definition": "The person receiving the recommendation (e.g., a nurse, clerk) is not authorized or responsible for performing the action."
+        },
+        {
+          "code": "need-more-info",
+          "display": "Could not address recommended action due to need for more information/pending results/pending consult",
+          "definition": "The recipient requires additional data (e.g., a lab result, imaging) or a specialist's opinion before the action can be safely or definitively taken."
+        }
+      ]
+    },
+    {
+      "code": "recipient-disagrees-evidence",
+      "display": "Recipient disagrees with recommendation because of issues with the evidence",
+      "definition": "The recipient (clinician or patient) has an objection based on the supporting evidence or conflicting advice/policy.",
+      "concept": [
+        {
+          "code": "does-not-align-latest-evidence",
+          "display": "Recommended action does not align with the latest evidence",
+          "definition": "The recipient believes the CDS rule is outdated compared to current medical literature or best practices."
+        },
+        {
+          "code": "expert-contradicts",
+          "display": "Advice from expert contradicts the recommended action",
+          "definition": "Guidance received from a specialist or recognized authority conflicts with the CDS recommendation."
+        },
+        {
+          "code": "policy-contradicts",
+          "display": "Institutional policy/guideline contradicts the recommended action",
+          "definition": "The recommendation conflicts with the official procedures, policies, or local guidelines of the healthcare facility."
+        },
+        {
+          "code": "recipient-does-not-trust",
+          "display": "Recipient does not agree with or trust the recommended action",
+          "definition": "The recipient fundamentally disbelieves the validity or necessity of the CDS action."
+        }
+      ]
+    },
+    {
+      "code": "recipient-concerns-outcomes",
+      "display": "Recipient has concerns regarding potential health outcomes",
+      "definition": "Concerns about the action's risk/benefit ratio, potential negative outcomes, or contraindications.",
+      "concept": [
+        {
+          "code": "risk-benefit-ratio",
+          "display": "Recipient assessment of risk/benefit ratio",
+          "definition": "The recipient determines that the potential risks of the action outweigh the anticipated benefits for this specific patient."
+        },
+        {
+          "code": "mitigate-risk-negative-outcome",
+          "display": "Action taken to mitigate risk of negative outcome",
+          "definition": "The recommended action was superseded by an alternative measure taken to specifically avoid a known potential adverse event."
+        },
+        {
+          "code": "likely-negative-health-outcomes",
+          "display": "Recommended action likely to have negative health outcomes",
+          "definition": "The recipient believes the action, if taken, would predictably lead to an adverse patient outcome (e.g., severe side effect)."
+        },
+        {
+          "code": "patient-contraindication",
+          "display": "Patient has contraindication to recommended action",
+          "definition": "A patient factor (e.g., allergy, existing condition, previous reaction) explicitly rules out the recommended action."
+        }
+      ]
+    },
+    {
+      "code": "does-not-align-preferences",
+      "display": "Recommendation does not align with patient preferences or values",
+      "definition": "The action conflicts with the patient's personal, cultural, or religious beliefs, or they prefer an alternative.",
+      "concept": [
+        {
+          "code": "patient-fears-discomfort",
+          "display": "Patient fears discomfort from complying with recommended action",
+          "definition": "The patient is unwilling to proceed due to anticipated pain, anxiety, or general discomfort associated with the action."
+        },
+        {
+          "code": "patient-does-not-want-change",
+          "display": "Patient does not want to change behavior or believes the change is unnecessary",
+          "definition": "The patient lacks motivation for lifestyle change or disagrees with the premise that a change is needed for their health."
+        },
+        {
+          "code": "cultural-religious-reason",
+          "display": "Patient has a cultural or religious reason for not following recommended action",
+          "definition": "The patient's deeply held cultural or religious beliefs prohibit them from accepting the recommendation (e.g., blood transfusions)."
+        },
+        {
+          "code": "prefers-alternative",
+          "display": "Patient prefers an alternative approach or treatment",
+          "definition": "The patient wishes to pursue a different, non-recommended treatment or approach (e.g., holistic medicine)."
+        },
+        {
+          "code": "patient-refuses",
+          "display": "Patient refuses/declines (no context given)*",
+          "definition": "The patient has simply refused the recommendation without providing an explicit, detailed reason."
+        }
+      ]
+    },
+    {
+      "code": "not-convenient-feasible",
+      "display": "Recommendation is not convenient or feasible",
+      "definition": "Practical barriers related to cost, logistics, technology, or patient capability prevent the action.",
+      "concept": [
+        {
+          "code": "inadequate-support",
+          "display": "Patient has inadequate caregiver/social support",
+          "definition": "The patient lacks the necessary assistance from family or caregivers to comply with the action."
+        },
+        {
+          "code": "service-not-available",
+          "display": "Treatment or service is not practically available",
+          "definition": "The required service, medication, or equipment is not accessible, either geographically or logistically."
+        },
+        {
+          "code": "implementation-challenges",
+          "display": "Recommended action cannot be implemented due to technology/challenges",
+          "definition": "Technical issues, system downtime, or complexity of the EHR/device prevent the action from being recorded or performed."
+        },
+        {
+          "code": "too-costly-uncovered",
+          "display": "Recommended action is too costly or not covered by insurance",
+          "definition": "Financial burden is a barrier, either due to the cost of the service or lack of insurance coverage."
+        },
+        {
+          "code": "recipient-does-not-understand",
+          "display": "Recipient does not understand the recommended action or know how to perform the recommended action",
+          "definition": "The recipient (patient or clinician) lacks the necessary health literacy or procedural knowledge to execute the action."
+        },
+        {
+          "code": "comorbidity-disability",
+          "display": "Patient has co-morbidity or disability that hinders them from completing recommended action",
+          "definition": "An unrelated or co-existing physical/mental condition (e.g., severe arthritis, dementia) makes the action impossible for the patient."
+        }
+      ]
+    }
+  ]
+}
