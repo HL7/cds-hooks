@@ -80,6 +80,8 @@ Decision support is then returned to the CDS Client in the form of [_cards_](#cd
 ### Capability Documentation
 Towards the goal of enabling capability discovery at design time -- CDS Clients and Services are encouraged to provide publicly available, human-readable documentation describing supported CDS Hooks functionality. Documentation of specific supported use-cases and workflows for CDS Hooks is particularly valuable. 
 
+> In particular, clients SHALL indicate whether they support the `actionSelectionBehavior` feature and SHOULD document any other feature support necessary to ensure safe operation of CDS Services. CDS Services SHALL NOT make use of the  `actionSelectionBehavior` feature without knowing that the requesting client supports it.
+
 ### Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The Discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
 
@@ -837,7 +839,12 @@ Field | Optionality | Type | Description
 `uuid` | OPTIONAL | *string* | Unique identifier, used for auditing and logging suggestions.
 `isRecommended` | OPTIONAL | *boolean* | When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card. CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if `card.selectionBehavior` is `any`.
 `actions` | OPTIONAL | *array* of **[Actions](#action)** | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it. When a suggestion contains multiple actions, the actions SHOULD be processed as per FHIR's rules for processing [transactions](https://hl7.org/fhir/http.html#trules) with the CDS Client's `fhirServer` as the base url for the inferred full URL of the transaction bundle entries. (Specifically, deletes happen first, then creates, then updates).
+`actionSelectionBehavior` | OPTIONAL | *string* | Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. This element may not be available for use, [note requirements for usage](#capability-documentation). Allowed values are:
+  * `all` - indicating that a user selecting a suggestion is selecting all of the actions within it (default if no value is provided)
+  * `any` - indicating that the end user may choose any number of actions including none of them or all of them;
+  * `at-most-one` - indicating that the user may choose none or at most one of the actions; 
 {:.grid}
+
 
 ##### Action
 
@@ -895,7 +902,9 @@ The following example illustrates a delete action:
 
 **overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
-This specification does not prescribe a standard set of override reasons; implementers are encouraged to submit suggestions for standardization.
+Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason](CodeSystem-non-adherence-reason.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
+
+*STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.*
 
 ```json
 {
@@ -927,6 +936,8 @@ Field | Optionality | Type | Description
 `autolaunchable` | OPTIONAL | *boolean* |  This field serves as a hint to the CDS Client suggesting this link be immediately launched, without displaying the card and without manual user interaction.  Note that CDS Hooks cards which contain links with this field set to true, may not be shown to the user.  Sufficiently advanced CDS Clients may support automatically launching multiple links or multiple cards. Implementer guidance is requested to determine if the specification should preclude these advanced scenarios.
 {:.grid}
 
+Note that launching a SMART-on-FHIR application can also be accomplished using a suggestion that proposes a [SMART-on-FHIR task](https://hl7.org/fhir/smart-app-launch/STU2.2/task-launch.html).
+
 ###### Considerations for `autolaunchable` and user experience
 
 The intent of this optional feature is to improve individual user experience by removing the otherwise unnecessary click of a link by the user. Appropriate support of this feature includes guardrails from both the CDS Service developer and the CDS Client, as well as additional local control by the organization using the service.
@@ -936,6 +947,9 @@ The CDS Client ultimately determines if a link can be automatically launched, ta
 ##### System Action
 A `systemAction` shares all elements with an **[Action](#action)** except that its `description` is optional. Unlike regular Actions that appear within suggestions, System Actions are returned separately alongside the array of cards. These actions aren't displayed to users in cards and can be automatically applied without requiring user intervention. Typical uses enable communicating outcomes of the Service's evaluation that aren't sufficiently meaningful to display to the user.
 
+Automatically applied actions are likely unexpected by the user and bypass human review and therefore are only appropriate in specific, pre-coordinated scenarios. Notable examples of appropriate use are saving an identifier referencing the CDS Service's determination to not show a card to the user in low-trust scenarios (examples: Coverage Requirements Discovery "coverage-assertion-id" or Argonaut's PAMA "pama-rating").
+
+In these specific, pre-coordinated scenarios when a systemAction is understood and supported by both the client and service, the CDS Service only provides systemActions which can be automatically applied without user interaction, and the CDS Client is expected to process them.
 
 ```json
 {
@@ -1166,6 +1180,11 @@ Field | Optionality | Type | Description
    ]
 }
 ```
+
+#### Feedback on System Actions
+
+*STU Note: The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.*
+
 ### Security and Safety
 
 All data exchanged through the RESTful APIs MUST be transmitted over channels secured using the Hypertext Transfer Protocol (HTTP) over Transport Layer Security (TLS), also known as HTTPS and defined in [RFC2818](https://tools.ietf.org/html/rfc2818). Implementers SHOULD review the [FHIR security considerations for Communications](https://hl7.org/fhir/R4/security.html#http) for additional guidance.

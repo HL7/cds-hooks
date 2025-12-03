@@ -1,0 +1,51 @@
+{
+  "resourceType": "ValueSet",
+  "id": "non-adherence-reason-category",
+  "extension": [
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "trial-use"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+        "valueInteger": 1
+    }
+  ],
+  "url": "http://terminology.hl7.org/ValueSet/non-adherence-reason-category",
+  "version": "1.0.0",
+  "name": "NonAdherenceReasonCategory",
+  "title": "Non-Adherence Reason Categories ValueSet",
+  "status": "active",
+  "experimental": false,
+  "publisher": "HL7 International / Clinical Decision Support",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "http://www.hl7.org/Special/committees/dss"
+        }
+      ]
+    }
+  ],
+  "description": "A set of codes capturing the six high-level categories for why a PC CDS recommendation may not be followed.",
+  "compose": {
+    "include": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason",
+        "concept": [
+          { "code": "cds-not-applicable", "display": "PC CDS does not apply to patient" },
+          { "code": "cds-suboptimal-context", "display": "PC CDS delivered in suboptimal context" },
+          { "code": "recipient-disagrees-evidence", "display": "Recipient disagrees with recommendation because of issues with the evidence" },
+          { "code": "recipient-concerns-outcomes", "display": "Recipient has concerns regarding potential health outcomes" },
+          { "code": "does-not-align-preferences", "display": "Recommendation does not align with patient preferences or values" },
+          { "code": "not-convenient-feasible", "display": "Recommendation is not convenient or feasible" }
+        ]
+      }
+    ]
+  }
+}
