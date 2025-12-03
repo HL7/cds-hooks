@@ -10,6 +10,27 @@
 <artifactPageExtension value="-definitions"/>
 <artifactPageExtension value="-examples"/>
 <artifactPageExtension value="-mappings"/>
+<artifact id="StructureDefinition/CDSHookContext" key="StructureDefinition-CDSHookContext" name="CDS Hook Specific Context (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookOrderSelectContext" key="StructureDefinition-CDSHookOrderSelectContext" name="CDS Hook Specific Context for order-select (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookOrderSignContext" key="StructureDefinition-CDSHookOrderSignContext" name="CDS Hook Specific Context for order-sign (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookPatientViewContext" key="StructureDefinition-CDSHookPatientViewContext" name="CDS Hook Specific Context for patient-view (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookAppointmentBookContext" key="StructureDefinition-CDSHookAppointmentBookContext" name="CDS Hooks Specific Context for appointment-book (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookEncounterDischargeContext" key="StructureDefinition-CDSHookEncounterDischargeContext" name="CDS Hooks Specific Context for encounter-discharge (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookEncounterStartContext" key="StructureDefinition-CDSHookEncounterStartContext" name="CDS Hooks Specific Context for encounter-start (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookOrderDispatchContext" key="StructureDefinition-CDSHookOrderDispatchContext" name="CDS Hooks Specific Context for order-dispatch (Logical Definition)"/>
+<artifact id="CodeSystem/CDSActionType" key="CodeSystem-CDSActionType" name="CDSActionType Codes"/>
+<artifact id="ValueSet/CDSActionType" key="ValueSet-CDSActionType" name="CDSActionType Codes ValueSet"/>
+<artifact id="StructureDefinition/CDSHooksRequest" key="StructureDefinition-CDSHooksRequest" name="CDSHooks Request (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHooksResponse" key="StructureDefinition-CDSHooksResponse" name="CDSHooks Response (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHooksElement" key="StructureDefinition-CDSHooksElement" name="CDSHooks Services Base Extensible Element"/>
+<artifact id="StructureDefinition/CDSHooksExtensions" key="StructureDefinition-CDSHooksExtensions" name="CDSHooks Services Extensions"/>
+<artifact id="StructureDefinition/CDSHooksServices" key="StructureDefinition-CDSHooksServices" name="CDSHooks Services Request (Logical Definition)"/>
+<artifact id="CodeSystem/CDSIndicator" key="CodeSystem-CDSIndicator" name="CDSIndicator Codes"/>
+<artifact id="ValueSet/CDSIndicator" key="ValueSet-CDSIndicator" name="CDSIndicator Codes ValueSet"/>
+<artifact id="CodeSystem/CDSLinkType" key="CodeSystem-CDSLinkType" name="CDSLinkType Codes"/>
+<artifact id="ValueSet/CDSLinkType" key="ValueSet-CDSLinkType" name="CDSLinkType Codes ValueSet"/>
+<artifact id="CodeSystem/CDSSelectionBehavior" key="CodeSystem-CDSSelectionBehavior" name="CDSSelectionBehavior Codes"/>
+<artifact id="ValueSet/CDSSelectionBehavior" key="ValueSet-CDSSelectionBehavior" name="CDSSelectionBehavior Codes ValueSet"/>
 <artifact deprecated="true" key="Conformance" name="Conformance"/>
 <artifact deprecated="true" id="Hooks/appointment-book" key="Hooks-appointment-book" name="Hooks - Appointment Book"/>
 <artifact deprecated="true" id="Hooks/encounter-discharge" key="Hooks-encounter-discharge" name="Hooks - Encounter Discharge"/>
@@ -21,6 +42,7 @@
 <artifact id="ValueSet/non-adherence-reason" key="ValueSet-non-adherence-reason" name="Non-Adherence Reason"/>
 <artifact id="CodeSystem/non-adherence-reason" key="CodeSystem-non-adherence-reason" name="Non-Adherence Reason"/>
 <artifact id="ValueSet/non-adherence-reason-category" key="ValueSet-non-adherence-reason-category" name="Non-Adherence Reason Categories ValueSet"/>
+<artifact id="ValueSet/non-adherence-reason-clinical" key="ValueSet-non-adherence-reason-clinical" name="Non-Adherence Reason Clinical Selection"/>
 <page key="NA" name="(NA)"/>
 <page key="many" name="(many)"/>
 <page deprecated="true" key="profiles" name="(profiles)"/>

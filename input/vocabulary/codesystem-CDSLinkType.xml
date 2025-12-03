@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeSystem xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R4/fhir-single.xsd">
+  <id value="CDSLinkType"/>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm">
+    <valueInteger value="1"/>
+  </extension>
+  <url value="http://cds-hooks.hl7.org/CodeSystem/CDSLinkType"/>
+  <name value="CDSLinkTypeCodes"/>
+  <title value="CDSLinkType Codes"/>
+  <status value="active"/>
+  <experimental value="false"/>
+  <description value="Codes that describe application CDSLinkTypes"/>
+  <jurisdiction>
+    <coding>
+      <system value="http://unstats.un.org/unsd/methods/m49/m49.htm"/>
+      <code value="001"/>
+    </coding>
+  </jurisdiction>  
+  <caseSensitive value="true"/>
+  <content value="complete"/>
+  <property>
+    <code value="should-shall"/>
+    <description value="Codes with this property true must have shall or should appended in the grammar"/>
+    <type value="boolean"/>
+  </property>
+  <property>
+    <code value="expression"/>
+    <description value="Expression that expresses aggregate codes using the grammar"/>
+    <type value="string"/>
+  </property>
+  <concept>
+    <code value="absolute"/>
+    <display value="absolute"/>
+    <definition value="Indicates that the URL is absolute and should be treated as-is."/>
+  </concept>
+  <concept>
+    <code value="smart"/>
+    <display value="smart"/>
+    <definition value="indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters"/>
+  </concept>
+</CodeSystem>

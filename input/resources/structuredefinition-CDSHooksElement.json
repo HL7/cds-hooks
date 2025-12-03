@@ -1,0 +1,42 @@
+{
+  "resourceType" : "StructureDefinition",
+  "id" : "CDSHooksElement",
+  "extension" : [{
+    "url" : "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+    "valueInteger" : 1
+  },{
+    "url" : "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype",
+    "valueBoolean" : true
+  }],
+  "url" : "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement",
+  "version" : "0.0.1",
+  "name" : "CDSHooksElement",
+  "title" : "CDSHooks Services Base Extensible Element",
+  "status" : "draft",
+  "experimental" : true,
+  "description" : "This structure is defined to allow the FHIR Validator to validate a CDSHooks Services Element with Extensions. TODO: This content will be moved to the CDS Hooks specification in the future",
+  "kind" : "logical",
+  "fhirVersion" : "4.0.1",
+  "baseDefinition" : "http://hl7.org/fhir/StructureDefinition/Base",
+  "derivation" : "specialization",
+  "abstract"  : true,
+  "type" : "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement",
+  "differential" : {
+    "element" : [
+      {
+        "path" : "CDSHooksElement",
+        "short" : "Base Element - defines CDSHooks Extension",
+        "definition" : "Base element for all CDSHooks Element - defines the extension element on all CDSHooks objects"
+      },
+      {
+        "path" : "CDSHooksElement.extension",
+        "short" : "Object that has Named Extension Properties",
+        "definition" : "A JSON object that has properties where the names are defined by the extension definitions",
+        "comment" : "Extension structures SHOULD use a strategy for naming that ensures global uniqueness, such as reverse-domain-name notation, e.g. com.cds-hooks.sandbox.myextension-practitionerspecialty. How to handle complex extensions (objects) is not defined",
+        "min" : 0,
+        "max" : "1",
+        "type" : [{ "code" : "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksExtensions"}]
+      }
+    ]
+  }
+}

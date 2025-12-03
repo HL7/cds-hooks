@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeSystem xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R4/fhir-single.xsd">
+  <id value="CDSIndicator"/>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm">
+    <valueInteger value="1"/>
+  </extension>
+  <url value="http://cds-hooks.hl7.org/CodeSystem/CDSIndicator"/>
+  <name value="CDSIndicatorCodes"/>
+  <title value="CDSIndicator Codes"/>
+  <status value="active"/>
+  <experimental value="false"/>
+  <description value="Codes that describe application CDSIndicators"/>
+  <jurisdiction>
+    <coding>
+      <system value="http://unstats.un.org/unsd/methods/m49/m49.htm"/>
+      <code value="001"/>
+    </coding>
+  </jurisdiction>  
+  <caseSensitive value="true"/>
+  <content value="complete"/>
+  <concept>
+    <code value="info"/>
+    <display value="info"/>
+    <definition value="An information message"/>
+  </concept>
+  <concept>
+    <code value="warning"/>
+    <display value="warning"/>
+    <definition value="A warning message"/>
+  </concept>
+  <concept>
+    <code value="error"/>
+    <display value="error"/>
+    <definition value="An error message"/>
+  </concept>
+</CodeSystem>
