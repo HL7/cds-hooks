@@ -927,6 +927,8 @@ Field | Optionality | Type | Description
 `autolaunchable` | OPTIONAL | *boolean* |  This field serves as a hint to the CDS Client suggesting this link be immediately launched, without displaying the card and without manual user interaction.  Note that CDS Hooks cards which contain links with this field set to true, may not be shown to the user.  Sufficiently advanced CDS Clients may support automatically launching multiple links or multiple cards. Implementer guidance is requested to determine if the specification should preclude these advanced scenarios.
 {:.grid}
 
+Note that launching a SMART-on-FHIR application can also be accomplished using a suggestion that proposes a [SMART-on-FHIR task](https://hl7.org/fhir/smart-app-launch/STU2.2/task-launch.html).
+
 ###### Considerations for `autolaunchable` and user experience
 
 The intent of this optional feature is to improve individual user experience by removing the otherwise unnecessary click of a link by the user. Appropriate support of this feature includes guardrails from both the CDS Service developer and the CDS Client, as well as additional local control by the organization using the service.
