@@ -42,6 +42,10 @@ Well-tuned implementations improve patient safety and clinician efficiency; poor
 
 See [https://cds-hooks.org/](https://cds-hooks.org/) for additional information, resources and ways to get involved.
 
+See the [Artifacts](artifacts.html) page for FHIR computable representations of CDS Hooks constructs.
+
+See the [Decision Support Services](https://hl7.org/fhir/clinicalreasoning-cds-on-fhir.html) topic in the FHIR Clinical Reasoning module for information on how to use FHIR Clinical Reasoning to provide CDS Hooks services.
+
 ### Conformance Language
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119). Further, the key word "CONDITIONAL" indicates that a particular item is either REQUIRED or OPTIONAL, based upon another item.
 

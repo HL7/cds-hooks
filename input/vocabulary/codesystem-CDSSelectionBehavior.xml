@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeSystem xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R4/fhir-single.xsd">
+  <id value="CDSSelectionBehavior"/>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm">
+    <valueInteger value="1"/>
+  </extension>
+  <url value="http://cds-hooks.hl7.org/CodeSystem/CDSSelectionBehavior"/>
+  <name value="CDSSelectionBehaviorCodes"/>
+  <title value="CDSSelectionBehavior Codes"/>
+  <status value="active"/>
+  <experimental value="false"/>
+  <description value="Codes that describe application CDSSelectionBehaviors"/>
+  <jurisdiction>
+    <coding>
+      <system value="http://unstats.un.org/unsd/methods/m49/m49.htm"/>
+      <code value="001"/>
+    </coding>
+  </jurisdiction>  
+  <caseSensitive value="true"/>
+  <content value="complete"/>
+  <property>
+    <code value="should-shall"/>
+    <description value="Codes with this property true must have shall or should appended in the grammar"/>
+    <type value="boolean"/>
+  </property>
+  <property>
+    <code value="expression"/>
+    <description value="Expression that expresses aggregate codes using the grammar"/>
+    <type value="string"/>
+  </property>
+  <concept>
+    <code value="at-most-one"/>
+    <display value="at-most-one"/>
+    <definition value="indicates that the user may choose none or at most one of the suggestions"/>
+  </concept>
+  <concept>
+    <code value="any"/>
+    <display value="any"/>
+    <definition value="indicates that the end user may choose any number of suggestions including none of them and all of them"/>
+  </concept>
+</CodeSystem>
