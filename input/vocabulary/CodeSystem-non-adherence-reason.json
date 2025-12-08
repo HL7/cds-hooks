@@ -22,7 +22,7 @@
         }
     }
   ],
-  "url": "http://terminology.hl7.org/CodeSystem/non-adherence-reason",
+  "url": "http://cds-hooks.hl7.org/CodeSystem/non-adherence-reason"
   "name": "NonAdherenceReason",
   "title": "Non-Adherence Reason",
   "status": "active",
@@ -40,7 +40,7 @@
   ],
   "description": "Codes representing reasons why a Patient Care Clinical Decision Support (PC CDS) recommendation may not be followed, categorized by the source of the barrier. The concepts here were originally defined in the AHRQ CDSiC publication [Approaches to Standardizing Override Reasons for Patient-Centered Clinical Decision Support](https://digital.ahrq.gov/sites/default/files/508_SRF%20Level%202%20Override%20Taxonomy%20Implementation%208.28.25.pdf).\n\nNotes: \"Recipient\" means the individual who received the PC CDS, which could be a clinician for clinician-facing PC CDS, or a patient or caregiver for patient-facing PC CDS. \"Recommended action\" refers to the action suggested by the PC CDS. \"Intended action\" refers to the course of action that the PC CDS recipient (clinician, patient, or caregiver) meant to take, and which triggered the PC CDS. *The category \"Patient refuses/declines (no context given)\" is included to acknowledge that override reasons that document patient refusal without providing more information are common in current CDS tools. However, this category is separated from the main taxonomy to indicate that it is not a preferred option; in the future, it would be ideal if PC CDS tools provided more specific patient override reasons.",
   "caseSensitive": true,
-  "valueSet": "http://terminology.hl7.org/ValueSet/override-reasons",
+  "valueSet": "http://cds-hooks.hl7.org/ValueSet/override-reasons",
   "hierarchyMeaning": "grouped-by",
   "content": "complete",
   "concept": [
