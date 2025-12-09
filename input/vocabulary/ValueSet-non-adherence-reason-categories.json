@@ -15,7 +15,7 @@
         "valueInteger": 1
     }
   ],
-  "url": "http://terminology.hl7.org/ValueSet/non-adherence-reason-category",
+  "url": "http://cds-hooks.hl7.org/ValueSet/non-adherence-reason-category",
   "version": "1.0.0",
   "name": "NonAdherenceReasonCategory",
   "title": "Non-Adherence Reason Categories ValueSet",
@@ -36,7 +36,7 @@
   "compose": {
     "include": [
       {
-        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason",
+        "system": "http://cds-hooks.hl7.org/CodeSystem/non-adherence-reason",
         "concept": [
           { "code": "cds-not-applicable", "display": "PC CDS does not apply to patient" },
           { "code": "cds-suboptimal-context", "display": "PC CDS delivered in suboptimal context" },
