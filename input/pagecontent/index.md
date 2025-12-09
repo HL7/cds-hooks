@@ -442,6 +442,12 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). 
 
+> Experimental
+>
+> Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{%context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
+> 
+> NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
+
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
 - the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"), 
