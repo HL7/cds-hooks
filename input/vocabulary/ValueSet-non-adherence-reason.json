@@ -36,7 +36,7 @@
   "compose": {
     "include": [
       {
-        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason"
+        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason-codes"
       }
     ]
   }

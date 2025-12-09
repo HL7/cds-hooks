@@ -911,7 +911,7 @@ The following example illustrates a delete action:
 
 **overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
-Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason](CodeSystem-non-adherence-reason.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
+Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
 
 *STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.*
 

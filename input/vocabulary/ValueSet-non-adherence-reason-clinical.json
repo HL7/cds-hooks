@@ -35,24 +35,24 @@
   "compose": {
     "include": [
       {
-        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason",
+        "system": "http://terminology.hl7.org/CodeSystem/non-adherence-reason-codes",
         "concept": [
-          { "code": "cds-not-applicable", "display": "CDS not applicable (Done/Ineligible)" },
-          { "code": "cds-suboptimal-context", "display": "CDS delivered at wrong time/place" },
-          { "code": "recipient-disagrees-evidence", "display": "Recipient disagrees with evidence/policy" },
-          { "code": "recipient-concerns-outcomes", "display": "Concerns regarding health outcomes/risk" },
-          { "code": "does-not-align-preferences", "display": "Patient preferences/values conflict" },
-          { "code": "not-convenient-feasible", "display": "Not convenient or feasible (Cost/Logistics)" },
+          { "code": "cds-not-applicable" },
+          { "code": "cds-suboptimal-context" },
+          { "code": "recipient-disagrees-evidence" },
+          { "code": "recipient-concerns-outcomes" },
+          { "code": "does-not-align-preferences" },
+          { "code": "not-convenient-feasible" },
           
-          { "code": "action-completed", "display": "Action already completed" },
+          { "code": "action-completed" },
           
-          { "code": "patient-contraindication", "display": "Patient has contraindication" },
+          { "code": "patient-contraindication" },
           
-          { "code": "patient-refuses", "display": "Patient refuses/declines (no context given)*" },
+          { "code": "patient-refuses" },
 
-          { "code": "too-costly-uncovered", "display": "Too costly or not covered by insurance" },
-          { "code": "service-not-available", "display": "Treatment or service not available" },
-          { "code": "recipient-does-not-understand", "display": "Recipient does not understand action" }
+          { "code": "too-costly-uncovered" },
+          { "code": "service-not-available" },
+          { "code": "recipient-does-not-understand" }
         ]
       }
     ]
