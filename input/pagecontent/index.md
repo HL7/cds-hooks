@@ -84,6 +84,7 @@ Decision support is then returned to the CDS Client in the form of [_cards_](#cd
 Towards the goal of enabling capability discovery at design time -- CDS Clients and Services are encouraged to provide publicly available, human-readable documentation describing supported CDS Hooks functionality. Documentation of specific supported use-cases and workflows for CDS Hooks is particularly valuable. 
 
 > In particular, clients SHALL indicate whether they support the `actionSelectionBehavior` feature and SHOULD document any other feature support necessary to ensure safe operation of CDS Services. CDS Services SHALL NOT make use of the  `actionSelectionBehavior` feature without knowing that the requesting client supports it.
+{:.stu}
 
 ### Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The Discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
@@ -880,7 +881,7 @@ Field | Optionality | Type | Description
 `uuid` | OPTIONAL | *string* | Unique identifier, used for auditing and logging suggestions.
 `isRecommended` | OPTIONAL | *boolean* | When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card. CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if `card.selectionBehavior` is `any`.
 `actions` | OPTIONAL | *array* of **[Actions](#action)** | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it. When a suggestion contains multiple actions, the actions SHOULD be processed as per FHIR's rules for processing [transactions](https://hl7.org/fhir/http.html#trules) with the CDS Client's `fhirServer` as the base url for the inferred full URL of the transaction bundle entries. (Specifically, deletes happen first, then creates, then updates).
-`actionSelectionBehavior` | OPTIONAL | *string* | Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. This element may not be available for use, [note requirements for usage](#capability-documentation). Allowed values are:
+`actionSelectionBehavior` | OPTIONAL | *string* | Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. This element may not be available for use, [note requirements for usage](#capability-documentation). Note that this field is an STU element. Allowed values are:
   * `all` - indicating that a user selecting a suggestion is selecting all of the actions within it (default if no value is provided)
   * `any` - indicating that the end user may choose any number of actions including none of them or all of them;
   * `at-most-one` - indicating that the user may choose none or at most one of the actions; 
@@ -944,6 +945,7 @@ The following example illustrates a delete action:
 **overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
 Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
+{:.stu}
 
 > STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.
 {:.stu-note}
