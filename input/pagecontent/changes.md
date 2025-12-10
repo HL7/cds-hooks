@@ -7,14 +7,14 @@ Hook definitions are linked from the CDS Hooks specification. Note that hook def
 #### CDS Hooks 3.0.0
 The 3.0 release is a largely normative release, which adds a few enhancements, including:
 * Various enhancements to prefetch templates:
-  * [Allow prefetch tokens to contain a limited subset of FHIRPath](#prefetch-tokens-containing-simpler-fhirpath) to enable: Data arithmetic and graph traversal in prefetch templates
-  * [Prior prefetch templates as variables that can be used in subsequent prefetch tokens](#simpler-fhirpath-support-for-querystring-syntax)
-* Created [`suggestion.actionSelectionBehavior`](#simpler-fhirpath-support-for-querystring-syntax) (a feature similar and related to to `card.selectionBehavior`) and [require CDS Clients to document support of this feature](#capability-documentation).
-* [Example value set of override reasons](ValueSet-non-adherence-reason-clinical.html) and [accompanying codesystem](CodeSystem-non-adherence-reason-codes.html)
-* [Recommend CDS Services format errors as FHIR OperationOutcomes](#returning-operationoutcome) ([FHIR-50287](https://jira.hl7.org/browse/FHIR-50287))
-* [Recommend CDS Clients to use a JSON Web Key Set Url and rotate keys](#trusting-cds-clients)
-* [Recommend CDS Services advertise the version of CDS Hooks](#response)
-* [Use SMART App Launch STU 2, replacing use of SMART App Launch STU 1](#passing-the-access-token-to-the-cds-service) ([FHIR-37609](https://jira.hl7.org/browse/FHIR-37609)) Notably, this impacts the contents of the `scope` element, within the optional `fhirAuthorization` object as part of the CDS Hooks request.
+  * Allow prefetch tokens to contain [a limited subset of FHIRPath](index.html#prefetch-tokens-containing-simpler-fhirpath) to enable: Data arithmetic and graph traversal in prefetch templates
+  * Support the use of [prior prefetch templates as variables that can be used in subsequent prefetch tokens](index.html#simpler-fhirpath-support-for-querystring-syntax)
+* Created [`suggestion.actionSelectionBehavior`](index.html#simpler-fhirpath-support-for-querystring-syntax) (a feature similar and related to to `card.selectionBehavior`) and [require CDS Clients to document support of this feature](index.html#capability-documentation).
+* Created an [example value set of override reasons](ValueSet-non-adherence-reason-clinical.html) and [accompanying codesystem](CodeSystem-non-adherence-reason-codes.html)
+* Recommend CDS Services [format errors as FHIR OperationOutcomes](index.html#returning-operationoutcome) ([FHIR-50287](https://jira.hl7.org/browse/FHIR-50287))
+* Recommend CDS Clients to [use a JSON Web Key Set Url and rotate keys](index.html#trusting-cds-clients)
+* Recommend CDS Services [advertise their version of CDS Hooks](index.html#response)
+* Use [SMART App Launch STU 2, replacing use of SMART App Launch STU 1](index.html#passing-the-access-token-to-the-cds-service) ([FHIR-37609](https://jira.hl7.org/browse/FHIR-37609)) Notably, this impacts the contents of the `scope` element, within the optional `fhirAuthorization` object as part of the CDS Hooks request.
 
 Additionally, the following fixes or clarificatios were made:
 * [FHIR-52890](https://jira.hl7.org/browse/FHIR-52890) - explain how a service developer knows a client's capabilities
