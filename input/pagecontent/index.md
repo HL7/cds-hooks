@@ -29,7 +29,7 @@ decision support from within a clinician's workflow. The API supports:
  * Launching a user-facing app when CDS requires additional interaction
 
 <figure>
-<img src="CDS-Hooks-overview-image-diagram.png" width="250" title="Diagram of CDS Hooks interactions" />
+<img src="CDS-Hooks-overview-image-diagram.png" width="600" title="Diagram of CDS Hooks interactions" />
 <figcaption>Figure: CDS Hooks Overview</figcaption>
 </figure>
 
@@ -239,6 +239,7 @@ curl
 ```
 
 > STU Note: Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
+{:.stu-note}
 
 ### Providing FHIR Resources to a CDS Service
 
@@ -403,23 +404,31 @@ Token | Description
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
 ##### Prefetch tokens containing Simpler FHIRPath
+{:.stu}
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
+{:.stu}
+
 * the 'context' object, which corresponds to the context element passed in the CDS Hooks call
 * variables that correspond to the names of prior prefetch templates
 * simple chaining through element paths
 * the following FHIRPath functions: ofType(), resolve(), today()
 * the '+' and '-' math options
+{:.stu}
 
 The following additional limitations apply:
+{:.stu}
 
 ###### Simple FHIRPath for Relative Dates
+{:.stu}
 
 A best practice is to target information retrieved during a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
 * the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
 * [addition](https://hl7.org/fhirpath/N1/index.html#addition-2) and [subtraction](https://hl7.org/fhirpath/N1/index.html#subtraction-2) of quantity unit [`days`](https://hl7.org/fhirpath/N1/index.html#datetime-arithmetic),
+{:.stu}
 
 For example, a prefetch template could specify all Lab results within the last 90 days, like so:
+{:.stu}
 
 ```json
 {
@@ -428,38 +437,51 @@ For example, a prefetch template could specify all Lab results within the last 9
   }
 }
 ```
+{:.stu}
 
 (If today is 2024-09-13) prefetch would contain a Bundle of Observations from this FHIR query: 
+{:.stu}
+
 ```
 Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 ```
+{:.stu}
 
 ###### Simpler FHIRPath support for Querystring Syntax
+{:.stu}
 
 <div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
 <img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
 </div><p>&nbsp;</p>
 
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). 
+{:.stu}
 
 > Experimental
 >
 > Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{%context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
 > 
 > NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
+{:.stu}
 
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
 - the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"), 
 - and the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions.
+{:.stu}
 
 Similar to FHIR's use of FHIRPath, an argument to `ofType()` SHALL be a [FHIR resource type](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"). 
+{:.stu}
 
 CDS Clients SHOULD support paths to References, and MAY support paths to any element within a FHIR resource in context. 
+{:.stu}
 
 The FHIRPath selection syntax generally returns collections. To enable FHIRPath output to function in a querystring syntax (and aligning with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html), FHIRPath collections of simple data types are represented as comma-delimited strings (i.e. behaving as 'or' in the search parameter).
+{:.stu}
 
 Other prefetch parameters can be referenced in token expressions as FHIRPath variables by placing '%' in front of the prefetch parameter name.  For example, the following asks for the practitioner who asserted the indication for the service request and ensures all intervening resources are also included:
+{:.stu}
+
 ```json
 {
   "prefetch": {
@@ -469,19 +491,28 @@ Other prefetch parameters can be referenced in token expressions as FHIRPath var
    }
 }
 ```
+{:.stu}
 
 Note that a possible implementation of resolve().ofType(SomeResource).id could implement a form of lazy evaluation for performance optimization.
+{:.stu}
 
 It is an error if dependencies are cyclical - i.e. if one prefetch either directly or indirectly depends on itself.
+{:.stu}
 
 A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
+{:.stu}
+
      `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
+{:.stu}
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
+{:.stu}
 
 ###### Example Prefetch Template with Simpler FHIRPath
+{:.stu}
 
 To prefetch the Medications being prescribed, as well as upcoming appointments, a prefetch template of: 
+{:.stu}
 
 ```json
 {
@@ -492,8 +523,10 @@ To prefetch the Medications being prescribed, as well as upcoming appointments, 
   }
 }
 ```
+{:.stu}
 
 and a CDS Hooks order-sign request with the following two MedicationRequests in context:
+{:.stu}
 
 ```json
 "context": {
@@ -564,13 +597,12 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
     }
   }
 ```
+{:.stu}
 
 Given the above prefetch template, and context, the CDS Client is asked to provide the results of these two FHIR queries: 
 * `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
 * `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
-
-
-
+{:.stu}
 
 
 ##### Prefetch query restrictions
@@ -913,7 +945,8 @@ The following example illustrates a delete action:
 
 Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
 
-*STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.*
+> STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.
+{:.stu-note}
 
 ```json
 {
