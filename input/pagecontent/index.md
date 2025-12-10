@@ -462,9 +462,7 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 
 <div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
 <img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
-> Experimental
->
-> Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{%context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
+Experimental: Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{%context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
 > 
 > NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
 </div><p>&nbsp;</p>
@@ -797,9 +795,12 @@ If your CDS Service has no decision support for the user, your service should re
 
 Clients SHOULD remove `cards` returned by previous invocations of a `hook` to a service with the same `id` when a new `hook` is triggered (see [*update stale guidance*](#update-stale-guidance)).
 
-#### Returning OperationOutcome 
-If a CDS Service encounters an error and returns a non-2xx HTTP status, the CDS Service SHOULD include an OperationOutcome resource in the response body to aid issue-tracking and troubleshooting. Typically, these errors are not shown to end-users. 
+Note: The contents of this section are Standard for Trial Use (STU)
 {:.stu-note}
+#### Returning OperationOutcome 
+{:.stu}
+If a CDS Service encounters an error and returns a non-2xx HTTP status, the CDS Service SHOULD include an OperationOutcome resource in the response body to aid issue-tracking and troubleshooting. Typically, these errors are not shown to end-users. 
+{:.stu}
 
 ##### Example
 {:.stu}
@@ -807,7 +808,7 @@ If a CDS Service encounters an error and returns a non-2xx HTTP status, the CDS 
 An EHR reaches the order-select hook as a provider is adding medications to an order set. Your CDS service needs the patient’s active AllergyIntolerance list (prefetch key patientAllergies) to check for contraindications. If that bundle element is missing, the service responds with HTTP 412 and the following FHIR OperationOutcome.
 {:.stu}
 
-> Example OperationOutcome Resource
+###### Example OperationOutcome Resource
 {:.stu}
 ```http
 HTTP/1.1 412 OK
@@ -949,13 +950,10 @@ The following example illustrates a delete action:
 
 **overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
-Note: The contents of this section are Standard for Trial Use (STU)
+Note: The contents of this section are Standard for Trial Use (STU). We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.
 {:.stu-note}
 
 Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
-{:.stu}
-
-> STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.
 {:.stu}
 
 ```json
@@ -1235,7 +1233,7 @@ Field | Optionality | Type | Description
 
 #### Feedback on System Actions
 
-The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.*
+The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.
 {:.stu-note}
 
 ### Security and Safety
@@ -1400,7 +1398,7 @@ In the case that CDS Hooks cards are persisted, clients should take care to ensu
 
 CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
-STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.*
+STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.
 {:.stu-note}
 
 Note that CDS Services will need to negotiate with CDS Clients to ensure that hooks that are required to ensure patient safety are supported by the CDS Client.
