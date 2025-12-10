@@ -84,7 +84,7 @@ Decision support is then returned to the CDS Client in the form of [_cards_](#cd
 Towards the goal of enabling capability discovery at design time -- CDS Clients and Services are encouraged to provide publicly available, human-readable documentation describing supported CDS Hooks functionality. Documentation of specific supported use-cases and workflows for CDS Hooks is particularly valuable. 
 
 > In particular, clients SHALL indicate whether they support the `actionSelectionBehavior` feature and SHOULD document any other feature support necessary to ensure safe operation of CDS Services. CDS Services SHALL NOT make use of the  `actionSelectionBehavior` feature without knowing that the requesting client supports it.
-{:.stu}
+{:.stu-note}
 
 ### Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The Discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
@@ -405,7 +405,7 @@ Token | Description
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
 ##### Prefetch tokens containing Simpler FHIRPath
-{:.stu}
+{:.stu-note}
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
 {:.stu}
@@ -421,7 +421,7 @@ The following additional limitations apply:
 {:.stu}
 
 ###### Simple FHIRPath for Relative Dates
-{:.stu}
+{:.stu-note}
 
 A best practice is to target information retrieved during a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
 * the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
@@ -449,7 +449,7 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 {:.stu}
 
 ###### Simpler FHIRPath support for Querystring Syntax
-{:.stu}
+{:.stu-note}
 
 <div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
 <img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
@@ -510,7 +510,7 @@ See [worked example, below](#example-prefetch-template-with-simpler-fhirpath).
 {:.stu}
 
 ###### Example Prefetch Template with Simpler FHIRPath
-{:.stu}
+{:.stu-note}
 
 To prefetch the Medications being prescribed, as well as upcoming appointments, a prefetch template of: 
 {:.stu}
@@ -945,7 +945,7 @@ The following example illustrates a delete action:
 **overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
 Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
-{:.stu}
+{:.stu-note}
 
 > STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.
 {:.stu-note}
