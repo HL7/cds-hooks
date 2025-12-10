@@ -83,8 +83,10 @@ Decision support is then returned to the CDS Client in the form of [_cards_](#cd
 ### Capability Documentation
 Towards the goal of enabling capability discovery at design time -- CDS Clients and Services are encouraged to provide publicly available, human-readable documentation describing supported CDS Hooks functionality. Documentation of specific supported use-cases and workflows for CDS Hooks is particularly valuable. 
 
-> In particular, clients SHALL indicate whether they support the `actionSelectionBehavior` feature and SHOULD document any other feature support necessary to ensure safe operation of CDS Services. CDS Services SHALL NOT make use of the  `actionSelectionBehavior` feature without knowing that the requesting client supports it.
+Note: The contents of this section are Standard for Trial Use (STU)
 {:.stu-note}
+In particular, clients SHALL indicate whether they support the `actionSelectionBehavior` feature and SHOULD document any other feature support necessary to ensure safe operation of CDS Services. CDS Services SHALL NOT make use of the  `actionSelectionBehavior` feature without knowing that the requesting client supports it.
+{:.stu}
 
 ### Discovery
 A CDS Service is discoverable via a stable endpoint by CDS Clients. The Discovery endpoint includes information such as a description of the CDS Service, when it should be invoked, and any data that is requested to be prefetched.
@@ -239,7 +241,7 @@ curl
 }
 ```
 
-> STU Note: Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
+Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
 {:.stu-note}
 
 ### Providing FHIR Resources to a CDS Service
@@ -404,8 +406,10 @@ Token | Description
 
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
-##### Prefetch tokens containing Simpler FHIRPath
+Note: The contents of this section are Standard for Trial Use (STU)
 {:.stu-note}
+##### Prefetch tokens containing Simpler FHIRPath
+{:.stu}
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
 {:.stu}
@@ -421,9 +425,10 @@ The following additional limitations apply:
 {:.stu}
 
 ###### Simple FHIRPath for Relative Dates
-{:.stu-note}
+{:.stu}
 
 A best practice is to target information retrieved during a CDS Hooks exchange to minimze latency. To better enable CDS Services targeting prefetch queries, CDS Clients SHOULD support:
+{:.stu}
 * the [FHIRPath `today()`](https://hl7.org/fhirpath/N1/index.html#current-date-and-time-functions) function,
 * [addition](https://hl7.org/fhirpath/N1/index.html#addition-2) and [subtraction](https://hl7.org/fhirpath/N1/index.html#subtraction-2) of quantity unit [`days`](https://hl7.org/fhirpath/N1/index.html#datetime-arithmetic),
 {:.stu}
@@ -449,23 +454,24 @@ Observation?patient=1288992&category=laboratory&date=gt2024-06-15
 {:.stu}
 
 ###### Simpler FHIRPath support for Querystring Syntax
-{:.stu-note}
-
-<div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
-<img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
-</div><p>&nbsp;</p>
+{:.stu}
 
 Terminal prefetch tokens are context fields of simple data types, such as string. For example, order-sign's patientId field is represented as this `{% raw  %}{{{% endraw  %}context.patientId}}` prefetch token. Complex context fields containing one or more FHIR resources, such as order-sign's draftOrders, may be traversed into, for example, to retrieve FHIR logical ids ("Resource.id"). 
 {:.stu}
 
+
+<div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
+<img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
 > Experimental
 >
 > Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{%context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
 > 
 > NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
+</div><p>&nbsp;</p>
 {:.stu}
 
 Prefetch tokens traverse into those resources using a small subset of [FHIRPath](https://hl7.org/fhirpath/N1/index.html). CDS Clients that support prefetch, SHOULD support:
+{:.stu}
 - Prefetch tokens that traverse into objects in CDS Hooks `context` using [FHIRPath’s graph traversal syntax](https://hl7.org/fhirpath/N1/index.html#path-selection),
 - the FHIRPath [`ofType()`](https://hl7.org/fhirpath/N1/index.html#oftypetype-type-specifier-collection) function for [FHIR resource types](https://hl7.org/fhir/valueset-resource-types.html#definition) (also known as "concrete core types"), 
 - and the [`resolve()`](https://hl7.org/fhir/fhirpath.html#functions) function as defined in base FHIR's additional FHIRPath functions.
@@ -510,7 +516,7 @@ See [worked example, below](#example-prefetch-template-with-simpler-fhirpath).
 {:.stu}
 
 ###### Example Prefetch Template with Simpler FHIRPath
-{:.stu-note}
+{:.stu}
 
 To prefetch the Medications being prescribed, as well as upcoming appointments, a prefetch template of: 
 {:.stu}
@@ -601,6 +607,7 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
 {:.stu}
 
 Given the above prefetch template, and context, the CDS Client is asked to provide the results of these two FHIR queries: 
+{:.stu}
 * `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
 * `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
 {:.stu}
@@ -791,17 +798,17 @@ If your CDS Service has no decision support for the user, your service should re
 Clients SHOULD remove `cards` returned by previous invocations of a `hook` to a service with the same `id` when a new `hook` is triggered (see [*update stale guidance*](#update-stale-guidance)).
 
 #### Returning OperationOutcome 
-
 If a CDS Service encounters an error and returns a non-2xx HTTP status, the CDS Service SHOULD include an OperationOutcome resource in the response body to aid issue-tracking and troubleshooting. Typically, these errors are not shown to end-users. 
+{:.stu-note}
 
 ##### Example
+{:.stu}
 
-An EHR reaches the order-select hook as a provider is adding medications to an order set.
-Your CDS service needs the patient’s active AllergyIntolerance list (prefetch key patientAllergies) to check for contraindications.
-If that bundle element is missing, the service responds with HTTP 412 and the following FHIR OperationOutcome.
+An EHR reaches the order-select hook as a provider is adding medications to an order set. Your CDS service needs the patient’s active AllergyIntolerance list (prefetch key patientAllergies) to check for contraindications. If that bundle element is missing, the service responds with HTTP 412 and the following FHIR OperationOutcome.
+{:.stu}
 
 > Example OperationOutcome Resource
-
+{:.stu}
 ```http
 HTTP/1.1 412 OK
 Content-Length: 438
@@ -824,6 +831,7 @@ Content-Length: 438
   ]
 }
 ```
+{:.stu}
 
 #### Card Attributes
 
@@ -881,10 +889,7 @@ Field | Optionality | Type | Description
 `uuid` | OPTIONAL | *string* | Unique identifier, used for auditing and logging suggestions.
 `isRecommended` | OPTIONAL | *boolean* | When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card. CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if `card.selectionBehavior` is `any`.
 `actions` | OPTIONAL | *array* of **[Actions](#action)** | Array of objects, each defining a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it. When a suggestion contains multiple actions, the actions SHOULD be processed as per FHIR's rules for processing [transactions](https://hl7.org/fhir/http.html#trules) with the CDS Client's `fhirServer` as the base url for the inferred full URL of the transaction bundle entries. (Specifically, deletes happen first, then creates, then updates).
-`actionSelectionBehavior` | OPTIONAL | *string* | Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. This element may not be available for use, [note requirements for usage](#capability-documentation). Note that this field is an STU element. Allowed values are:
-  * `all` - indicating that a user selecting a suggestion is selecting all of the actions within it (default if no value is provided)
-  * `any` - indicating that the end user may choose any number of actions including none of them or all of them;
-  * `at-most-one` - indicating that the user may choose none or at most one of the actions; 
+`actionSelectionBehavior` | OPTIONAL | *string* | Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. This element may not be available for use, [note requirements for usage](#capability-documentation). Note that this field is an STU element. Allowed values are: <ul>   <li><code>all</code> - indicating that a user selecting a suggestion is selecting all of the actions within it (default if no value is provided)</li>   <li><code>any</code> - indicating that the end user may choose any number of actions including none of them or all of them;</li>   <li><code>at-most-one</code> - indicating that the user may choose none or at most one of the actions;</li> </ul> {:.stu}
 {:.grid}
 
 
@@ -944,11 +949,14 @@ The following example illustrates a delete action:
 
 **overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services MUST provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
 
-Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
+Note: The contents of this section are Standard for Trial Use (STU)
 {:.stu-note}
 
+Although this specification is not prescriptive about the set of override reasons, a suggested set of standardized non-adherence reasons is provided in the [Non-Adherence Reason Codes](CodeSystem-non-adherence-reason-codes.html) code system. In addition, a suggested set of [clinically relevant codes](ValueSet-non-adherence-reason-clinical.html) is provided as a starting point for service providers to use.
+{:.stu}
+
 > STU Note: We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reasons.
-{:.stu-note}
+{:.stu}
 
 ```json
 {
@@ -1227,7 +1235,8 @@ Field | Optionality | Type | Description
 
 #### Feedback on System Actions
 
-*STU Note: The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.*
+The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.*
+{:.stu-note}
 
 ### Security and Safety
 
@@ -1316,9 +1325,9 @@ CDS Services SHOULD consider the algorithms they understand and trust based upon
 ##### Example
 
 An example JSON web token header, payload, and JWK set:
-```
-  JSON Web Token Header
-```
+
+######  JSON Web Token Header
+
 ```json
 {
   "alg": "ES384",
@@ -1327,9 +1336,8 @@ An example JSON web token header, payload, and JWK set:
   "jku": "https://fhir-ehr.example.com/jwk_uri"
 }
 ```
-```
-  JSON Web Token Payload
-```
+###### JSON Web Token Payload
+
 ```json
 {
   "iss": "https://fhir-ehr.example.com/",
@@ -1340,9 +1348,9 @@ An example JSON web token header, payload, and JWK set:
   "tenant": "2ddd6c3a-8e9a-44c6-a305-52111ad302a2"
 }
 ```
-```
-  JSON Web Key Set (public key):  This public key is used by the CDS Service to verify the signature of the JWT
-```
+###### JSON Web Key Set (public key):  
+This public key is used by the CDS Service to verify the signature of the JWT
+
 ```json
 {
   "keys": [
@@ -1358,9 +1366,9 @@ An example JSON web token header, payload, and JWK set:
   ]
 }
 ```
-```
-  JSON Web Key (private key): This private key is used by the CDS Client to sign the JWT
-```
+###### JSON Web Key (private key): 
+This private key is used by the CDS Client to sign the JWT
+
 ```json
 {
   "kty": "EC",
@@ -1392,7 +1400,8 @@ In the case that CDS Hooks cards are persisted, clients should take care to ensu
 
 CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
-*STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.*
+STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.*
+{:.stu-note}
 
 Note that CDS Services will need to negotiate with CDS Clients to ensure that hooks that are required to ensure patient safety are supported by the CDS Client.
 
