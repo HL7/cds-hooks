@@ -24,7 +24,6 @@ Additionally, the following fixes or clarificatios were made:
 * https://jira.hl7.org/browse/FHIR-28684 - recommend CDS Clients document and describe their CDS Hooks capabilities in plain language
 * https://jira.hl7.org/browse/FHIR-50498 - clarify role of HL7 CDS WG in CDS Hooks Maturity Model
 
-In addition
 In addition,  clarifications, corrections, and non-substantive updates were made to the specification based on ballot and implementer feedback. For a complete list of issues addressed, see this [HL7 Jira's search](https://jira.hl7.org/issues/?jql=project%20%3D%20FHIR%20AND%20Specification%20%3D%20%22CDS%20Hooks%20(FHIR)%20%5BFHIR-cds-hooks%5D%22%20and%20status%20%3D%20Applied%20and%20updated%20%3E%202024-01-01%20order%20by%20updatedDate).
 
 #### CDS Hooks 2.0.1
