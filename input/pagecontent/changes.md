@@ -1,8 +1,8 @@
 ### Change Log
 
-CDS Hooks is an HL7 published specification for clinical decision support. Releases of the specification have been formally published through HL7.
+CDS Hooks is an HL7 published specification for remote, real-time, and provider-facing clinical decision support. Releases of the specification have been formally published through HL7.
 
-Hook definitions are linked from the CDS Hooks specification. Note that hook definitions are not part of the CDS Hooks specification, they are independent specifications that follow the Hook Maturity Model. Hooks are published by HL7. Published and balloted hooks can be found at the current url. Hook version history is documented in each hook specification. 
+Hook definitions are linked from the CDS Hooks specification. Note that hook definitions are not part of the CDS Hooks specification, they are independent specifications that follow the [Hook Maturity Model](index.html#hook-maturity-model). Hooks are published by HL7. Published and balloted hooks can be found at the current url. Hook version history is documented in each hook specification. 
 
 #### CDS Hooks 3.0.0
 The 3.0 release is a largely normative release, which adds a few enhancements, including:
@@ -16,7 +16,15 @@ The 3.0 release is a largely normative release, which adds a few enhancements, i
 * Recommend CDS Services [advertise their version of CDS Hooks](index.html#response)
 * Use [SMART App Launch STU 2, replacing use of SMART App Launch STU 1](index.html#passing-the-access-token-to-the-cds-service) ([FHIR-37609](https://jira.hl7.org/browse/FHIR-37609)) Notably, this impacts the contents of the `scope` element, within the optional `fhirAuthorization` object as part of the CDS Hooks request.
 
-Additionally, the following fixes or clarificatios were made:
+Not all of CDS Hooks 3.0 is Normative. Sections of the specifications at the standards status of Trial Use are indicated by the following header and colored border:
+
+Note: The contents of this section are Standard for Trial Use (STU)
+{:.stu-note}
+<The colored border indicates that this content is Trial Use, not Normative.>
+{:.stu}
+
+
+Additionally, the following fixes or clarifications were made:
 * [FHIR-52890](https://jira.hl7.org/browse/FHIR-52890) - explain how a service developer knows a client's capabilities
 * https://jira.hl7.org/browse/FHIR-28681 - reference the HL7 FHIR SMART App Launch Task profile
 * https://jira.hl7.org/browse/FHIR-48315 - use and encourage more diagrams
