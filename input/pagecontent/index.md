@@ -2,26 +2,12 @@
 
 <!-- ![CDS Hooks Overview](../images/logo.png) -->
 
-### Intellectual Property Statements
-
-The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and Boston Children's Hospital. The specification is licensed under a Creative Commons Attribution 4.0 International License. 
-
-<!-- IGs that don't define resources can hide these in a div tag, see https://chat.fhir.org/#narrow/channel/179252-IG-creation/topic/Orphaned.20xhtml.20fragments.3F/near/370612006 -->
-
-<div style="display:none">
-{% lang-fragment ip-statements.xhtml %}
-
-{% lang-fragment cross-version-analysis.xhtml %}
-
-{% lang-fragment dependency-table.xhtml %}
-
-{% lang-fragment globals-table.xhtml %}
-</div>
+> Note to Balloters: This is a [Normative](https://hl7.org/fhir/versions.html#std-process) ballot. Unless otherwise marked as informative or trial-use, content in this specification is being balloted normative. Trial-Use (STU) content is marked as such, and is intended to remain trial-use in the publication. Trial-use materials are features that were either introduced as part of this ballot, or do not have sufficient implementation experience to warrant being normative. We seek feedback on whether any proposed normative content should still be marked trial-use, as well the converse, if any of the trial-use content should be considered normative.
+{:.stu-note}
 
 ### Overview
 
-This HL7 CDS Hooks Implementation Guide is published at the level of [Standard 
-for Trial Use](https://hl7.org/fhir/versions.html#std-process). It describes 
+This HL7 CDS Hooks Implementation Guide is published at the level of [Normative](https://hl7.org/fhir/versions.html#std-process). It describes 
 a ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking 
 decision support from within a clinician's workflow. The API supports:
 
@@ -241,7 +227,7 @@ curl
 }
 ```
 
-Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
+> STU NOTE: Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
 {:.stu-note}
 
 ### Providing FHIR Resources to a CDS Service
@@ -1233,7 +1219,7 @@ Field | Optionality | Type | Description
 
 #### Feedback on System Actions
 
-The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.
+> The feedback mechanism supports providing CDS Services feedback about what was done with the suggestions the service has provided. Since system actions are part of those suggestions, it is reasonable for CDS Services to want feedback on whether system actions were applied by the client. However, this would require at least the introduction of a unique identifier for system actions, as well as a new feedback mechanism to support communicating what was done with each system action. We seek feedback on prioritization of this use case.
 {:.stu-note}
 
 ### Security and Safety
@@ -1398,7 +1384,7 @@ In the case that CDS Hooks cards are persisted, clients should take care to ensu
 
 CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
-STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.
+> STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.
 {:.stu-note}
 
 Note that CDS Services will need to negotiate with CDS Clients to ensure that hooks that are required to ensure patient safety are supported by the CDS Client.
@@ -1408,6 +1394,7 @@ Note that CDS Services will need to negotiate with CDS Clients to ensure that ho
 The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element MUST be a JSON object with elements agreed upon before exchange. Extension structures SHOULD use a strategy for naming that ensures global uniqueness, such as reverse-domain-name notation, as in the examples below. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
 
 > STU Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
+{:.stu-note}
 
 For example, an extension on a request could look like this:
 
@@ -1651,3 +1638,16 @@ Version | Description
 1.0.1 | Clarified context variable usage
 1.0 | Initial Release
 {:.grid}
+
+### Intellectual Property Statements
+
+The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and Boston Children's Hospital. The specification is licensed under a Creative Commons Attribution 4.0 International License. 
+
+{% lang-fragment ip-statements.xhtml %}
+
+{% lang-fragment cross-version-analysis.xhtml %}
+
+{% lang-fragment dependency-table.xhtml %}
+
+{% lang-fragment globals-table.xhtml %}
+
