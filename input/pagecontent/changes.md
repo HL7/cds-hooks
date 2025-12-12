@@ -4,6 +4,28 @@ CDS Hooks is an HL7 published specification for clinical decision support. Relea
 
 Hook definitions are linked from the CDS Hooks specification. Note that hook definitions are not part of the CDS Hooks specification, they are independent specifications that follow the Hook Maturity Model. Hooks are published by HL7. Published and balloted hooks can be found at the current url. Hook version history is documented in each hook specification. 
 
+#### CDS Hooks 3.0.0
+The 3.0 release is a largely normative release, which adds a few enhancements, including:
+* Various enhancements to prefetch templates:
+  * Allow prefetch tokens to contain [a limited subset of FHIRPath](index.html#prefetch-tokens-containing-simpler-fhirpath) to enable: Data arithmetic and graph traversal in prefetch templates
+  * Support the use of [prior prefetch templates as variables that can be used in subsequent prefetch tokens](index.html#simpler-fhirpath-support-for-querystring-syntax)
+* Created [`suggestion.actionSelectionBehavior`](index.html#simpler-fhirpath-support-for-querystring-syntax) (a feature similar and related to to `card.selectionBehavior`) and [require CDS Clients to document support of this feature](index.html#capability-documentation).
+* Created an [example value set of override reasons](ValueSet-non-adherence-reason-clinical.html) and [accompanying codesystem](CodeSystem-non-adherence-reason-codes.html)
+* Recommend CDS Services [format errors as FHIR OperationOutcomes](index.html#returning-operationoutcome) ([FHIR-50287](https://jira.hl7.org/browse/FHIR-50287))
+* Recommend CDS Clients to [use a JSON Web Key Set Url and rotate keys](index.html#trusting-cds-clients)
+* Recommend CDS Services [advertise their version of CDS Hooks](index.html#response)
+* Use [SMART App Launch STU 2, replacing use of SMART App Launch STU 1](index.html#passing-the-access-token-to-the-cds-service) ([FHIR-37609](https://jira.hl7.org/browse/FHIR-37609)) Notably, this impacts the contents of the `scope` element, within the optional `fhirAuthorization` object as part of the CDS Hooks request.
+
+Additionally, the following fixes or clarificatios were made:
+* [FHIR-52890](https://jira.hl7.org/browse/FHIR-52890) - explain how a service developer knows a client's capabilities
+* https://jira.hl7.org/browse/FHIR-28681 - reference the HL7 FHIR SMART App Launch Task profile
+* https://jira.hl7.org/browse/FHIR-48315 - use and encourage more diagrams
+* https://jira.hl7.org/browse/FHIR-37606 - add example of pagination in prefetch
+* https://jira.hl7.org/browse/FHIR-28684 - recommend CDS Clients document and describe their CDS Hooks capabilities in plain language
+* https://jira.hl7.org/browse/FHIR-50498 - clarify role of HL7 CDS WG in CDS Hooks Maturity Model
+
+In addition,  clarifications, corrections, and non-substantive updates were made to the specification based on ballot and implementer feedback. For a complete list of issues addressed, see this [HL7 Jira's search](https://jira.hl7.org/issues/?jql=project%20%3D%20FHIR%20AND%20Specification%20%3D%20%22CDS%20Hooks%20(FHIR)%20%5BFHIR-cds-hooks%5D%22%20and%20status%20%3D%20Applied%20and%20updated%20%3E%202024-01-01%20order%20by%20updatedDate).
+
 #### CDS Hooks 2.0.1
 CDS Hooks 2.0.1 is an errata release which makes no substantive changes from the CDS Hooks 2.0.0 release, but rather changes the publication's look & feel by moving from a bespoke, project-specific publishing mechanism to the typical HL7 FHIR IG Publisher infrastructure. 
 
