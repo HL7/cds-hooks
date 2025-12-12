@@ -18,7 +18,8 @@ The 3.0 release is a largely normative release, which adds a few enhancements, i
 
 Not all of CDS Hooks 3.0 is Normative. Sections of the specifications at the standards status of Trial Use are indicated by the following header and colored border:
 
-{:.stu-note} Note: The contents of this section are Standard for Trial Use (STU)
+Note: The contents of this section are Standard for Trial Use (STU)
+{:.stu-note}
 <The colored border indicates that this content is Trial Use, not Normative.>
 {:.stu}
 
