@@ -24,9 +24,9 @@ Note: The contents of this section are Standard for Trial Use (STU)
 
 **New Features:**
 
-* Allow prefetch tokens to contain [a limited subset of FHIRPath](index.html#prefetch-tokens-containing-simpler-fhirpath) to enable data arithmetic and graph traversal in prefetch templates ([FHIR-37606](https://jira.hl7.org/browse/FHIR-37606))
-* Support the use of [prior prefetch templates as variables that can be used in subsequent prefetch tokens](index.html#simpler-fhirpath-support-for-querystring-syntax) (part of prefetch template enhancements)
-* Created [`suggestion.actionSelectionBehavior`](index.html#simpler-fhirpath-support-for-querystring-syntax), a feature similar and related to `card.selectionBehavior` (JIRA ticket to be added)
+* Allow prefetch tokens to contain [a limited subset of FHIRPath](index.html#prefetch-tokens-containing-simpler-fhirpath) to enable data arithmetic and graph traversal in prefetch templates ([FHIR-35999](https://jira.hl7.org/browse/FHIR-35999))
+* Support the use of [prior prefetch templates as variables that can be used in subsequent prefetch tokens](index.html#simpler-fhirpath-support-for-querystring-syntax) (part of prefetch template enhancements: [FHIR-35999](https://jira.hl7.org/browse/FHIR-35999))
+* Created [`suggestion.actionSelectionBehavior`](index.html#simpler-fhirpath-support-for-querystring-syntax), a feature similar and related to `card.selectionBehavior` ([FHIR-39328](https://jira.hl7.org/browse/FHIR-39328))
 * Created an [example value set of override reasons](ValueSet-non-adherence-reason-clinical.html) and [accompanying codesystem](CodeSystem-non-adherence-reason-codes.html) (JIRA ticket to be added)
 
 **Enhancements and Recommendations:**
