@@ -137,7 +137,8 @@ Code | Description
 
 CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error codes.
 
-#### Discovery Example
+<details>
+<summary>#### Discovery Example</summary>
 
 ```shell
 curl "https://example.com/cds-services"
@@ -178,6 +179,7 @@ curl "https://example.com/cds-services"
 }
 ```
 
+</details>
 ### Calling a CDS Service
 
 #### HTTP Request
