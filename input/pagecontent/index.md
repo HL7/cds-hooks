@@ -18,6 +18,13 @@ The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and
 {% lang-fragment globals-table.xhtml %}
 </div>
 
+<style>
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before { content: "▶ "; }
+  details[open] > summary::before { content: "▼ "; }
+</style>
+
 ### Overview
 
 This HL7 CDS Hooks Implementation Guide is published at the level of [Standard 
@@ -145,7 +152,6 @@ curl "https://example.com/cds-services"
 </code></pre>
 
 The above command returns JSON structured like this:
-
 <pre><code class="language-json">
 {
   "services": [
