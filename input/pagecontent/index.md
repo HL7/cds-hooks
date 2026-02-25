@@ -20,8 +20,7 @@ The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and
 
 ### Overview
 
-This HL7 CDS Hooks Implementation Guide is published at the level of [Standard 
-for Trial Use](https://hl7.org/fhir/versions.html#std-process). It describes 
+This HL7 CDS Hooks Implementation Guide describes 
 a ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking 
 decision support from within a clinician's workflow. The API supports:
 
