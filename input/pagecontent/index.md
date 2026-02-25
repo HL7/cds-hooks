@@ -138,15 +138,15 @@ Code | Description
 CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error codes.
 
 <details>
-<summary>#### Discovery Example</summary>
+<summary style="cursor: pointer; color: #0066cc; font-weight: bold;">Discovery Example</summary>
 
-```shell
+<pre><code class="language-bash">
 curl "https://example.com/cds-services"
-```
+</code></pre>
 
-> The above command returns JSON structured like this:
+The above command returns JSON structured like this:
 
-```json
+<pre><code class="language-json">
 {
   "services": [
     {
@@ -177,7 +177,7 @@ curl "https://example.com/cds-services"
     }
   ]
 }
-```
+</code></pre> 
 
 </details>
 ### Calling a CDS Service
