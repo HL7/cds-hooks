@@ -32,8 +32,8 @@ Note: The contents of this section are Standard for Trial Use (STU)
 **Enhancements and Recommendations:**
 
 * Recommend CDS Services [format errors as FHIR OperationOutcomes](index.html#returning-operationoutcome) ([FHIR-50287](https://jira.hl7.org/browse/FHIR-50287))
-* Recommend CDS Clients to [use a JSON Web Key Set Url and rotate keys](index.html#trusting-cds-clients) (JIRA ticket to be added)
-* Recommend CDS Services [advertise their version of CDS Hooks](index.html#response) (JIRA ticket to be added)
+* Recommend CDS Clients to [use a JSON Web Key Set Url and rotate keys](index.html#trusting-cds-clients) ([FHIR-41437](https://jira.hl7.org/browse/FHIR-41437), [FHIR-28695](https://jira.hl7.org/browse/FHIR-28695))
+* Recommend CDS Services [advertise their version of CDS Hooks](index.html#response) ([FHIR-28650](https://jira.hl7.org/browse/FHIR-28650))
 * [Require CDS Clients to document support](index.html#capability-documentation) of `suggestion.actionSelectionBehavior` ([FHIR-28684](https://jira.hl7.org/browse/FHIR-28684))
 
 **Clarifications and Documentation Improvements:**
