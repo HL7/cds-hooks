@@ -46,7 +46,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ### Use of JSON
 
-All data exchanged through production RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
+All data exchanged through production RESTful APIs SHALL be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) and structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section. All embedded FHIR resources SHALL be sent and recieved as [fhir+json](https://hl7.org/fhir/R4/json.html). 
 
 JSON comments and trailing commas SHOULD NOT be transmitted as they are not part of the JSON specification.
 
