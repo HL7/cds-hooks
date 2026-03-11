@@ -2,7 +2,7 @@ Logical: CDSHookAppointmentBookContext
 Parent: CDSHookContext
 Id: CDSHookAppointmentBookContext
 Title: "CDS Hooks Specific Context for appointment-book (Logical Definition)"
-Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Appointment-Book context. TODO: This content will be moved to the CDS Hooks specification in the future"
+Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Appointment-Book context."
 * ^status = #draft
 * ^experimental = true
 * . ^short = "The context for the appointment-book hook"

@@ -2,7 +2,7 @@ Logical: CDSHookOrderSignContext
 Parent: CDSHookContext
 Id: CDSHookOrderSignContext
 Title: "CDS Hook Specific Context for order-sign (Logical Definition)"
-Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Order-Sign context. TODO: This content will be moved to the CDS Hooks specification in the future"
+Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Order-Sign context."
 * ^status = #draft
 * ^experimental = true
 * . ^short = "The context for the order-sign hook"

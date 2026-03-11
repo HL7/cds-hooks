@@ -1,7 +1,7 @@
 Logical: CDSHooksElement
 Id: CDSHooksElement
 Title: "CDSHooks Services Base Extensible Element"
-Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Services Element with Extensions. TODO: This content will be moved to the CDS Hooks specification in the future"
+Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Services Element with Extensions."
 * ^extension[0].url = "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm"
 * ^extension[=].valueInteger = 1
 * ^extension[+].url = "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype"

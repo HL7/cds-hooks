@@ -2,7 +2,7 @@ Logical: CDSHookOrderDispatchContext
 Parent: CDSHookContext
 Id: CDSHookOrderDispatchContext
 Title: "CDS Hooks Specific Context for order-dispatch (Logical Definition)"
-Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks order-dispatch context. TODO: This content will be moved to the CDS Hooks specification in the future"
+Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks order-dispatch context."
 * ^status = #draft
 * ^experimental = true
 * . ^short = "The context for the order-dispatch hook"

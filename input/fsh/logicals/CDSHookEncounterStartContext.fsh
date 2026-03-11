@@ -2,7 +2,7 @@ Logical: CDSHookEncounterStartContext
 Parent: CDSHookContext
 Id: CDSHookEncounterStartContext
 Title: "CDS Hooks Specific Context for encounter-start (Logical Definition)"
-Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks encounter-start context. TODO: This content will be moved to the CDS Hooks specification in the future"
+Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks encounter-start context."
 * ^status = #draft
 * ^experimental = true
 * . ^short = "The context for the encounter-start hook"

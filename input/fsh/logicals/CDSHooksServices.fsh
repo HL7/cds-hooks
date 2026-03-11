@@ -2,7 +2,7 @@ Logical: CDSHooksServices
 Parent: CDSHooksElement
 Id: CDSHooksServices
 Title: "CDSHooks Services Request (Logical Definition)"
-Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Services response body. TODO: This content will be moved to the CDS Hooks specification in the future"
+Description: "This structure is defined to allow the FHIR Validator to validate a CDSHooks Services response body."
 * ^status = #draft
 * ^experimental = true
 * . ^short = "The response to the discovery endpoint"
