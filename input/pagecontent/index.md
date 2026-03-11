@@ -619,7 +619,8 @@ To reduce the implementation burden on CDS Clients that support CDS Services, pr
 * Resource references (e.g. `patient={% raw  %}{{{% endraw  %}context.patientId}}`)
 * _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
 * _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
-* the `_count` parameter to limit the number of results returned
+* the `_count` parameter to limit the number of results returned on a single page
+* the `_maxresults` parameter to limit the total number of results returned 
 * the `_sort` parameter to allow for _most recent_ and _first_ queries
 
 ##### Example prefetch token
