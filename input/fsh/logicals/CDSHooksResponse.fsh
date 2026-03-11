@@ -8,7 +8,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * . ^short = "The response to the discovery endpoint"
 * . ^definition = "The response to the discovery endpoint"
 * cards 0..* http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement "CDS responses to show user" "An array of Cards. Cards can provide a combination of information (for reading), suggested actions (to be applied if a user selects them), and links (to launch an app if the user selects them)."
-* obeys cds-resp-1 and cds-resp-6
+* cards obeys cds-resp-1 and cds-resp-6
 * cards ^extension.url = "http://hl7.org/fhir/tools/StructureDefinition/json-empty-behavior"
 * cards ^extension.valueCode = #present
 * cards ^comment = "The CDS Client decides how to display cards, but this specification recommends displaying suggestions using buttons, and links using underlined text."
@@ -28,7 +28,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * cards.source.topic 0..1 Coding "Describes the content of the card" "A topic describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI. This specification does not prescribe a standard set of topics"
 * cards.source.topic ^comment = "This specification does not prescribe a standard set of topics"
 * cards.suggestions 0..* http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement "Suggest a set of changes in the context of the current activity" "Allows a service to suggest a set of changes in the context of the current activity (e.g. changing the dose of a medication currently being prescribed, for the order-sign activity)."
-* obeys cds-resp-5
+* cards.suggestions obeys cds-resp-5
 * cards.suggestions ^condition[0] = "cds-resp-1"
 * cards.suggestions ^condition[+] = "cds-resp-6"
 * cards.suggestions.label 1..1 string "Human-readable label to display for this suggestion" "Human-readable label to display for this suggestion"
@@ -39,7 +39,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * cards.suggestions.isRecommended 0..1 boolean "Which suggestion is most preferred of a set" "When there are multiple suggestions, allows a service to indicate that a specific suggestion is recommended from all the available suggestions on the card"
 * cards.suggestions.isRecommended ^comment = "CDS Hooks clients may choose to influence their UI based on this value, such as pre-selecting, or highlighting recommended suggestions. Multiple suggestions MAY be recommended, if card.selectionBehavior is any."
 * cards.suggestions.actions 0..* http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement "Defines a suggested action (all apply)" "Defines a suggested action. Within a suggestion, all actions are logically AND'd together, such that a user selecting a suggestion selects all of the actions within it"
-* obeys cds-resp-2
+* cards.suggestions.actions obeys cds-resp-2
 * cards.suggestions.actions ^comment = "When a suggestion contains multiple actions, the actions SHOULD be processed as per FHIR's rules for processing transactions with the CDS Client's fhirServer as the base url for the inferred full URL of the transaction bundle entries. (Specifically, deletes happen first, then creates, then updates)."
 * cards.suggestions.actions.type 1..1 code "create, update, delete - type of action performed" "The type of action being performed. Allowed values are: create, update, delete."
 * cards.suggestions.actions.type from http://hl7.org/fhir/tools/ValueSet/CDSActionType (required)
@@ -55,10 +55,10 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * cards.selectionBehavior ^condition[+] = "cds-resp-1"
 * cards.selectionBehavior ^condition[+] = "cds-resp-6"
 * cards.overrideReasons 0..* Coding "Feedback from user on card - why not acted on" "Override reasons can be selected by the end user when overriding a card without taking the suggested recommendations. The CDS service MAY return a list of override reasons to the CDS client."
-* obeys cds-resp-4
+* cards.overrideReasons obeys cds-resp-4
 * cards.overrideReasons ^comment = "The CDS Client SHOULD present these reasons to the clinician when they dismiss a card. A CDS Client MAY augment the override reasons presented to the user with its own reasons"
 * cards.links 0..* http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement "Link to app or additional information" "Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision."
-* obeys cds-resp-3
+* cards.links obeys cds-resp-3
 * cards.links.label 1..1 string "Human-readable label to display for this link" "Human-readable label to display for this link (e.g. the CDS Client might render this as the underlined text of a clickable link)."
 * cards.links.url 1..1 url "URL to load" "URL to load (via GET, in a browser context) when a user clicks on this link. Note that this MAY be a 'deep link' with context embedded in path segments, query parameters, or a hash."
 * cards.links.type 0..1 code "absolute | smart" "The type of the given URL. There are two possible values for this field. A type of absolute indicates that the URL is absolute and should be treated as-is. A type of smart indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters"

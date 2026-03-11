@@ -15,7 +15,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * hookInstance ^comment = "Note: the hookInstance is globally unique and should contain enough entropy to be un-guessable."
 * fhirServer 0..1 url "The base URL of the CDS Client's FHIR server" "The base URL of the CDS Client's FHIR server. If fhirAuthorization is provided, this field is REQUIRED. The scheme MUST be https when production data is exchanged"
 * fhirAuthorization 0..1 http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement "Authorization info for service to use when querying" "A structure holding an OAuth 2.0 bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token"
-* obeys cds-r-2
+* fhirAuthorization obeys cds-r-2
 * fhirAuthorization.accessToken 1..1 string "OAuth 2.0 access token giving access to FHIR server" "This is the OAuth 2.0 access token that provides access to the FHIR server"
 * fhirAuthorization.accessToken ^extension[+].url = "http://hl7.org/fhir/tools/StructureDefinition/json-name"
 * fhirAuthorization.accessToken ^extension[=].valueString = "access_token"
