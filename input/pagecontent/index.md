@@ -74,6 +74,8 @@ The main concepts of the specification are Services, CDS Clients, and Cards.
 #### CDS Services
 A _CDS Service_ is a service that provides recommendations and guidance through the RESTful APIs described by this specification. The primary APIs are [Discovery](#discovery), which allows a CDS Developer to publish the types of CDS Services it provides. The [Service](#calling-a-cds-service) API that CDS Clients use to request decision support. The  [Feedback](#feedback) API through which services learn the outcomes of their recommendations and guidance.
 
+The FHIR [Clinical Reasoning module](https://hl7.org/fhir/clinicalreasoning-cds-on-fhir.html) describes how to surface CDS using PlanDefinition resources via CDS Hooks.
+
 #### CDS Clients
 A _CDS Client_ is an Electronic Health Record (EHR), or other clinical information system that uses decision support by calling CDS Services at specific points in the application's workflow called [_hooks_](#hooks). Each hook defines the _hook context_ (contextual information available within the CDS Client and specific to the workflow) that is provided as part of the request. Each service advertises which hooks it supports and what [_prefetch data_](#providing-fhir-resources-to-a-cds-service) (information needed by the CDS Service to determine what decision support should be presented) it requires. In addition, CDS Clients typically provide the FHIR resource server location and associated authorization information as part of the request to enable services to request additional information.
 
