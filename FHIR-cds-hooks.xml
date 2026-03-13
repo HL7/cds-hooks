@@ -13,6 +13,13 @@
 <artifactPageExtension value="-examples"/>
 <artifactPageExtension value="-mappings"/>
 <artifact id="StructureDefinition/CDSHookContext" key="StructureDefinition-CDSHookContext" name="CDS Hook Specific Context (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookOrderSelectContext" key="StructureDefinition-CDSHookOrderSelectContext" name="CDS Hook Specific Context for order-select (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookOrderSignContext" key="StructureDefinition-CDSHookOrderSignContext" name="CDS Hook Specific Context for order-sign (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookPatientViewContext" key="StructureDefinition-CDSHookPatientViewContext" name="CDS Hook Specific Context for patient-view (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookAppointmentBookContext" key="StructureDefinition-CDSHookAppointmentBookContext" name="CDS Hooks Specific Context for appointment-book (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookEncounterDischargeContext" key="StructureDefinition-CDSHookEncounterDischargeContext" name="CDS Hooks Specific Context for encounter-discharge (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookEncounterStartContext" key="StructureDefinition-CDSHookEncounterStartContext" name="CDS Hooks Specific Context for encounter-start (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHookOrderDispatchContext" key="StructureDefinition-CDSHookOrderDispatchContext" name="CDS Hooks Specific Context for order-dispatch (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksRequest" key="StructureDefinition-CDSHooksRequest" name="CDSHooks Request (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksResponse" key="StructureDefinition-CDSHooksResponse" name="CDSHooks Response (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksElement" key="StructureDefinition-CDSHooksElement" name="CDSHooks Services Base Extensible Element"/>
