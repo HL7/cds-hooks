@@ -1391,9 +1391,9 @@ Authorization: Bearer eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsImtpZCI6ImV4YW1wbGUta2
 
 CDS Services and browser-based CDS Clients will require CORS support. A secure implementation guide for CORS is outside of the scope of this CDS Hooks specification. Organizations planning to implement CDS Hooks with CORS support are referred to the Cross-Origin Resource Sharing section of the [OWASP HTML5 Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#cross-origin-resource-sharing).
 
-#### Update stale guidance
+#### Cards and Transience
 
-In the case that CDS Hooks cards are persisted, clients should take care to ensure that stale guidance does not negatively impact patient care.
+CDS Clients SHOULD treat cards as transient to the hook invocation that triggered them, discarding cards when the triggering context is no longer active (e.g., the patient's chart is closed or the relevant workflow completes). If cards are persisted beyond the triggering context, CDS Clients SHOULD take care to ensure that stale guidance does not negatively impact patient care.
 
 CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
