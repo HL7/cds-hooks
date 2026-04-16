@@ -144,7 +144,7 @@ Code | Description
 CDS Services MAY return other HTTP statuses, specifically 4xx and 5xx HTTP error codes.
 
 <details>
-<summary style="cursor: pointer; color: #DCE9F8; font-weight: bold;">Discovery Example</summary>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Discovery Example</summary>
 <div markdown="1">
 
 ```
@@ -305,8 +305,10 @@ The resulting response is passed along to the CDS Service using the `prefetch` 
 Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
 ##### Example of Pagination in Prefetch 
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Example of Pagination in Prefetch</summary>
+<div markdown="1">
 
-Below is an example of pagination:
 ```json
 {
     "hook": "order-sign",
@@ -372,6 +374,8 @@ Below is an example of pagination:
     }
 }
 ```
+</div>
+</details>
 
 The CDS Client determines which prefetch template keys to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) SHOULD be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients MUST omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services SHOULD check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key MUST have a value of __null__. In case the prefetch url is a single-resource request, the search result may be __null__, otherwise it is a search and could be a bundle with zero entries.
 
@@ -416,7 +420,11 @@ No single FHIR resource represents a user, rather Practitioner and PractitionerR
 
 Note: The contents of this section are Standard for Trial Use (STU)
 {:.stu-note}
-##### Prefetch tokens containing Simpler FHIRPath
+
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Prefetch tokens containing Simpler FHIRPath</summary>
+<div markdown="1">
+
 {:.stu}
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
@@ -617,7 +625,8 @@ Given the above prefetch template, and context, the CDS Client is asked to provi
 * `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
 * `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
 {:.stu}
-
+</div>
+</details>
 
 ##### Prefetch query restrictions
 
@@ -914,7 +923,10 @@ Field | Optionality | Type | Description
 `resourceId` | CONDITIONAL | *string* | A relative reference to the relevant resource. SHOULD be provided when the `type` attribute is `delete`.
 {:.grid}
 
-
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Action Examples</summary>
+<div markdown="1">
+  
 The following example illustrates a create action:
 
 ```json
@@ -952,7 +964,8 @@ The following example illustrates a delete action:
   "resourceId": "ServiceRequest/procedure-request-1"
 }
 ```
-
+</div>
+</details>
 
 ###### Reasons for rejecting a card
 
@@ -1009,6 +1022,10 @@ Automatically applied actions are likely unexpected by the user and bypass human
 
 In these specific, pre-coordinated scenarios when a systemAction is understood and supported by both the client and service, the CDS Service only provides systemActions which can be automatically applied without user interaction, and the CDS Client is expected to process them.
 
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">System Action Example</summary>
+<div markdown="1">
+
 ```json
 {
   "cards": [],
@@ -1024,8 +1041,6 @@ In these specific, pre-coordinated scenarios when a systemAction is understood a
   ]
 }
 ```
-
-##### Example
 
 > Example response
 
@@ -1111,6 +1126,8 @@ In these specific, pre-coordinated scenarios when a systemAction is understood a
   ]
 }
 ```
+</div>
+</details>
 
 ### Feedback
 
@@ -1328,7 +1345,9 @@ At publication time of this specification, both ES384 and RS384 are RECOMMENDED 
 
 CDS Services SHOULD consider the algorithms they understand and trust based upon their tolerance for risk.
 
-##### Example
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">JWT Examples</summary>
+<div markdown="1">
 
 An example JSON web token header, payload, and JWK set:
 
@@ -1393,6 +1412,8 @@ Using the above JWT values and JWKs, the complete JWT as passed in the Authoriza
 ```
 Authorization: Bearer eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsImtpZCI6ImV4YW1wbGUta2lkIiwiamt1IjoiaHR0cHM6Ly9maGlyLWVoci5leGFtcGxlLmNvbS9qd2tfdXJpIn0.eyJpc3MiOiJodHRwczovL2ZoaXItZWhyLmV4YW1wbGUuY29tLyIsImF1ZCI6Imh0dHBzOi8vY2RzLmV4YW1wbGUub3JnL2Nkcy1zZXJ2aWNlcy9zb21lLXNlcnZpY2UiLCJleHAiOjE0MjI1Njg4NjAsImlhdCI6MTMxMTI4MDk3MCwianRpIjoiZWUyMmIwMjEtZTFiNy00NjExLWJhNWItOGVlYzZhMzNhYzFlIiwidGVuYW50IjoiMmRkZDZjM2EtOGU5YS00NGM2LWEzMDUtNTIxMTFhZDMwMmEyIn0.d1WfLjGRKlcWB94l9do4cM8REXeYJLL6SGUBO8VHZhfM8mwKYP70EMxJ67War4TQblEpaQrp11wx5p7oPFm2ETYgCicS84vXWEIYTdjooZdooCSDf2L8-i4awdoUwiEb
 ```
+</div>
+</details>
 
 #### Cross-Origin Resource Sharing
 
@@ -1417,6 +1438,11 @@ The specification is not prescriptive about support for extensions. However, to 
 
 > STU Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
 
+
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Extension Examples</summary>
+<div markdown="1">
+  
 For example, an extension on a request could look like this:
 
 ```json
@@ -1454,6 +1480,8 @@ As another example, an extension defined on the discovery response could look li
   ]
 }
 ```
+</div>
+</details>
 [OAuth 2.0]: https://oauth.net/2/
 
 
