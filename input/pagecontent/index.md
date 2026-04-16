@@ -210,7 +210,9 @@ While working in the CDS Client, a user can perform multiple actions in series o
 
 Note: the `hookInstance` is globally unique and SHOULD contain enough entropy to be un-guessable.
 
-#### Example
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Calling a CDS Service Example</summary>
+<div markdown="1">
 
 ```
 curl
@@ -248,6 +250,8 @@ curl
   }
 }
 ```
+</div>
+</details>
 
 Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
 {:.stu-note}
@@ -304,7 +308,6 @@ The resulting response is passed along to the CDS Service using the `prefetch` 
 
 Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page. CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
-##### Example of Pagination in Prefetch 
 <details>
 <summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Example of Pagination in Prefetch</summary>
 <div markdown="1">
@@ -418,13 +421,14 @@ Token | Description
 
 No single FHIR resource represents a user, rather Practitioner and PractitionerRole may be jointly used to represent a provider, and Patient or RelatedPerson are used to represent a patient or their proxy. Hook definitions typically define a `context.userId` field and corresponding prefetch token.
 
-Note: The contents of this section are Standard for Trial Use (STU)
+Note: The contents of the following section are Standard for Trial Use (STU)
 {:.stu-note}
 
 <details>
 <summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Prefetch tokens containing Simpler FHIRPath</summary>
 <div markdown="1">
 
+#### Prefetch tokens containing Simpler FHIRPath
 {:.stu}
 
 To enable great clinical user experience, guidance from CDS Services should be delivered [quickly](#providing-fhir-resources-to-a-cds-service). By prefetching information, the Service can reduce the number of distinct network API calls required. CDS Clients can support a limited, targeted subset of FHIRPath aligned with [x-fhir-query](https://hl7.org/fhir/r5/fhir-xquery.html). Specifically, a CDS Service's prefetch template can include:
@@ -640,6 +644,11 @@ To reduce the implementation burden on CDS Clients that support CDS Services, pr
 * the `_count` parameter to limit the number of results returned
 * the `_sort` parameter to allow for _most recent_ and _first_ queries
 
+
+<details>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">Prefetch Examples</summary>
+<div markdown="1">
+  
 ##### Example prefetch token
 
 Often a prefetch template builds on the contextual data associated with the hook. For example, a particular CDS Service might recommend guidance based on a patient's conditions when the chart is opened. The FHIR query to retrieve these conditions might be `Condition?patient=123`. In order to express this as a prefetch template, the CDS Service must express the FHIR id of the patient as a token so that the CDS Client can replace the token with the appropriate value. When context fields are used as tokens, their token name MUST be `context.name-of-the-field`. For example, given a context like:
@@ -731,6 +740,8 @@ The CDS Hooks request is augmented to include two prefetch values, where the dic
 keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
 Note that the missing `diabetes-type2` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
+</div>
+</details>
 
 #### FHIR Resource Access
 
@@ -1009,7 +1020,7 @@ Field | Optionality | Type | Description
 
 Note that launching a SMART-on-FHIR application can also be accomplished using a suggestion that proposes a [SMART-on-FHIR task](https://hl7.org/fhir/smart-app-launch/STU2.2/task-launch.html).
 
-###### Considerations for `autolaunchable` and user experience
+###### Considerations for autolaunchable and user experience
 
 The intent of this optional feature is to improve individual user experience by removing the otherwise unnecessary click of a link by the user. Appropriate support of this feature includes guardrails from both the CDS Service developer and the CDS Client, as well as additional local control by the organization using the service.
 
@@ -1023,7 +1034,7 @@ Automatically applied actions are likely unexpected by the user and bypass human
 In these specific, pre-coordinated scenarios when a systemAction is understood and supported by both the client and service, the CDS Service only provides systemActions which can be automatically applied without user interaction, and the CDS Client is expected to process them.
 
 <details>
-<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">System Action Example</summary>
+<summary style="cursor: pointer; color: #5b90d3; font-weight: bold;">System Action Examples</summary>
 <div markdown="1">
 
 ```json
