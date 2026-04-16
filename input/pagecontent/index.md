@@ -27,8 +27,7 @@ The HL7 CDS Hooks Implementation Guide is the copyright of HL7 International and
 
 ### Overview
 
-This HL7 CDS Hooks Implementation Guide is published at the level of [Standard 
-for Trial Use](https://hl7.org/fhir/versions.html#std-process). It describes 
+This HL7 CDS Hooks Implementation Guide describes 
 a ["hook"](http://en.wikipedia.org/wiki/Hooking)-based pattern for invoking 
 decision support from within a clinician's workflow. The API supports:
 
@@ -1522,7 +1521,7 @@ Hooks are defined in the following format.
 
 Hook names should follow the pattern: `noun-verb`.
 
-The name of the hook SHOULD succinctly and clearly describe the activity or event. Hook names are unique so hook creators SHOULD take care to ensure newly proposed hooks do not conflict with an existing hook name. Hook creators SHALL name their hook with reverse domain notation (e.g. `org.example.patient-transmogrify`) if the hook is specific to an organization. Reverse domain notation SHALL not be used by a standard hooks catalog.
+The name of the hook SHOULD succinctly and clearly describe the activity or event. Hook names are unique so hook creators SHOULD take care to ensure newly proposed hooks do not conflict with an existing hook name (see the [CDS Hooks Library]({{site.data.related.library.link}}/index.html)). Hook creators SHALL name their hook with reverse domain notation (e.g. `org.example.patient-transmogrify`) if the hook is specific to an organization. Reverse domain notation SHALL not be used by a standard hooks catalog.
 
 When naming hooks, the name should start with the subject (noun) of the hook and be followed by the activity (verb). For example, `patient-view` (not `view-patient`) or `order-sign` (not `sign-order`).
 
