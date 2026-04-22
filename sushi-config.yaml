@@ -13,12 +13,12 @@ version: 3.0.0-ballot
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2019+
 copyrightLabel: "HL7 & Boston Children's Hospital"
-# 
+#
 # ╭───────────────────────────Before changing releaseLabel──────────────────────────╮
 # │  Confirm that the releaseLabel value you are choosing is mapped to an IG guide  |
 # │  url prefix in this file: input/includes/relative-link.html                     │
 # ╰─────────────────────────────────────────────────────────────────────────────────╯
-releaseLabel: R3 Normative Ballot #ci-build # STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use 
+releaseLabel: R3 Normative Ballot #ci-build # STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use
 license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
 jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#001 "World"
 publisher:
@@ -37,6 +37,11 @@ extension:
 # package id and the value is the version (or dev/current). For advanced
 # use cases, the value can be an object with keys for id, uri, and version.
 #
+dependencies:
+  hl7.fhir.uv.tools.r4:
+    version: 1.1.0
+    uri: http://hl7.org/fhir/tools/ImplementationGuide/hl7.fhir.uv.tools
+    id: tools
 # dependencies:
 #   hl7.fhir.us.core: 3.1.0
 #   hl7.fhir.us.mcode:
@@ -79,7 +84,7 @@ parameters:
   shownav: true
   related-ig: module:library=hl7.fhir.uv.cds-hooks-library
   special-url-base: http://terminology.hl7.org
-  
+
 #  logging: html
 
 # ╭────────────────────────────────────────────menu.xml────────────────────────────────────────────╮
