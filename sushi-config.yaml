@@ -64,6 +64,8 @@ dependencies:
 pages:
   index.md:
     title: Home
+  artifacts.md:
+    title Logical Models
   changes.md:
     title: Change Log
   downloads.md:
