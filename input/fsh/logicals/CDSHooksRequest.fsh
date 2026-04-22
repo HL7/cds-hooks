@@ -28,7 +28,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * fhirAuthorization.expiresIn ^extension[=].valueString = "expires_in"
 * fhirAuthorization.scope 1..1 string "Scopes granted by access token" "The scopes the access token grants the CDS Service"
 * fhirAuthorization.subject 1..1 string "OAuth 2.0 client identifier of the CDS Service" "The OAuth 2.0 client identifier of the CDS Service, as registered with the CDS Client's authorization server"
-* fhirAuthorization.patient 0..1 id "OAuth 2.0 client identifier of the CDS Service" "The OAuth 2.0 client identifier of the CDS Service, as registered with the CDS Client's authorization server"
+* fhirAuthorization.patient 0..1 id "FHIR id of the patient" "The FHIR id of the patient."
 * context 1..1 http://hl7.org/fhir/tools/StructureDefinition/CDSHookContext "Contextual data always needed for this hook type" "Hook-specific contextual data that the CDS service will need"
 * context ^extension[+].url = "http://hl7.org/fhir/tools/StructureDefinition/type-specifier"
 * context ^extension[=].extension[0].url = "condition"
