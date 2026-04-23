@@ -1107,7 +1107,7 @@ In these specific, pre-coordinated scenarios when a systemAction is understood a
 
 Once a CDS Hooks Service responds to a hook by returning a card, the service has no further interaction with the CDS Client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics. A CDS Service MAY support a feedback endpoint; a CDS Client SHOULD be capable of sending feedback.
 
-Upon receiving a card, a user may accept its suggestions, ignore it entirely, or dismiss it with or without an override reason. Note that while one or more suggestions can be accepted, an entire card is either ignored or overridden.
+Upon receiving a card, a user may accept its suggestions, ignore it entirely, or dismiss it with or without an override reason. Note that individual suggestions within a card can be accepted, while ignoring or overriding applies to the entire card.
 
 Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS Clients, including the persistence of cards. CDS Clients should faithfully report each of these distinct end-user interactions as feedback.
 
