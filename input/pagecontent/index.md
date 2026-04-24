@@ -46,7 +46,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ### Use of JSON
 
-All data exchanged through production RESTful APIs MUST be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section.
+All data exchanged through production RESTful APIs SHALL be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) and structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section. All embedded FHIR resources SHALL be sent and recieved as [fhir+json](https://hl7.org/fhir/R4/json.html). 
 
 JSON comments and trailing commas SHOULD NOT be transmitted as they are not part of the JSON specification.
 
@@ -619,7 +619,8 @@ To reduce the implementation burden on CDS Clients that support CDS Services, pr
 * Resource references (e.g. `patient={% raw  %}{{{% endraw  %}context.patientId}}`)
 * _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
 * _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
-* the `_count` parameter to limit the number of results returned
+* the `_count` parameter to limit the number of results returned on a single page
+* the `_maxresults` parameter to limit the total number of results returned 
 * the `_sort` parameter to allow for _most recent_ and _first_ queries
 
 ##### Example prefetch token
