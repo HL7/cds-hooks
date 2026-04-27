@@ -14,6 +14,7 @@
 <artifactPageExtension value="-mappings"/>
 <artifact id="StructureDefinition/CDSHookContext" key="StructureDefinition-CDSHookContext" name="CDS Hook Specific Context (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksServices" key="StructureDefinition-CDSHooksServices" name="CDSHooks Discovery Response (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHooksFeedback" key="StructureDefinition-CDSHooksFeedback" name="CDSHooks Feedback (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksRequest" key="StructureDefinition-CDSHooksRequest" name="CDSHooks Request (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksResponse" key="StructureDefinition-CDSHooksResponse" name="CDSHooks Response (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksElement" key="StructureDefinition-CDSHooksElement" name="CDSHooks Services Base Extensible Element"/>
