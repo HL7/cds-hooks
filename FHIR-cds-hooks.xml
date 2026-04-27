@@ -13,11 +13,11 @@
 <artifactPageExtension value="-examples"/>
 <artifactPageExtension value="-mappings"/>
 <artifact id="StructureDefinition/CDSHookContext" key="StructureDefinition-CDSHookContext" name="CDS Hook Specific Context (Logical Definition)"/>
+<artifact id="StructureDefinition/CDSHooksServices" key="StructureDefinition-CDSHooksServices" name="CDSHooks Discovery Response (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksRequest" key="StructureDefinition-CDSHooksRequest" name="CDSHooks Request (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksResponse" key="StructureDefinition-CDSHooksResponse" name="CDSHooks Response (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksElement" key="StructureDefinition-CDSHooksElement" name="CDSHooks Services Base Extensible Element"/>
 <artifact id="StructureDefinition/CDSHooksExtensions" key="StructureDefinition-CDSHooksExtensions" name="CDSHooks Services Extensions"/>
-<artifact id="StructureDefinition/CDSHooksServices" key="StructureDefinition-CDSHooksServices" name="CDSHooks Services Request (Logical Definition)"/>
 <artifact deprecated="true" key="Conformance" name="Conformance"/>
 <artifact deprecated="true" id="Hooks/appointment-book" key="Hooks-appointment-book" name="Hooks - Appointment Book"/>
 <artifact deprecated="true" id="Hooks/encounter-discharge" key="Hooks-encounter-discharge" name="Hooks - Encounter Discharge"/>
