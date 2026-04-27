@@ -47,7 +47,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * cards.suggestions.actions.description ^condition[0] = "cds-resp-5"
 * cards.suggestions.actions.resource 0..1 Resource "FHIR resource to create/update" "When the type attribute is create, the resource attribute SHALL contain a new FHIR resource to be created. For update, this holds the updated resource in its entirety and not just the changed fields."
 * cards.suggestions.actions.resource ^comment = "Use of this field to communicate a string of a FHIR id for delete suggestions is DEPRECATED and resourceId SHOULD be used instead."
-* cards.suggestions.actions.resourceId 0..1 url "A relative reference to the relevant resource." "A relative reference to the relevant resource. SHOULD be provided when the type attribute is delete."
+* cards.suggestions.actions.resourceId 0..1 string "A relative reference to the relevant resource." "A relative reference to the relevant resource. SHOULD be provided when the type attribute is delete."
 * cards.suggestions.actions.resourceId ^comment = ""
 * cards.suggestions.actionSelectionBehavior 0..1 code "all | any | at-most-one (default: all)" "Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. Allowed values are: all, indicating that a user selecting a suggestion is selecting all of the actions within it; any, indicating that the end user may choose any number of actions including none of them or all of them; at-most-one, indicating that the user may choose none or at most one of the actions. If not provided, the default is all. Note: this is an STU element."
 * cards.suggestions.actionSelectionBehavior ^defaultValueCode = #all
