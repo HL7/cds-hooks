@@ -8,7 +8,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * obeys cds-r-1
 * . ^short = "A request for decision support"
 * . ^definition = "The data structure that used when invoking a CDS Hook service"
-* hook 1..1 code "The hook that triggered this CDS Service call" "The hook that triggered this CDS Service call"
+* hook 1..1 string "The hook that triggered this CDS Service call" "The hook that triggered this CDS Service call"
 * hookInstance 1..1 uuid "A UUID for this particular hook call" "While working in the CDS Client, a user can perform multiple actions in series or in parallel. For example, a clinician might prescribe two drugs in a row; each prescription action would be assigned a unique hookInstance. This allows a CDS Service to uniquely identify each hook invocation"
 * hookInstance ^extension[0].url = "http://hl7.org/fhir/tools/StructureDefinition/implied-string-prefix"
 * hookInstance ^extension[=].valueString = "urn:uuid:"
