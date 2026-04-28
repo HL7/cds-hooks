@@ -28,7 +28,7 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * cards.source.topic 0..1 Coding "Describes the content of the card" "A topic describes the content of the card by providing a high-level categorization that can be useful for filtering, searching or ordered display of related cards in the CDS client's UI. This specification does not prescribe a standard set of topics"
 * cards.source.topic ^comment = "This specification does not prescribe a standard set of topics"
 * cards.suggestions 0..* http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement "Suggest a set of changes in the context of the current activity" "Allows a service to suggest a set of changes in the context of the current activity (e.g. changing the dose of a medication currently being prescribed, for the order-sign activity)."
-* cards.suggestions obeys cds-resp-5
+* cards.suggestions obeys cds-resp-5 and cds-resp-7
 * cards.suggestions ^condition[0] = "cds-resp-1"
 * cards.suggestions ^condition[+] = "cds-resp-6"
 * cards.suggestions.label 1..1 string "Human-readable label to display for this suggestion" "Human-readable label to display for this suggestion"
@@ -47,8 +47,10 @@ Description: "This structure is defined to allow the FHIR Validator to validate 
 * cards.suggestions.actions.description ^condition[0] = "cds-resp-5"
 * cards.suggestions.actions.resource 0..1 Resource "FHIR resource to create/update" "When the type attribute is create, the resource attribute SHALL contain a new FHIR resource to be created. For update, this holds the updated resource in its entirety and not just the changed fields."
 * cards.suggestions.actions.resource ^comment = "Use of this field to communicate a string of a FHIR id for delete suggestions is DEPRECATED and resourceId SHOULD be used instead."
-* cards.suggestions.actions.resourceId 0..1 url "A relative reference to the relevant resource." "A relative reference to the relevant resource. SHOULD be provided when the type attribute is delete."
+* cards.suggestions.actions.resourceId 0..1 string "A relative reference to the relevant resource." "A relative reference to the relevant resource. SHOULD be provided when the type attribute is delete."
 * cards.suggestions.actions.resourceId ^comment = ""
+* cards.suggestions.actionSelectionBehavior 0..1 code "all | any | at-most-one (default: all)" "Indicates whether the end user may select any, none, or only a single action from those included in the suggestion. Allowed values are: all, indicating that a user selecting a suggestion is selecting all of the actions within it; any, indicating that the end user may choose any number of actions including none of them or all of them; at-most-one, indicating that the user may choose none or at most one of the actions. If not provided, the default is all. Note: this is an STU element."
+* cards.suggestions.actionSelectionBehavior ^defaultValueCode = #all
 * cards.selectionBehavior 0..1 code "at-most-one | any" "Describes the intended selection behavior of the suggestions in the card. Allowed values are: at-most-one, indicating that the user may choose none or at most one of the suggestions; any, indicating that the end user may choose any number of suggestions including none of them and all of them"
 * cards.selectionBehavior from http://hl7.org/fhir/tools/ValueSet/CDSSelectionBehavior (required)
 * cards.selectionBehavior ^comment = "CDS Clients that do not understand the value MUST treat the card as an error."
