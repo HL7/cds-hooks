@@ -120,7 +120,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | ---------
 `hook`| REQUIRED | *string* | The hook this service should be invoked on. See [Hooks](#hooks).
 `title`| RECOMMENDED | *string* | The human-friendly name of this service.
-`description`| REQUIRED | *string* | The description of this service.
+`description`| REQUIRED | *markdown* | The description of this service.
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
@@ -844,7 +844,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `uuid` | OPTIONAL | *string* | Unique identifier of the card.  MAY be used for auditing and logging cards and SHALL be included in any subsequent calls to the CDS service's feedback endpoint.
 `summary` | REQUIRED | *string* | One-sentence, <140-character summary message for display to the user inside of this card.
-`detail` | OPTIONAL | *string* | Optional detailed information to display; if provided MUST be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
+`detail` | OPTIONAL | *markdown* | Optional detailed information to display; if provided MUST be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
 `source` | REQUIRED | *object* | Grouping structure for the **[Source](#source)** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 `suggestions` | OPTIONAL | *array* of **[Suggestions](#suggestion)** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of a medication currently being prescribed, for the `order-sign` activity). If suggestions are present, `selectionBehavior` MUST also be provided.
