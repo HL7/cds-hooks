@@ -35,6 +35,7 @@ Note: The contents of this section are Standard for Trial Use (STU)
 * Recommend CDS Clients to [use a JSON Web Key Set Url and rotate keys](index.html#trusting-cds-clients) ([FHIR-41437](https://jira.hl7.org/browse/FHIR-41437), [FHIR-28695](https://jira.hl7.org/browse/FHIR-28695))
 * Recommend CDS Services [advertise their version of CDS Hooks](index.html#response) ([FHIR-28650](https://jira.hl7.org/browse/FHIR-28650))
 * [Require CDS Clients to document support](index.html#capability-documentation) of `suggestion.actionSelectionBehavior` ([FHIR-28684](https://jira.hl7.org/browse/FHIR-28684))
+* Add [`hookVersion` to the discovery response](index.html#response) and express the service's CDS Hooks `version` using semantic versioning ([FHIR-54673](https://jira.hl7.org/browse/FHIR-54673))
 
 **Clarifications and Documentation Improvements:**
 

@@ -124,7 +124,8 @@ Field | Optionality | Type | Description
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
-`version`| RECOMMENDED | *string* | The version of the CDS Hooks specification implemented (STU1 \| STU2 \| STU3).
+`version`| RECOMMENDED | *string* | The [semantic version](https://semver.org/) of the CDS Hooks specification implemented by this service (e.g. `3.0.0`).
+`hookVersion`| OPTIONAL | *string* | The version of the hook this service supports, which SHALL match the [`hookVersion`](#hook-version) in the published hook definition. A service that supports multiple versions of the same hook exposes each version at a separate endpoint.
 {:.grid}
 
 Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*update stale guidance*](#update-stale-guidance).
