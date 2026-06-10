@@ -41,6 +41,8 @@ Well-tuned implementations improve patient safety and clinician efficiency; poor
 
 See [https://cds-hooks.org/](https://cds-hooks.org/) for additional information, resources and ways to get involved.
 
+Unless otherwise noted, all examples that make use of FHIR resources are for [FHIR R4](https://hl7.org/fhir/R4/).
+
 ### Conformance Language
 The key words "SHALL", "SHALL NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119). Further, the key word "CONDITIONAL" indicates that a particular item is either REQUIRED or OPTIONAL, based upon another item.
 
