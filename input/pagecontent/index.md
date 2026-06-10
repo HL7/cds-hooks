@@ -46,7 +46,7 @@ The key words "SHALL", "SHALL NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMME
 
 ### Use of JSON
 
-All data exchanged through production RESTful APIs SHALL be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) and structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section. All embedded FHIR resources SHALL be sent and recieved as [fhir+json](https://hl7.org/fhir/R4/json.html). 
+All data exchanged through production RESTful APIs SHALL be sent and received as [JSON](https://tools.ietf.org/html/rfc8259) (JavaScript Object Notation) structures and are transmitted over HTTPS. See [Security and Safety](#security-and-safety) section. All embedded FHIR resources SHALL use the standard [FHIR JSON serialization](https://hl7.org/fhir/R4/json.html) (`fhir+json`). 
 
 JSON comments and trailing commas SHOULD NOT be transmitted as they are not part of the JSON specification.
 
@@ -120,7 +120,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | ---------
 `hook`| REQUIRED | *string* | The hook this service should be invoked on. See [Hooks](#hooks).
 `title`| RECOMMENDED | *string* | The human-friendly name of this service.
-`description`| REQUIRED | *string* | The description of this service.
+`description`| REQUIRED | *markdown* | The description of this service.
 `id` | REQUIRED | *string* | The {id} portion of the URL to this service which is available at<br />`{baseUrl}/cds-services/{id}`
 `prefetch` | OPTIONAL | *object* | An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a *string* that describes the type of data being requested and the value is a *string* representing the FHIR query.<br />See [Prefetch Template](#prefetch-template).
 `usageRequirements`| OPTIONAL | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
@@ -192,7 +192,7 @@ Field | Optionality | Type | Description
 `hook` | REQUIRED | *string* | The hook that triggered this CDS Service call. See [Hooks](#hooks).
 `hookInstance` | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
 `fhirServer` | CONDITIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme SHALL be `https` when production data is exchanged.
-`fhirAuthorization` | OPTIONAL | *object* | A structure holding an [OAuth 2.0](https://oauth.net/2/) bearer access token granting the CDS Service access to FHIR resources, along with supplemental information relating to the token. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
+`fhirAuthorization` | OPTIONAL | *object* | A structure holding authorization that grants the CDS Service access to FHIR resources, along with supplemental information. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
 `context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view]({{site.data.links.library-contexts.build.url}}patient-view.html)).
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
 {:.grid}
@@ -717,20 +717,29 @@ keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
 Note that the missing `diabetes-type2` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
 
+{:.stu}
+
 #### FHIR Resource Access
+{:.stu}
 
 If the CDS Client provides both `fhirServer` and `fhirAuthorization` request parameters, the CDS Service MAY use the FHIR server to obtain any FHIR resources for which it's authorized, beyond those provided by the CDS Client as prefetched data. This is similar to the approach used by SMART on FHIR wherein the SMART app requests and ultimately obtains an access token from the CDS Client's Authorization server using the SMART launch workflow, as described in [SMART App Launch Implementation Guide](https://hl7.org/fhir/smart-app-launch/STU2/).
+{:.stu}
 
 Like SMART on FHIR, CDS Hooks requires that CDS Services present a valid access token to the FHIR server with each API call. Thus, a CDS Service requires an access token before communicating with the CDS Client's FHIR resource server. While CDS Hooks shares the underlying technical framework and standards as SMART on FHIR, the CDS Hooks workflow SHALL accommodate the automated, low-latency delivery of an access token to the CDS service.
+{:.stu}
 
 With CDS Hooks, if the CDS Client wants to provide the CDS Service direct access to FHIR resources, the CDS Client creates or obtains an access token prior to invoking the CDS Service, passing this token to the CDS Service as part of the service call. This approach remains compatible with [OAuth 2.0's](https://oauth.net/2/) bearer token protocol while minimizing the number of HTTPS round-trips and the service invocation latency. The CDS Client remains in control of providing an access token that is associated with the specific CDS Service, user, and context of the invocation.  As the CDS Service executes on behalf of a user, the data to which the CDS Service is given access by the CDS Client SHALL be limited to the same restrictions and authorizations afforded the current user. As such, the access token SHALL be scoped to:
+{:.stu}
 
 - The CDS Service being invoked
 - The current user
+{:.stu}
 
 ##### Passing the Access Token to the CDS Service
+{:.stu}
 
 The access token is specified in the CDS Service request via the `fhirAuthorization` request parameter. This parameter is an object that contains both the access token as well as other related information as specified below.  If the CDS Client chooses not to pass along an access token, the `fhirAuthorization` parameter is omitted.
+{:.stu}
 
 Field | Optionality | Type | Description
 ----- | ----- | ----- | -----------
@@ -741,12 +750,16 @@ Field | Optionality | Type | Description
 `subject` | REQUIRED | *string* | The [OAuth 2.0](https://oauth.net/2/) client identifier of the CDS Service, as registered with the CDS Client's authorization server.
 `patient` | CONDITIONAL | *string* | If the granted SMART scopes include patient scopes (i.e. "patient/"), the access token is restricted to a specific patient. This field SHOULD be populated to identify the FHIR id of that patient.
 {:.grid}
+{:.stu}
 
 The scopes granted to the CDS Service via the `scope` field are defined by the [SMART on FHIR specification](https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html).
+{:.stu}
 
 The `expires_in` value is established by the authorization server and SHOULD BE very short lived, as the access token SHALL be treated as a transient value by the CDS Service. CDS Clients SHOULD revoke an issued access token upon the completion of the CDS Hooks request/response to limit the validity period of the token.
+{:.stu}
 
 Below is an example `fhirAuthorization` parameter:
+{:.stu}
 
 ```json
 {
@@ -844,7 +857,7 @@ Field | Optionality | Type | Description
 ----- | ----- | ----- | --------
 `uuid` | OPTIONAL | *string* | Unique identifier of the card.  MAY be used for auditing and logging cards and SHALL be included in any subsequent calls to the CDS service's feedback endpoint.
 `summary` | REQUIRED | *string* | One-sentence, <140-character summary message for display to the user inside of this card.
-`detail` | OPTIONAL | *string* | Optional detailed information to display; if provided SHALL be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
+`detail` | OPTIONAL | *markdown* | Optional detailed information to display; if provided SHALL be represented in [(GitHub Flavored) Markdown](https://github.github.com/gfm/). (For non-urgent cards, the CDS Client MAY hide these details until the user clicks a link like "view more details...").
 `indicator` | REQUIRED | *string* | Urgency/importance of what this card conveys. Allowed values, in order of increasing urgency, are: `info`, `warning`, `critical`. The CDS Client MAY use this field to help make UI display decisions such as sort order or coloring.
 `source` | REQUIRED | *object* | Grouping structure for the **[Source](#source)** of the information displayed on this card. The source should be the primary source of guidance for the decision support the card represents.
 `suggestions` | OPTIONAL | *array* of **[Suggestions](#suggestion)** | Allows a service to suggest a set of changes in the context of the current activity (e.g.  changing the dose of a medication currently being prescribed, for the `order-sign` activity). If suggestions are present, `selectionBehavior` SHALL also be provided.
@@ -1260,6 +1273,7 @@ Prior to enabling CDS Clients to request decision support from any CDS Service, 
 Once a CDS Service provider is selected, the CDS Client vendor/provider negotiates the terms under which service will be provided.  This negotiation includes agreement on patient data elements that will be prefetched and provided to the CDS Service, the CDS Services used and the hooks that will trigger them, data elements that will be made available through an access token passed by the CDS Client, and steps the CDS Service SHALL take to protect patient data and access tokens.  The CDS Service can be registered with the CDS Client's authorization server, in part to define the FHIR resources that the CDS Service has authorization to access. These business arrangements are documented in the service agreement.
 
 Every interaction between a CDS Client and a CDS Service is initiated by the CDS Client sending a service request to a CDS Service endpoint protected using the [Transport Layer Security protocol](https://tools.ietf.org/html/rfc5246). Through the TLS protocol the identity of the CDS Service is authenticated, and an encrypted transmission channel is established between the CDS Client and the CDS Service. Both the Discovery endpoint and individual CDS Service endpoints are TLS secured.
+{:.stu}
 
 The CDS Client's FHIR server, using information provided by the authorization server, is responsible for enforcing restrictions on the information available to the CDS Service. Regardless of whether FHIR resources are prefetched or retrieved from the FHIR server, the CDS Client SHALL deny access to a requested resource if it is outside the user's authorized scope. If a CDS Client is satisfying prefetch requests from a CDS Service or sends a non-null `fhirAuthorization` object to a CDS Service so that it can call the FHIR server, the CDS Service SHALL be pre-registered with the authorization server protecting access to the FHIR server.  Pre-registration includes registering a client identifier, and agreeing upon the scope of FHIR access that is minimally necessary to provide the clinical decision support required. This specification does not address how the CDS Client, authorization server, and CDS Service perform this pre-registration.
 
