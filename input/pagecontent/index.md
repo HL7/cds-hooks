@@ -1394,7 +1394,7 @@ CDS Services and browser-based CDS Clients will require CORS support. A secure i
 
 #### Cards and Transience
 
-CDS Clients SHOULD treat cards as transient to the hook invocation that triggered them, discarding cards when the triggering context is no longer active (e.g., the patient's chart is closed or the relevant workflow completes). If cards are persisted beyond the triggering context, CDS Clients SHOULD take care to ensure that stale guidance does not negatively impact patient care.
+Any action that changes the context used by the service may invalidate previously returned guidance. CDS Clients SHOULD treat cards as transient to the hook invocation that triggered them, discarding cards when the triggering context is no longer active (e.g., the patient's chart is closed or the relevant workflow completes). If cards are persisted beyond the triggering context, CDS Clients should take care to ensure that stale guidance does not negatively impact patient care. While services can make use of multiple hooks to update, every workflow step that could change context is not currently standardized.
 
 CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
