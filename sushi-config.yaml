@@ -84,6 +84,7 @@ parameters:
   shownav: true
   related-ig: module:library=hl7.fhir.uv.cds-hooks-library
   special-url-base: http://terminology.hl7.org
+  auto-oid-root: 2.16.840.1.113883.4.642.40.93
 
 #  logging: html
 
