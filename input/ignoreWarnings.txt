@@ -5,7 +5,9 @@ WARNING: StructureDefinition/CDSHooksResponse: StructureDefinition.text.div: Hyp
 
 # On the agenda for TSMG this week to review
 INFORMATION: CodeSystem/CDSLinkType: CodeSystem: Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
+INFORMATION: CodeSystem/CDSActionType: CodeSystem: Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
 
 # Accepted references to draft selection behavior code system
 INFORMATION: ValueSet/CDSSelectionBehavior: ValueSet.compose.include[0].concept[0]: Reference to draft CodeSystem http://hl7.org/fhir/action-selection-behavior|4.0.1
 INFORMATION: ValueSet/CDSSelectionBehavior: ValueSet.compose.include[0].concept[1]: Reference to draft CodeSystem http://hl7.org/fhir/action-selection-behavior|4.0.1
+

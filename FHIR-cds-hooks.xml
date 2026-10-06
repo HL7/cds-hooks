@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<specification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ballotUrl="http://cds-hooks.hl7.org/2026Jan" ciUrl="http://build.fhir.org/ig/HL7/cds-hooks" defaultVersion="2.0.1" defaultWorkgroup="cds" gitUrl="https://github.com/HL7/cds-hooks-hl7-site" url="http://cds-hooks.hl7.org">
+<specification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ballotUrl="http://cds-hooks.hl7.org/2026Jan" ciUrl="http://build.fhir.org/ig/HL7/cds-hooks" defaultVersion="3.0.0" defaultWorkgroup="cds" gitUrl="https://github.com/HL7/cds-hooks-hl7-site" url="http://cds-hooks.hl7.org">
 <version code="current" url="http://build.fhir.org/ig/HL7/cds-hooks"/>
+<version code="3.0.0" url="http://cds-hooks.hl7.org/3.0.0"/>
 <version code="3.0.0-ballot" url="http://cds-hooks.hl7.org/2026Jan"/>
 <version code="2.0.1" url="http://cds-hooks.hl7.org/STU2"/>
 <version code="2.0" deprecated="true" url="http://cds-hooks.hl7.org/2.0"/>
@@ -13,6 +14,7 @@
 <artifactPageExtension value="-examples"/>
 <artifactPageExtension value="-mappings"/>
 <artifact id="StructureDefinition/CDSHookContext" key="StructureDefinition-CDSHookContext" name="CDS Hook Specific Context (Logical Definition)"/>
+<artifact id="CodeSystem/CDSActionType" key="CodeSystem-CDSActionType" name="CDSActionType Codes"/>
 <artifact id="ValueSet/CDSActionType" key="ValueSet-CDSActionType" name="CDSActionType Codes ValueSet"/>
 <artifact id="StructureDefinition/CDSHooksServices" key="StructureDefinition-CDSHooksServices" name="CDSHooks Discovery Response (Logical Definition)"/>
 <artifact id="StructureDefinition/CDSHooksFeedback" key="StructureDefinition-CDSHooksFeedback" name="CDSHooks Feedback (Logical Definition)"/>

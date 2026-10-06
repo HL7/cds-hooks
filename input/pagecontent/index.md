@@ -1295,7 +1295,7 @@ However, mutual TLS is impractical for many organizations. In the absence of mut
 
 Each time a CDS Client transmits a request to a CDS Service which requires authentication, the request SHALL include an `Authorization` header presenting the JWT as a “Bearer” token:
 ```
-Authorization:  Bearer {% raw {{JWT}} endraw %}
+Authorization:  Bearer {% raw %}{{JWT}}{% endraw %}
 ```
 Note that this is for every single CDS Service call, whether that be a Discovery call, a single CDS Service invocation, or multiple exchanges relating to a single service. Also note that mutual TLS MAY be used alongside JSON web tokens to establish trust of the CDS Client by the CDS Service.
 
