@@ -3,7 +3,7 @@
     "version": "3.0.0",
     "path": "http://cds-hooks.hl7.org/3.0.0",
     "mode": "milestone",
-    "status": "release",
+    "status": "normative+trial-use",
     "sequence": "R3",
     "desc": "R3 Normative Release",
     "changes": "changes.html",
