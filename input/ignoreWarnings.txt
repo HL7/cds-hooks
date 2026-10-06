@@ -1,6 +1,11 @@
 == Suppressed Messages ==
 
-# Add warning and/or information messages here after you've confirmed that they aren't really a problem
-# (And include comments like this justifying why)
-# See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt for examples
+# Accepted warning for the rendered view, this does not impact usability
+WARNING: StructureDefinition/CDSHooksResponse: StructureDefinition.text.div: Hyperlink '#CDSHooksResponse.cards.suggestions.actions' at 'div/table/tr/td/a' for 'actions' resolves to multiple targets ($/text/div/table/tr[16]/td[0]/a[1]/@name, $/snapshot/element/id, $/differential/element/id)
 
+# On the agenda for TSMG this week to review
+INFORMATION: CodeSystem/CDSLinkType: CodeSystem: Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
+
+# Accepted references to draft selection behavior code system
+INFORMATION: ValueSet/CDSSelectionBehavior: ValueSet.compose.include[0].concept[0]: Reference to draft CodeSystem http://hl7.org/fhir/action-selection-behavior|4.0.1
+INFORMATION: ValueSet/CDSSelectionBehavior: ValueSet.compose.include[0].concept[1]: Reference to draft CodeSystem http://hl7.org/fhir/action-selection-behavior|4.0.1

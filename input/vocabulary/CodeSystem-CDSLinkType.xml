@@ -19,16 +19,6 @@
   <caseSensitive value="true"/>
   <valueSet value="http://cds-hooks.hl7.org/ValueSet/CDSLinkType"/>
   <content value="complete"/>
-  <property>
-    <code value="should-shall"/>
-    <description value="Codes with this property true must have shall or should appended in the grammar"/>
-    <type value="boolean"/>
-  </property>
-  <property>
-    <code value="expression"/>
-    <description value="Expression that expresses aggregate codes using the grammar"/>
-    <type value="string"/>
-  </property>
   <concept>
     <code value="absolute"/>
     <display value="absolute"/>

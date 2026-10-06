@@ -130,7 +130,7 @@ Field | Optionality | Type | Description
 `hookVersion`| OPTIONAL | *string* | The version of the hook this service supports, which SHALL match the [`hookVersion`](#hook-version) in the published hook definition. A service that supports multiple versions of the same hook exposes each version at a separate endpoint.
 {:.grid}
 
-Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*update stale guidance*](#update-stale-guidance).
+Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*Cards and transience*](#cards-and-transience).
 
 #### HTTP Status Codes
 
@@ -810,7 +810,7 @@ If your CDS Service has no decision support for the user, your service should re
 }
 ```
 
-Clients SHOULD remove `cards` returned by previous invocations of a `hook` to a service with the same `id` when a new `hook` is triggered (see [*update stale guidance*](#update-stale-guidance)).
+Clients SHOULD remove `cards` returned by previous invocations of a `hook` to a service with the same `id` when a new `hook` is triggered (see [*Cards and transience*](#cards-and-transience)).
 
 Note: The contents of this section are Standard for Trial Use (STU)
 {:.stu-note}
