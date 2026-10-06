@@ -4,6 +4,12 @@
   <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm">
     <valueInteger value="1"/>
   </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-wg">
+    <valueCode value="cds"/>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status">
+    <valueCode value="trial-use"/>
+  </extension>
   <url value="http://cds-hooks.hl7.org/ValueSet/CDSLinkType"/>
   <name value="CDSLinkTypeCodesVS"/>
   <title value="CDSLinkType Codes ValueSet"/>

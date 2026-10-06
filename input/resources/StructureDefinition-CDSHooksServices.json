@@ -3,6 +3,18 @@
   "id": "CDSHooksServices",
   "extension": [
     {
+      "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+      "valueInteger": 1
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "informative"
+    },
+    {
       "url": "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype",
       "valueBoolean": true
     }
@@ -10,8 +22,8 @@
   "url": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksServices",
   "name": "CDSHooksServices",
   "title": "CDSHooks Discovery Response (Logical Definition)",
-  "status": "draft",
-  "experimental": true,
+  "status": "active",
+  "experimental": false,
   "description": "This structure is defined to allow the FHIR Validator to validate a CDSHooks Discovery response body.",
   "fhirVersion": "4.0.1",
   "kind": "logical",
@@ -43,7 +55,7 @@
         "max": "*",
         "type": [
           {
-            "code": "http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement"
+            "code": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement"
           }
         ]
       },
@@ -82,7 +94,7 @@
         "max": "1",
         "type": [
           {
-            "code": "string"
+            "code": "markdown"
           }
         ]
       },
@@ -161,7 +173,20 @@
         "id": "CDSHooksServices.services.version",
         "path": "CDSHooksServices.services.version",
         "short": "CDS Hooks specification version implemented",
-        "definition": "The version of the CDS Hooks specification implemented (STU1 | STU2 | STU3)",
+        "definition": "The [semantic](http://semver.org) version of the CDS Hooks specification implemented (e.g. `3.0.0`))",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.hookVersion",
+        "path": "CDSHooksServices.services.hookVersion",
+        "short": "Hook version implemented",
+        "definition": "The version of the hook this service supports, which SHALL match the hookVersion in the published hook definition. A service that supports multiple versions of the same hook exposes each version at a separate endpoint.",
         "min": 0,
         "max": "1",
         "type": [

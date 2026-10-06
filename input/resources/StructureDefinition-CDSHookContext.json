@@ -7,16 +7,23 @@
       "valueInteger": 1
     },
     {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "informative"
+    },
+    {
       "url": "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype",
       "valueBoolean": true
     }
   ],
   "url": "http://cds-hooks.hl7.org/StructureDefinition/CDSHookContext",
-  "version": "0.0.1",
   "name": "CDSHookContext",
   "title": "CDS Hook Specific Context (Logical Definition)",
-  "status": "draft",
-  "experimental": true,
+  "status": "active",
+  "experimental": false,
   "description": "This structure is defined to allow the FHIR Validator to validate a CDSHooks Request Context.",
   "fhirVersion": "4.0.1",
   "kind": "logical",

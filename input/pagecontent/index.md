@@ -195,7 +195,7 @@ Field | Optionality | Type | Description
 `hook` | REQUIRED | *string* | The hook that triggered this CDS Service call. See [Hooks](#hooks).
 `hookInstance` | REQUIRED | *string* | A universally unique identifier (UUID) for this particular hook call (see more information below).
 `fhirServer` | CONDITIONAL | *URL* | The base URL of the CDS Client's [FHIR](https://www.hl7.org/fhir/) server. If fhirAuthorization is provided, this field is REQUIRED.  The scheme SHALL be `https` when production data is exchanged.
-`fhirAuthorization` | OPTIONAL | *object* | A structure holding authorization that grants the CDS Service access to FHIR resources, along with supplemental information. See the [FHIR Resource Access](#fhir-resource-access) section for more information.
+`fhirAuthorization` | OPTIONAL | *object* | A structure holding authorization that grants the CDS Service access to FHIR resources, along with supplemental information. See the [FHIR Resource Access](#fhir-resource-access) section for more information. _Note that this element is trial-use._
 `context` | REQUIRED | *object* | Hook-specific contextual data that the CDS service will need.<br />For example, with the `patient-view` hook this will include the FHIR id of the [Patient](https://www.hl7.org/fhir/patient.html) being viewed.  For details, see the Hooks specific specification page (example: [patient-view]({{site.data.links.library-contexts.build.url}}patient-view.html)).
 `prefetch` | OPTIONAL | *object* | The FHIR data that was prefetched by the CDS Client (see more information below).
 {:.grid}
@@ -265,7 +265,7 @@ Similarly, each CDS Client will decide what FHIR resources to authorize and to p
 A _prefetch template_ is a FHIR [`read`](http://hl7.org/fhir/http.html#read) or [`search`](http://hl7.org/fhir/http.html#search) request that describes relevant data needed by the CDS Service. For example, the following is a prefetch template for hemoglobin A1c observations:
 
 ```
-Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=4548-4&_count=1&sort:desc=date
+Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=4548-4&_count=1&_sort=-date
 ```
 
 To allow for prefetch templates that are dependent on the workflow context, prefetch templates may include references to context using [_prefetch tokens_](#prefetch-tokens). In the above example, `{% raw  %}{{{% endraw  %}context.patientId}}` is a prefetch token.
@@ -275,7 +275,7 @@ The `prefetch` field of a CDS Service discovery response defines the set of pref
 ```json
 {
   "prefetch": {
-    "hemoglobin-a1c": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=4548-4&_count=1&sort:desc=date"
+    "hemoglobin-a1c": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=4548-4&_count=1&_sort=-date"
   }
 }
 ```
@@ -300,6 +300,8 @@ The resulting response is passed along to the CDS Service using the `prefetch` 
 
 Note that a CDS Client MAY paginate prefetch results. The intent of allowing pagination is to ensure that prefetch queries that may be too large for a single payload can still be retrieved by the service. The decision to paginate and the size of pages is entirely at the CDS Client's discretion. As part of pagination, the CDS Service will typically need to authenticate to retrieve the next page, which can be enabled with a [provided token from `fhirAuthorization`](#passing-the-access-token-to-the-cds-service). CDS Clients are encouraged to only use pagination when absolutely necessary, keeping performance and user experience in mind.
 
+Note that pagination support is optional, but normative, whereas the `fhirAuthorization` element is still trial-use.
+
 ##### Example of Pagination in Prefetch 
 
 Below is an example of pagination:
@@ -319,7 +321,7 @@ Below is an example of pagination:
                 {
                     "resource": {
                         "resourceType": "MedicationRequest",
-                        "id": "draft‑rx‑1",
+                        "id": "draft-rx-1",
                         "status": "draft",
                         "intent": "order",
                         "medicationCodeableConcept": {
@@ -352,7 +354,7 @@ Below is an example of pagination:
                 {
                     "resource": {
                         "resourceType": "MedicationRequest",
-                        "id": "rx‑page‑1‑01",
+                        "id": "rx-page-1-01",
                         "status": "active",
                         "intent": "order",
                         "medicationCodeableConcept": {
@@ -466,7 +468,7 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 
 <div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
 <img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
-Experimental: Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{%context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
+Experimental: Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
 <p>&nbsp;</p>>> NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
 </div><p>&nbsp;</p>
 {:.stu}
@@ -610,7 +612,7 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
 Given the above prefetch template, and context, the CDS Client is asked to provide the results of these two FHIR queries: 
 {:.stu}
 * `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
-* `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
+* `Appointment?patient=eXoGxqgBaJuNkuahMYmiDhg3&date=gt2024-09-13&date=lt2025-09-13`, resulting in the `appointments-upcoming` prefetch key containing a FHIR searchset Bundle of zero or more scheduled Appointment for the current patient within the next year.
 {:.stu}
 
 
@@ -624,8 +626,10 @@ To reduce the implementation burden on CDS Clients that support CDS Services, pr
 * _token_ search parameters using equality (e.g. `code=4548-4`) and optionally the `:in` modifier (no other modifiers for token parameters)
 * _date_ search parameters on `date`, `dateTime`, `instant`, or `Period` types only, and using only the prefixes `eq`, `lt`, `gt`, `ge`, `le`
 * the `_count` parameter to limit the number of results returned on a single page
-* the `_maxresults` parameter to limit the total number of results returned 
+* the `_maxresults` parameter to limit the total number of results returned
 * the `_sort` parameter to allow for _most recent_ and _first_ queries
+
+> NOTE: The `_maxresults` parameter is defined in FHIR R5, though some R4 servers may pre-adopt the behavior. Clients should use the server's capability statement to determine which specific search parameters are supported.
 
 ##### Example prefetch token
 
@@ -647,8 +651,8 @@ The token name would be `{% raw  %}{{{% endraw  %}context.patientId}}`. Again us
 {
   "prefetch": {
     "patient": "Patient/{% raw  %}{{{% endraw  %}context.patientId}}",
-    "hemoglobin-a1c": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=4548-4&_count=1&sort:desc=date",
-    "diabetes-type2": "Condition?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=44054006&category=problem-list-item&status=active",
+    "hemoglobin-a1c": "Observation?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=4548-4&_count=1&_sort=-date",
+    "diabetes-type2": "Condition?patient={% raw  %}{{{% endraw  %}context.patientId}}&code=44054006&category=problem-list-item&clinical-status=active",
     "user": "PractitionerRole?_id={% raw  %}{{{% endraw  %}userPractitionerRoleId}}"
   }
 }
@@ -700,11 +704,11 @@ goal is to know, at call time:
     },
      "user": {
       "resourceType": "Bundle",
-      "type": "collection",
+      "type": "searchset",
       "entry": [
         {
           "resource": {
-            "resourceType": "Practitioner",
+            "resourceType": "PractitionerRole",
             "id": "123"
           }
         }
@@ -719,8 +723,8 @@ keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
 
 Note that the missing `diabetes-type2` key indicates that either the CDS Client has decided not to satisfy this particular prefetch template or it was not able to retrieve this prefetched data. The CDS Service is responsible for retrieving the FHIR resource representing the user from the FHIR server (if required).
 
-{:.stu}
-
+Note: The contents of this section are Standard for Trial Use (STU)
+{:.stu-note}
 #### FHIR Resource Access
 {:.stu}
 
@@ -828,7 +832,7 @@ An EHR reaches the order-select hook as a provider is adding medications to an o
 ###### Example OperationOutcome Resource
 {:.stu}
 ```http
-HTTP/1.1 412 OK
+HTTP/1.1 412 Precondition Failed
 Content-Length: 438
 
 {
@@ -1002,7 +1006,7 @@ Field | Optionality | Type | Description
 `label`| REQUIRED | *string* | Human-readable label to display for this link (e.g. the CDS Client might render this as the underlined text of a clickable link).
 `url` | REQUIRED | *URL* | URL to load (via `GET`, in a browser context) when a user clicks on this link. Note that this MAY be a "deep link" with context embedded in path segments, query parameters, or a hash.
 `type` | REQUIRED | *string* | The type of the given URL. There are two possible values for this field. A type of `absolute` indicates that the URL is absolute and should be treated as-is. A type of `smart` indicates that the URL is a SMART app launch URL and the CDS Client should ensure the SMART app launch URL is populated with the appropriate SMART launch parameters.
-`appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0](https://oauth.net/2/) access token response, alongside the other [SMART launch parameters](https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#launch-context-arrives-with-your-access_token) when the SMART app is launched. The `appContext` field is not a url querystring parameter, but is provided as part of the SMART /token response. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it. CDS Client support for `appContext` may require additional coordination with the authorization server that is not described or specified in CDS Hooks nor SMART. CDS Clients SHOULD support passing `appCOntext` from the CDS Service to a launched SMART app.
+`appContext` | OPTIONAL | *string* |  An optional field that allows the CDS Service to share information from the CDS card with a subsequently launched SMART app. The `appContext` field should only be valued if the link type is `smart` and is not valid for `absolute` links. The `appContext` field and value will be sent to the SMART app as part of the [OAuth 2.0](https://oauth.net/2/) access token response, alongside the other [SMART launch parameters](https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#launch-context-arrives-with-your-access_token) when the SMART app is launched. The `appContext` field is not a url querystring parameter, but is provided as part of the SMART /token response. Note that `appContext` could be escaped JSON, base64 encoded XML, or even a simple string, so long as the SMART app can recognize it. CDS Client support for `appContext` may require additional coordination with the authorization server that is not described or specified in CDS Hooks nor SMART. CDS Clients SHOULD support passing `appContext` from the CDS Service to a launched SMART app.
 `autolaunchable` | OPTIONAL | *boolean* |  This field serves as a hint to the CDS Client suggesting this link be immediately launched, without displaying the card and without manual user interaction.  Note that CDS Hooks cards which contain links with this field set to true, may not be shown to the user.  Sufficiently advanced CDS Clients may support automatically launching multiple links or multiple cards. Implementer guidance is requested to determine if the specification should preclude these advanced scenarios.
 {:.grid}
 
@@ -1156,7 +1160,7 @@ Field | Optionality | Type | Description
 
 The CDS Client can inform the service when one or more suggestions were accepted by POSTing a simple JSON object. The CDS Client authenticates to the CDS service as described in [Trusting CDS Clients](#trusting-cds-clients).
 
-Upon the user accepting a suggestion (perhaps when she clicks a displayed label (e.g., button) from a "suggestion" card), the CDS Client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
+Upon the user accepting a suggestion (perhaps when they click a displayed label (e.g., button) from a "suggestion" card), the CDS Client informs the service by posting the card and suggestion `uuid`s to the CDS Service's feedback endpoint with an outcome of `accepted`.
 
 To enable a positive clinical experience, the feedback endpoint may be called for multiple hook instances or multiple cards at the same time or even multiple times for a card or suggestion. Depending upon the UI and workflow of the CDS Client, a CDS Service may receive feedback for the same card instance multiple times.
 
@@ -1291,7 +1295,7 @@ However, mutual TLS is impractical for many organizations. In the absence of mut
 
 Each time a CDS Client transmits a request to a CDS Service which requires authentication, the request SHALL include an `Authorization` header presenting the JWT as a “Bearer” token:
 ```
-Authorization:  Bearer {{JWT}}
+Authorization:  Bearer {% raw {{JWT}} endraw %}
 ```
 Note that this is for every single CDS Service call, whether that be a Discovery call, a single CDS Service invocation, or multiple exchanges relating to a single service. Also note that mutual TLS MAY be used alongside JSON web tokens to establish trust of the CDS Client by the CDS Service.
 
@@ -1419,7 +1423,7 @@ Any action that changes the context used by a CDS service may invalidate previou
 
 CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
-STU NOTE: We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.
+We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.
 {:.stu-note}
 
 Note that CDS Services will need to negotiate with CDS Clients to ensure that hooks that are required to ensure patient safety are supported by the CDS Client.
@@ -1428,7 +1432,8 @@ Note that CDS Services will need to negotiate with CDS Clients to ensure that ho
 
 The specification is not prescriptive about support for extensions. However, to support extensions, the specification reserves the name `extension` and will never define an element with that name, allowing implementations to use it to provide custom behavior and information. The value of an extension element SHALL be a JSON object with elements agreed upon before exchange. Extension structures SHOULD use a strategy for naming that ensures global uniqueness, such as reverse-domain-name notation, as in the examples below. The intention here is that anything that has broad ranging value across the community enough to be a standardized extension has broad ranging value enough to be a first class citizen rather than an extension in CDS Hooks.
 
-> STU Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
+Note: We seek implementer feedback on whether the recommendation to use namespace-based unique naming in the extension specification should be made mandatory or that we consider adding a mandatory field to extensions that indicates the source/type of the extension (as is done with FHIR).
+{:.stu-note}
 
 For example, an extension on a request could look like this:
 
@@ -1490,7 +1495,7 @@ Field | Optionality | Type | Description
 
 #### Overview
 
-As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined here are not a closed set; anyone is able to define new hooks to fit their use cases and propose those hooks to the community. New hooks are proposed in a prescribed [format](#hook-definition-format) using the [documentation template](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) by submitting a [pull request](https://github.com/HL7/cds-hooks-library/tree/main/input/pagecontent) for community feedback. Hooks are [versioned](#hook-version), and mature according to the [Hook Maturity Model](#hook-maturity-model).
+As a specification, CDS Hooks does not prescribe a default or required set of hooks for implementers. Rather, the set of hooks defined here are merely a set of common use cases that were used to aid in the creation of CDS Hooks. The set of hooks defined in the hooks library are not a closed set; anyone is able to define new hooks to fit their use cases and propose those hooks to the community. New hooks are proposed in a prescribed [format](#hook-definition-format) using the [documentation template](https://github.com/cds-hooks/docs/wiki/Proposed-Hooks) by submitting a [pull request](https://github.com/HL7/cds-hooks-library/tree/main/input/pagecontent) for community feedback. Hooks are [versioned](#hook-version), and mature according to the [Hook Maturity Model](#hook-maturity-model).
 
 Note that each hook (e.g. `order-select`) represents something the user is doing in the CDS Client and multiple CDS Services might respond to the same hook (e.g. a "price check" service and a "prior authorization" service might both respond to `order-select`).
 
@@ -1530,7 +1535,7 @@ In summary, context is specified in the hook definition to guide developers on t
 
 Hooks are defined in the following format.
 
-#### Hook name is expressed as noun-verb
+##### Hook name is expressed as noun-verb
 
 Hook names should follow the pattern: `noun-verb`.
 
@@ -1538,11 +1543,11 @@ The name of the hook SHOULD succinctly and clearly describe the activity or even
 
 When naming hooks, the name should start with the subject (noun) of the hook and be followed by the activity (verb). For example, `patient-view` (not `view-patient`) or `order-sign` (not `sign-order`).
 
-#### Workflow
+##### Workflow
 
 Describe when this hook occurs in a workflow. Hook creators SHOULD include as much detail and clarity as possible to minimize any ambiguity or confusion among implementers.
 
-#### Context
+##### Context
 
 Describe the set of contextual data used by this hook. Only data logically and necessarily associated with the purpose of this hook should be represented in context.
 
@@ -1565,7 +1570,7 @@ Field | Optionality | Prefetch Token | Type | Description
 `allFHIR` | OPTIONAL | No | *object* | A FHIR Bundle of the following FHIR resources using a specific version of FHIR.
 {:.grid}
 
-#### FHIR resources in context
+##### FHIR resources in context
 
 For context fields that may contain multiple FHIR resources, the field SHOULD be defined as a FHIR Bundle of type collection, rather than as an array of FHIR resources. For example, multiple FHIR resources are necessary to describe all of the orders under review in the `order-sign` hook's `draftOrders` field. Hook definitions SHOULD prefer the use of FHIR Bundles over other bespoke data structures.
 
@@ -1573,7 +1578,7 @@ Often, context is populated with in-progress or in-memory data that may not yet 
 
 All FHIR resources in context SHALL be based on the same FHIR version.
 
-#### Examples
+##### Examples
 
 Hook creators SHOULD include examples of the context.
 
@@ -1594,7 +1599,7 @@ If the context contains FHIR data, hook creators SHOULD include examples across 
 #### Hook Maturity Model
 The intent of the CDS Hooks Maturity Model is to attain broad community engagement and consensus, before a hook is labeled as mature, that the hook is necessary, implementable, and worthwhile to the CDS Services and CDS Clients that would reasonably be expected to use it. Implementer feedback should drive the maturity of new hooks. Diverse participation in open developer forums and events, such as HL7 FHIR Connectathons, is necessary to achieve significant implementer feedback. The below criteria will be evaluated with these goals in mind.
 
-    Hook maturity | 3 - Considered
+    hookMaturity | 3 - Considered
 
 The Hook maturity levels use the term CDS Client to generically refer to the clinical workflow system in which a CDS Services returned cards are displayed.
 
@@ -1625,7 +1630,7 @@ Because the specification itself follows semantic versioning, the version specif
 
 To enable tracking of changes to hook definitions, each hook SHALL include a version indicator, expressed as a string.
 
-    hookVersion | 1.0
+    hookVersion | 1.0.0
 
 To help ensure the stability of CDS Hooks implementations, once a hook has been defined (i.e. published with a particular name so that it is available for implementation), breaking changes SHALL NOT be made. This means that fields can be added and restrictions relaxed, but fields cannot be changed, and restrictions cannot be tightened.
 
@@ -1668,7 +1673,7 @@ For example:
 
 Version | Description
 ---- | ----
-1.1 | Added new context variable
+1.1.0 | Added new context variable
 1.0.1 | Clarified context variable usage
-1.0 | Initial Release
+1.0.0 | Initial Release
 {:.grid}

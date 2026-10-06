@@ -16,7 +16,6 @@
     }
   ],
   "url": "http://terminology.hl7.org/ValueSet/non-adherence-reason-category",
-  "version": "1.0.0",
   "name": "NonAdherenceReasonCategory",
   "title": "Non-Adherence Reason Categories ValueSet",
   "status": "active",

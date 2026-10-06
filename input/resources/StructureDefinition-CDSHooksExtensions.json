@@ -7,6 +7,14 @@
       "valueInteger": 1
     },
     {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "informative"
+    },
+    {
       "url": "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype",
       "valueBoolean": true
     },
@@ -16,11 +24,10 @@
     }
   ],
   "url": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksExtensions",
-  "version": "0.0.1",
   "name": "CDSHooksExtensions",
   "title": "CDSHooks Services Extensions",
-  "status": "draft",
-  "experimental": true,
+  "status": "active",
+  "experimental": false,
   "description": "This is a concrete subtype of Base that has extensions (though the format in JSON is different)",
   "fhirVersion": "4.0.1",
   "kind": "logical",

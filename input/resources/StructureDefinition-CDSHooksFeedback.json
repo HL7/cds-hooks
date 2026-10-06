@@ -3,6 +3,18 @@
   "id": "CDSHooksFeedback",
   "extension": [
     {
+      "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm",
+      "valueInteger": 1
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-wg",
+        "valueCode": "cds"
+    },
+    {
+        "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+        "valueCode": "informative"
+    },
+    {
       "url": "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype",
       "valueBoolean": true
     }
@@ -10,8 +22,8 @@
   "url": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksFeedback",
   "name": "CDSHooksFeedback",
   "title": "CDSHooks Feedback (Logical Definition)",
-  "status": "draft",
-  "experimental": true,
+  "status": "active",
+  "experimental": false,
   "description": "This structure is defined to allow the FHIR Validator to validate a CDSHooks Feedback request body.",
   "fhirVersion": "4.0.1",
   "kind": "logical",
@@ -42,7 +54,7 @@
         "max": "*",
         "type": [
           {
-            "code": "http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement"
+            "code": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement"
           }
         ],
         "constraint": [
@@ -103,7 +115,7 @@
         "max": "*",
         "type": [
           {
-            "code": "http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement"
+            "code": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement"
           }
         ]
       },
@@ -135,7 +147,7 @@
         "max": "1",
         "type": [
           {
-            "code": "http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement"
+            "code": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement"
           }
         ],
         "constraint": [

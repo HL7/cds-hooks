@@ -19,10 +19,10 @@ copyrightLabel: "HL7 & Boston Children's Hospital"
 # │  url prefix in this file: input/includes/relative-link.html                     │
 # ╰─────────────────────────────────────────────────────────────────────────────────╯
 releaseLabel: R3 Normative #ci-build # STU2 # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use
-license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
+license: CC-BY-4.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
 jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#001 "World"
 publisher:
-  name: Clinical Decision Support WG
+  name: HL7 International / Clinical Decision Support
   url: http://www.hl7.org/Special/committees/dss/index.cfm
   email: cds@lists.HL7.org
 extension:

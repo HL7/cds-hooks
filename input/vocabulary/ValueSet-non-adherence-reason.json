@@ -16,7 +16,6 @@
     }
   ],
   "url": "http://terminology.hl7.org/ValueSet/non-adherence-reason",
-  "version": "1.0.0",
   "name": "NonAdherenceReason",
   "title": "Non-Adherence Reason",
   "status": "active",
