@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValueSet xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R4/fhir-single.xsd">
+  <id value="CDSLinkType"/>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm">
+    <valueInteger value="1"/>
+  </extension>
+  <url value="http://cds-hooks.hl7.org/ValueSet/CDSLinkType"/>
+  <name value="CDSLinkTypeCodesVS"/>
+  <title value="CDSLinkType Codes ValueSet"/>
+  <status value="active"/>
+  <experimental value="false"/>
+  <description value="CDSLinkType Codes"/>
+  <jurisdiction>
+    <coding>
+      <system value="http://unstats.un.org/unsd/methods/m49/m49.htm"/>
+      <code value="001"/>
+    </coding>
+  </jurisdiction>  
+  <compose>
+    <include>
+      <system value="http://cds-hooks.hl7.org/CodeSystem/CDSLinkType"/>
+    </include>
+  </compose>
+</ValueSet>

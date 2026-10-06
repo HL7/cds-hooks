@@ -1,0 +1,175 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "CDSHooksServices",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/tools/StructureDefinition/json-suppress-resourcetype",
+      "valueBoolean": true
+    }
+  ],
+  "url": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksServices",
+  "name": "CDSHooksServices",
+  "title": "CDSHooks Discovery Response (Logical Definition)",
+  "status": "draft",
+  "experimental": true,
+  "description": "This structure is defined to allow the FHIR Validator to validate a CDSHooks Discovery response body.",
+  "fhirVersion": "4.0.1",
+  "kind": "logical",
+  "abstract": false,
+  "type": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksServices",
+  "baseDefinition": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement",
+  "derivation": "specialization",
+  "differential": {
+    "element": [
+      {
+        "id": "CDSHooksServices",
+        "path": "CDSHooksServices",
+        "short": "The response to the discovery endpoint",
+        "definition": "The response to the discovery endpoint SHALL be an object containing a list of CDS Services"
+      },
+      {
+        "id": "CDSHooksServices.services",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/tools/StructureDefinition/json-empty-behavior",
+            "valueCode": "present"
+          }
+        ],
+        "path": "CDSHooksServices.services",
+        "short": "An array of CDS Services",
+        "definition": "An array of CDS Services",
+        "comment": "If the CDS server hosts no CDS Services, the discovery endpoint should return a 200 HTTP response with an empty array of services. Note that a CDS server can host multiple entries of CDS service with the same id for different hooks. This allows a service to update its advice based on changes in workflow.",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "http://hl7.org/fhir/tools/StructureDefinition/CDSHooksElement"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.hook",
+        "path": "CDSHooksServices.services.hook",
+        "short": "The hook this service should be invoked on",
+        "definition": "The hook this service should be invoked on",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.title",
+        "path": "CDSHooksServices.services.title",
+        "short": "The human-friendly name of this service",
+        "definition": "The human-friendly name of this service",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.description",
+        "path": "CDSHooksServices.services.description",
+        "short": "The description of this service",
+        "definition": "The description of this service",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.id",
+        "path": "CDSHooksServices.services.id",
+        "short": "The {id} portion of the URL to this service",
+        "definition": "The {id} portion of the URL to this service which is available at {baseUrl}/cds-services/{id}",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.prefetch",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/tools/StructureDefinition/json-property-key",
+            "valueCode": "key"
+          }
+        ],
+        "path": "CDSHooksServices.services.prefetch",
+        "short": "Key/value pairs of FHIR queries to provide when calling",
+        "definition": "An object containing key/value pairs of FHIR queries that this service is requesting the CDS Client to perform and provide on each service call. The key is a string that describes the type of data being requested and the value is a string representing the FHIR query",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Base"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.prefetch.key",
+        "path": "CDSHooksServices.services.prefetch.key",
+        "short": "Key of FHIR query",
+        "definition": "Key of FHIR query - name for client to use when sending prefetched data to the service",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "code"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.prefetch.value",
+        "path": "CDSHooksServices.services.prefetch.value",
+        "short": "FHIR query template",
+        "definition": "A FHIR query for the CDS Client to perform, which may include prefetch tokens",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.usageRequirements",
+        "path": "CDSHooksServices.services.usageRequirements",
+        "short": "Human-friendly preconditions for the use of this CDS Service",
+        "definition": "Human-friendly description of any preconditions for the use of this CDS Service",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      },
+      {
+        "id": "CDSHooksServices.services.version",
+        "path": "CDSHooksServices.services.version",
+        "short": "CDS Hooks specification version implemented",
+        "definition": "The version of the CDS Hooks specification implemented (STU1 | STU2 | STU3)",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "string"
+          }
+        ]
+      }
+    ]
+  }
+}
