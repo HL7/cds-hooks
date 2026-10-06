@@ -27,7 +27,7 @@
   "description": "This structure is defined to allow the FHIR Validator to validate a CDSHooks Services Element with Extensions.",
   "fhirVersion": "4.0.1",
   "kind": "logical",
-  "abstract": false,
+  "abstract": true,
   "type": "http://cds-hooks.hl7.org/StructureDefinition/CDSHooksElement",
   "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Base",
   "derivation": "specialization",
