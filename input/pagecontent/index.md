@@ -468,8 +468,8 @@ Terminal prefetch tokens are context fields of simple data types, such as string
 
 <div style="border: 1px solid maroon; padding: 10px; background-color: #fffbf7; min-height: 160px;">
 <img src="dragon.png" width="150" title="Here Be Dragons!" height="150" style="float:left; mix-blend-mode: multiply; margin-right: 10px;"/>
-Experimental: Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. Note that this capability is limited to prefetch reads in order to scope complexity. These variables are prefixed with a percent sign (%).
-<p>&nbsp;</p>>> NOTE: Dependencies on other prefetches should be minimized as it limits what queries can be performed in parallel. Prefetches with dependencies SHALL be listed in the discovery response following the prefetches they depend on.
+Experimental: Similarly, resources retrieved resulting from other prefetch tokens can also be traversed into with similar syntax.  Specifically, the result of a prior prefetch read can be expressed as a variable using the prefetch key as specified in the CDS Service discovery response. This is an experimental capability, please provide feedback on your implementation experience. For example, if one prefetch key was defined as: `"encounter": "Encounter/{% raw %}{{context.encounterId}}{% endraw %}"` then a subsequent prefetch could be defined as: `"practitioners" : "Practitioner?_id={% raw %}{{%encounter.participant.individual.resolve().ofType(Practitioner).id}}{% endraw %}"`. These variables are prefixed with a percent sign (%).
+<p>&nbsp;</p>
 </div><p>&nbsp;</p>
 {:.stu}
 
@@ -512,7 +512,9 @@ It is an error if dependencies are cyclical - i.e. if one prefetch either direct
 A prefetch token can contain multiple path selectors delimited with pipes, for example the following includes Practitioners referenced by PractitionerRole as well as Practitioners referenced directly:
 {:.stu}
 
-     `{% raw %}"dxPractitioner" : "Practitioner?_id={{%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}" {% endraw %}`
+```json
+  "dxPractitioner" : "Practitioner?_id={{%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}"
+```
 {:.stu}
 
 See [worked example, below](#example-prefetch-template-with-simpler-fhirpath). 
