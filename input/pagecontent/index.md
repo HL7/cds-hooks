@@ -971,7 +971,7 @@ The following example illustrates a delete action:
 
 ###### Reasons for rejecting a card
 
-**overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services SHALL provide a human readable text in the *display* property and CDS Clients MAY incorporate it into their user interface.
+**overrideReasons** is an array of **[Coding](#coding)** that captures a codified set of reasons an end user may select from as the rejection reason when rejecting the advice presented in the card. When using the coding object to represent a reason, CDS Services SHALL provide a human readable text in the *display* property and CDS Clients SHOULD incorporate it into their user interface.
 
 Note: The contents of this section are Standard for Trial Use (STU). We seek feedback on these override reasons with the intent to allow implementations to align on standardized override reason categories.
 {:.stu-note}
