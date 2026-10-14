@@ -874,6 +874,9 @@ Field | Optionality | Type | Description
 `links` | OPTIONAL | *array* of **[Links](#link)** | Allows a service to suggest a link to an app that the user might want to run for additional information or to help guide a decision.
 {:.grid}
 
+We are seeking feedback on the use of `topic` in specific use cases. Review each optional element and provide guidance for how the element may be applicable within an example use case.
+{:.stu-note}
+
 ##### Source
 
 The **Source** is described by the following attributes.
