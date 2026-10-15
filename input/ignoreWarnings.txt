@@ -3,7 +3,7 @@
 # Accepted warning for the rendered view, this does not impact usability
 WARNING: StructureDefinition/CDSHooksResponse: StructureDefinition.text.div: Hyperlink '#CDSHooksResponse.cards.suggestions.actions' at 'div/table/tr/td/a' for 'actions' resolves to multiple targets ($/text/div/table/tr[16]/td[0]/a[1]/@name, $/snapshot/element/id, $/differential/element/id)
 
-# On the agenda for TSMG this week to review
+# TSMG approved exemptions for specification code systems: https://confluence.hl7.org/spaces/TSMG/pages/498536213/2026-10-08+TSMG+Agenda+and+Minutes
 INFORMATION: CodeSystem/CDSLinkType: CodeSystem: Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
 INFORMATION: CodeSystem/CDSActionType: CodeSystem: Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
 

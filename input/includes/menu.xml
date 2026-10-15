@@ -10,48 +10,48 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a href="{{site.data.related.library.link}}/index.html">Overview</a>
+        <a href="{{site.data.related.library.link}}index.html">Overview</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/allergyintolerance-create.html">allergyintolerance-create (1)</a>
+        <a href="{{site.data.related.library.link}}allergyintolerance-create.html">allergyintolerance-create (1)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/appointment-book.html">appointment-book (1)</a>
+        <a href="{{site.data.related.library.link}}appointment-book.html">appointment-book (1)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/encounter-discharge.html">encounter-discharge (1)</a>
+        <a href="{{site.data.related.library.link}}encounter-discharge.html">encounter-discharge (1)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/encounter-start.html">encounter-start (1)</a>
+        <a href="{{site.data.related.library.link}}encounter-start.html">encounter-start (1)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/medication-refill.html">medication-refill (1)</a>
+        <a href="{{site.data.related.library.link}}medication-refill.html">medication-refill (1)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/order-dispatch.html">order-dispatch (0)</a>
+        <a href="{{site.data.related.library.link}}order-dispatch.html">order-dispatch (0)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/order-select.html">order-select (4)</a>
+        <a href="{{site.data.related.library.link}}order-select.html">order-select (4)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/order-sign.html">order-sign (5)</a>
+        <a href="{{site.data.related.library.link}}order-sign.html">order-sign (5)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/patient-view.html">patient-view (5)</a>
+        <a href="{{site.data.related.library.link}}patient-view.html">patient-view (5)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/problem-list-item-create.html">problem-list-item-create (1)</a>
+        <a href="{{site.data.related.library.link}}problem-list-item-create.html">problem-list-item-create (1)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/medication-prescribe.html">medication-prescribe (deprecated)</a>
+        <a href="{{site.data.related.library.link}}medication-prescribe.html">medication-prescribe (deprecated)</a>
       </li>
       <li>
-        <a href="{{site.data.related.library.link}}/order-review.html">order-review (deprecated)</a>
+        <a href="{{site.data.related.library.link}}order-review.html">order-review (deprecated)</a>
       </li>
     </ul>
   </li>
   <li>
-    <a href="artifacts.html">Logical Models</a>
+    <a href="artifacts.html">Schemas</a>
   </li>
     <li>
     <a href="changes.html">Change Log</a>
