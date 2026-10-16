@@ -130,8 +130,6 @@ Field | Optionality | Type | Description
 `hookVersion`| OPTIONAL | *string* | The version of the hook this service supports, which SHALL match the [`hookVersion`](#hook-version) in the published hook definition. A service that supports multiple versions of the same hook exposes each version at a separate endpoint.
 {:.grid}
 
-Note that a CDS server can host multiple entries of CDS service with the same `id` for different `hook`s. This allows a service to update its advice based on changes in workflow as discussed in [*Cards and transience*](#cards-and-transience).
-
 #### HTTP Status Codes
 
 Code | Description
@@ -1422,8 +1420,6 @@ CDS Services and browser-based CDS Clients will require CORS support. A secure i
 #### Cards and Transience
 
 Any action that changes the context used by a CDS service may invalidate previously returned guidance, such that retaining guidance could negatively affect patient care. CDS Clients SHOULD therefore treat each card as transient, meaning that the card remains applicable only to the hook invocation, workflow context, and prefetch data for which it was generated. CDS Clients SHOULD discard the card or obtain updated guidance when that context or prefetch data changes or is no longer applicable, such as when the patient’s chart is closed or the relevant workflow completes. If a card is persisted beyond that context, CDS Clients should take care to ensure that stale guidance does not negatively impact patient care. Although CDS services can use multiple hooks to provide updated guidance, not every workflow step or data change that could affect the guidance is represented by a standardized hook.
-
-CDS Services can update their previously returned guidance by returning a new set of `cards` when the service is invoked based on a different `hook`. CDS Services indicate this intent by providing multiple CDS Services with the same `id` in [discovery](#discovery). Clients are recommended to remove `cards` returned by a previous invocation with the new `cards`.
 
 We are seeking implementer feedback on how best to balance the needs of performance for implementations with the critical patient safety issues raised by the potential for stale guidance.
 {:.stu-note}
