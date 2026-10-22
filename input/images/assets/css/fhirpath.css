@@ -121,7 +121,12 @@ table.grid th {
 }
 
 table.grid {
-    min-width: 70vw;
+    width: 100%;
+}
+
+/* account for the left margin on STU tables so they don't overflow the content column */
+table.grid.stu {
+    width: calc(100% - 20px);
 }
 
 /* overload the section numbering to be consistent with the original published version of the specification */
