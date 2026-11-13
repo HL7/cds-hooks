@@ -83,6 +83,16 @@ A _CDS Client_ is an Electronic Health Record (EHR), or other clinical informati
 #### Cards
 Decision support is then returned to the CDS Client in the form of [_cards_](#cds-service-response), which the CDS Client **MAY** display to the end-user as part of their workflow. Cards may be informational, or they may provide suggestions that the user may accept or reject they may provide a [link](#link) to additional information or even launch a SMART app when additional user interaction is required.
 
+#### Interactions
+
+The diagram below shows how a CDS Client and a CDS Service interact: [discovery](#discovery), [calling a CDS Service](#calling-a-cds-service) with optional [FHIR resource access](#fhir-resource-access), the [response](#cds-service-response) containing cards, and [feedback](#feedback) on what the user did with those cards.
+
+<figure>
+  {% include CDSHooksSequence.svg %}
+  <figcaption><b>Figure: CDS Hooks interactions</b></figcaption>
+  <p></p>
+</figure>
+
 ### Capability Documentation
 Towards the goal of enabling capability discovery at design time -- CDS Clients and Services are encouraged to provide publicly available, human-readable documentation describing supported CDS Hooks functionality. Documentation of specific supported use-cases and workflows for CDS Hooks is particularly valuable. 
 
@@ -1133,6 +1143,12 @@ In these specific, pre-coordinated scenarios when a systemAction is understood a
 Once a CDS Hooks Service responds to a hook by returning a card, the service has no further interaction with the CDS Client. The acceptance of a suggestion or rejection of a card is valuable information to enable a service to improve its behavior towards the goal of the end-user having a positive and meaningful experience with the CDS. A feedback endpoint enables suggestion tracking & analytics. A CDS Service **MAY** support a feedback endpoint; a CDS Client SHOULD be capable of sending feedback.
 
 Upon receiving a card, a user may accept its suggestions, ignore it entirely, or dismiss it with or without an override reason. Note that individual suggestions within a card can be accepted, while ignoring or overriding applies to the entire card.
+
+<figure>
+  <img src="feedbackoutcomes.svg" style="max-width:100%; height:auto;" alt="Railroad diagram of the feedback outcomes for a displayed card: accepted with acceptedSuggestions, overridden with an optional overrideReason, or ignored with no feedback sent"/>
+  <figcaption><b>Figure: Feedback outcomes for a card</b></figcaption>
+  <p></p>
+</figure>
 
 Typically, an end user may only accept (a suggestion), or override a card once; however, a card once ignored could later be acted upon. CDS Hooks does not specify the UI behavior of CDS Clients, including the persistence of cards. CDS Clients should faithfully report each of these distinct end-user interactions as feedback.
 
