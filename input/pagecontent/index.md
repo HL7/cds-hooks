@@ -128,6 +128,7 @@ Field | Optionality | Type | Description
 `usageRequirements`| **OPTIONAL** | *string* | Human-friendly description of any preconditions for the use of this CDS Service.
 `version`| **RECOMMENDED** | *string* | The [semantic version](https://semver.org/) of the CDS Hooks specification implemented by this service (e.g. `3.0.0`).
 `hookVersion`| **OPTIONAL** | *string* | The version of the hook this service supports, which **SHALL** match the [`hookVersion`](#hook-version) in the published hook definition. A service that supports multiple versions of the same hook exposes each version at a separate endpoint.
+`potentiallyLongRunning`| **OPTIONAL** | *boolean* | When `true`, indicates that this service may take noticeably longer to respond than typical CDS Services, for example because it retrieves a large amount of data or uses a large language model. Defaults to `false`. See [Waiting for a Response](#waiting-for-a-response). _Note that this element is trial-use._
 {:.grid}
 
 #### HTTP Status Codes
@@ -245,6 +246,13 @@ curl
 
 Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
 {:.stu-note}
+
+#### Waiting for a Response
+
+Note: The contents of this section are Standard for Trial Use (STU)
+{:.stu-note}
+CDS Hooks calls are synchronous, and CDS Services **SHOULD** respond quickly. Some CDS Services take longer, and without an indication that a response is pending, the user cannot tell a service that is still working from one that has nothing to say. While waiting for a response, a CDS Client **SHOULD** show the user an indication that a response is pending for CDS Services that set `potentiallyLongRunning` to `true` in their [discovery response](#response). A CDS Client **MAY** show such an indication for other CDS Services as well.
+{:.stu}
 
 ### Providing FHIR Resources to a CDS Service
 

@@ -28,6 +28,7 @@ Note: The contents of this section are Standard for Trial Use (STU)
 * Support the use of [prior prefetch templates as variables that can be used in subsequent prefetch tokens](index.html#simpler-fhirpath-support-for-querystring-syntax) (part of prefetch template enhancements: [FHIR-35999](https://jira.hl7.org/browse/FHIR-35999))
 * Created [`suggestion.actionSelectionBehavior`](index.html#simpler-fhirpath-support-for-querystring-syntax), a feature similar and related to `card.selectionBehavior` ([FHIR-39328](https://jira.hl7.org/browse/FHIR-39328))
 * Created an [example value set of override reasons](ValueSet-non-adherence-reason-clinical.html) and [accompanying codesystem](CodeSystem-non-adherence-reason-codes.html) ([FHIR-48319](https://jira.hl7.org/browse/FHIR-48319))
+* Add an optional [`potentiallyLongRunning`](index.html#response) flag to the discovery response, and recommend CDS Clients [indicate a pending response](index.html#waiting-for-a-response) ([FHIR-57316](https://jira.hl7.org/browse/FHIR-57316))
 
 **Enhancements and Recommendations:**
 
