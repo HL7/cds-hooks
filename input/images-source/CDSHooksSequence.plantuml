@@ -1,11 +1,8 @@
 @startuml
 
 skinparam NoteTextAlignment left
-skinparam Padding 2
-skinparam ParticipantPadding 40
 skinparam LifelineStrategy solid
 
-title CDS Hooks interactions
 
 actor User
 participant "CDS Client" as Client
