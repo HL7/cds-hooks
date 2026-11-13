@@ -147,6 +147,9 @@ curl "https://example.com/cds-services"
 
 > The above command returns JSON structured like this:
 
+<details markdown="1">
+<summary>Show example discovery response</summary>
+
 ```json
 {
   "services": [
@@ -179,6 +182,8 @@ curl "https://example.com/cds-services"
   ]
 }
 ```
+
+</details>
 
 ### Calling a CDS Service
 
@@ -214,6 +219,9 @@ curl
   "https://example.com/cds-services/static-patient-greeter"
 ```
 
+<details markdown="1">
+<summary>Show example request body</summary>
+
 ```json
 {
   "hookInstance": "d1577c69-dfbe-44ad-ba6d-3e05e953b2ea",
@@ -242,6 +250,8 @@ curl
   }
 }
 ```
+
+</details>
 
 Other implementation guides related to CDS Hooks (example: [HL7 Da Vinci Coverage Requirements Discovery](https://hl7.org/fhir/us/davinci-crd/STU2.1/deviations.html#configuration-options-extension)) enable the CDS Client to dynamically alter the behavior of the CDS Service at runtime via an extension in the CDS Hooks request. Input is solicited on the usefulness of this capability versus design time configurability (such as distinct services per workflow). 
 {:.stu-note}
@@ -303,6 +313,10 @@ Note that pagination support is optional, but normative, whereas the `fhirAuthor
 ##### Example of Pagination in Prefetch 
 
 Below is an example of pagination:
+
+<details markdown="1">
+<summary>Show pagination example</summary>
+
 ```json
 {
     "hook": "order-sign",
@@ -368,6 +382,8 @@ Below is an example of pagination:
     }
 }
 ```
+
+</details>
 
 The CDS Client determines which prefetch template keys to satisfy. If the CDS Client encounters errors prefetching the requested data, OperationOutcome(s) **SHOULD** be used to communicate those errors to prevent the CDS Service from incurring an unneeded follow-up query. CDS Clients **SHALL** omit the prefetch key if relevant details cannot be provided (e.g. intermittent connectivity issues). CDS Services **SHOULD** check any prefetched data for the existence of OperationOutcomes. If the CDS Client has no data to populate a template prefetch key, the prefetch template key **SHALL** have a value of __null__. In case the prefetch url is a single-resource request, the search result **MAY** be __null__, otherwise it is a search and could be a bundle with zero entries.
 
@@ -538,6 +554,9 @@ To prefetch the Medications being prescribed, as well as upcoming appointments, 
 and a CDS Hooks order-sign request with the following two MedicationRequests in context:
 {:.stu}
 
+<details markdown="1">
+<summary>Show example order-sign request context</summary>
+
 ```json
 "context": {
     "patientId": "eXoGxqgBaJuNkuahMYmiDhg3",
@@ -609,6 +628,8 @@ and a CDS Hooks order-sign request with the following two MedicationRequests in 
 ```
 {:.stu}
 
+</details>
+
 Given the above prefetch template, and context, the CDS Client is asked to provide the results of these two FHIR queries: 
 {:.stu}
 * `Medication?_id=eVBXvKwrWZIkPmaGwY.s1hQ3,emvpHliA4OaUxXJ4wp6N.Ig3`, resulting in the `meds` prefetch key containing a FHIR searchset Bundle of two Medication resources, and 
@@ -671,6 +692,9 @@ goal is to know, at call time:
 
 ##### Example prefetch data
 
+<details markdown="1">
+<summary>Show example prefetch data</summary>
+
 ```json
 {
   "prefetch": {
@@ -717,6 +741,8 @@ goal is to know, at call time:
   }
 }
 ```
+
+</details>
 
 The CDS Hooks request is augmented to include two prefetch values, where the dictionary
 keys match the request keys (`patient` and `hemoglobin-a1c` in this case).
@@ -1045,6 +1071,9 @@ In these specific, pre-coordinated scenarios when a systemAction is understood a
 
 > Example response
 
+<details markdown="1">
+<summary>Show example response</summary>
+
 ```json
 {
   "cards": [
@@ -1099,6 +1128,8 @@ In these specific, pre-coordinated scenarios when a systemAction is understood a
   ]
 }
 ```
+
+</details>
 
 
 > Example response using `autolaunchable`
