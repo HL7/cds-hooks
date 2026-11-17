@@ -194,6 +194,26 @@
             "code": "string"
           }
         ]
+      },
+      {
+        "id": "CDSHooksServices.services.potentiallyLongRunning",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status",
+            "valueCode": "trial-use"
+          }
+        ],
+        "path": "CDSHooksServices.services.potentiallyLongRunning",
+        "short": "Service may take noticeably longer to respond",
+        "definition": "When true, indicates that this service may take noticeably longer to respond than typical CDS Services, for example because it retrieves a large amount of data or uses a large language model. A CDS Client SHOULD show the user an indication that a response is pending for such services.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "boolean"
+          }
+        ],
+        "meaningWhenMissing": "The service is not expected to take longer to respond than typical CDS Services (equivalent to false)"
       }
     ]
   }
