@@ -72,3 +72,10 @@
     color: red;
     font-weight: bold;
   }
+
+  details > summary {
+    display: list-item;
+    cursor: pointer;
+    color: #2e6da4;
+    margin-bottom: 10px;
+  }
