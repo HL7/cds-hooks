@@ -1,0 +1,40 @@
+@startuml
+
+skinparam NoteTextAlignment left
+skinparam LifelineStrategy solid
+
+
+actor User
+participant "CDS Client" as Client
+participant "CDS Client\nFHIR Server" as FHIR
+participant "CDS Service" as Service
+
+autonumber
+
+group Discovery
+  Client -> Service++: GET {baseUrl}/cds-services
+  Client <-- Service--: 200 OK [services: hook, id, prefetch]
+end
+
+User -> Client: Performs a workflow step (hook)
+
+group Calling a CDS Service
+  Client -> FHIR++: Resolve prefetch templates
+  Client <-- FHIR--: FHIR resources
+  Client -> Service++: POST {baseUrl}/cds-services/{id}\n[hook, hookInstance, context, prefetch, fhirAuthorization]
+  opt Data not provided in prefetch
+    Service -> FHIR++: FHIR read or search, using fhirAuthorization
+    Service <-- FHIR--: FHIR resources
+  end
+  Client <-- Service--: 200 OK [cards, systemActions]
+  Client -> User: Display cards
+end
+
+User -> Client: Accepts a suggestion or dismisses a card
+
+group Feedback
+  Client -> Service++: POST {baseUrl}/cds-services/{id}/feedback\n[card, outcome, acceptedSuggestions or overrideReason]
+  Client <-- Service--: 200 OK
+end
+
+@enduml
