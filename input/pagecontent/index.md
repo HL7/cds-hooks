@@ -511,7 +511,7 @@ A prefetch token can contain multiple path selectors delimited with pipes, for e
 {:.stu}
 
 ```json
-  "dxPractitioner" : "Practitioner?_id={{%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}"
+  "dxPractitioner" : "Practitioner?_id={% raw  %}{{{% endraw  %}%practitionerRoles.entry.resource.practitioner.resolve().id|%serviceConditions.entry.resource.asserter.resolve().ofType(Practitioner).id}}"
 ```
 {:.stu}
 
